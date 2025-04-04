@@ -1,5 +1,9 @@
 #include <BarcodeReader.h>
 
+
+#define BARCODE_bits 8
+#define BARCODE_edges (BARCODE_bits*2+2)
+
 typedef enum 
 {
     PHASE_BLACK,
@@ -12,102 +16,105 @@ typedef struct bcb
     uint32_t blackTime;
 } barCodeBit_t;
 
+void printCode(volatile barCodeBit_t code [8])
+{
+    Serial.println("Bit | White | Black | Value");
+    Serial.println("----|-------|-------|-------");
+    for (uint8_t i = 0; i < 8; i++)
+    {
+        Serial.print(i);
+        Serial.print("   | ");
+        Serial.print(code[i].whiteTime);
+        Serial.print(" | ");
+        Serial.print(code[i].blackTime);
+        Serial.print(" | ");
+        if (code[i].whiteTime > code[i].blackTime)
+        {
+            Serial.println("1");
+        }
+        else
+        {
+            Serial.println("0");
+        }
+    }
+}
+
 struct barcodeReader_t
 {
     barcodeConfig_t config;
     uint8_t pin;
-    barcodePhase_t readingPhase;
-    uint8_t bitCounter;
-    bool readingInProgress;
-    bool readingFinished;
-    uint32_t lastTime;
-    barCodeBit_t barcodeByte[8];
+    volatile uint8_t bitCounter;
+    volatile uint32_t lastTime;
+    volatile barCodeBit_t barcodeByte[8];
+    volatile uint8_t edgeCounter; //every barcode has 18 edges, 9 rising, 9 falling ungerade Zahl: rising, gerade Zahl FALLING
 } barcodeReader;
 
 
 
 void barcodeIsr()
 {
-    uint32_t actualTime = micros();
-    if (barcodeReader.readingInProgress)
-    {
-        if (barcodeReader.readingPhase == PHASE_WHITE)
-        {
-            barcodeReader.barcodeByte[barcodeReader.bitCounter].whiteTime = actualTime - barcodeReader.lastTime;
-            barcodeReader.readingPhase = PHASE_BLACK;
-        }
-        else
-        {
-            barcodeReader.barcodeByte[barcodeReader.bitCounter].blackTime = actualTime - barcodeReader.lastTime;
-            barcodeReader.readingPhase = PHASE_WHITE;
-            if (barcodeReader.bitCounter < 7)
-            {
-                barcodeReader.bitCounter++;
-            }
-            else
-            {
-                barcodeReader.bitCounter = 0;
-                barcodeReader.readingFinished = true;
-                barcodeReader.readingInProgress = false;
-            }
-        }
-    }
-    else if (barcodeReader.readingFinished)
+    barcodeReader.edgeCounter++;
+    if (1 == barcodeReader.edgeCounter)
     {
         return;
     }
-    else
+    else if(barcodeReader.edgeCounter<18u) 
     {
-        barcodeReader.readingInProgress = true;
+        uint32_t actualTime = micros();
+        if (0 == barcodeReader.edgeCounter%2)   //White Phase endind
+        {
+            barcodeReader.barcodeByte[barcodeReader.bitCounter].whiteTime = actualTime - barcodeReader.lastTime;
+        }
+        else    //Black Phase
+        {
+            barcodeReader.barcodeByte[barcodeReader.bitCounter].blackTime = actualTime - barcodeReader.lastTime;
+            barcodeReader.bitCounter++;
+        }
+        barcodeReader.lastTime = actualTime;
     }
-    barcodeReader.lastTime = actualTime;
 }
 
 void barcode_init(barcodeConfig_t config)
 {
     barcodeReader.config = config;
-    barcodeReader.config.bitLength *= 10000000u;
-    barcodeReader.bitCounter = 0;
-    barcodeReader.readingPhase = PHASE_WHITE;
+    barcodeReader.config.bitLength *= 1000000u;
+    barcodeReader.bitCounter = 0u;
+    barcodeReader.edgeCounter = 0u;
     pinMode(config.pin, INPUT);
     attachInterrupt(digitalPinToInterrupt(config.pin), barcodeIsr, CHANGE);
 }
 
-/**
- * @brief Read the value and the calculated velocity from a barcode
- * 
- * @param value Pointer variable to store the barcode value to
- * @param velocity Pointer variable to store the velocity value in nm/µs = µm/ms = mm/s
- * @return barcode_error_t returns READING_SUCCESSFULL if barcode has been read and READING_IN_PROGRESS if reading is already in process and NO_CODE_DETCTED if there hasn't been detected a code since the last call of the function
- */
+
 barcode_error_t barcode_get(uint8_t* value, uint32_t* velocity)
 {
-    if (barcodeReader.readingFinished)
+    if (barcodeReader.edgeCounter >= 18)
     {
         uint8_t barcodeValue = 0u;
-        for (uint8_t i = 0; i < 8; i++)
+        for (uint8_t i = 0u; i < 8u; i++)
         {
-            barcodeValue = barcodeValue << 1;
-            if (barcodeReader.barcodeByte[i].whiteTime > barcodeReader.barcodeByte[i].blackTime)
+            if (barcodeReader.barcodeByte[i].whiteTime > barcodeReader.barcodeByte[i].blackTime)    
             {
-                barcodeValue |= (1 << i);
+                barcodeValue |= (0x80u >> i);   //MSB first
             }
             else
             {
-                barcodeValue &= ~(1 << i);
+                barcodeValue &= ~(0x80u >> i);  //MSB first
             }
         }
-        barcodeReader.readingFinished = false;
         *velocity = (uint32_t) barcodeReader.config.bitLength / (barcodeReader.barcodeByte[7].blackTime + barcodeReader.barcodeByte [7].whiteTime);
         *value = barcodeValue;
+        barcodeReader.bitCounter = 0;
+        barcodeReader.edgeCounter = 0u;
         return READING_SUCCESSFUL;
     }
-    else if (barcodeReader.readingInProgress)   // Not finished yet
+    else if (barcodeReader.edgeCounter == 0u)   //No code detected
+    {
+        return NO_CODE_DETECTED;
+        
+    }
+    else    // Not finished yet
     {
         return READING_IN_PROGRESS;
     }
-    else 
-    {
-        return NO_CODE_DETECTED;
-    }
 }
+

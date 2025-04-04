@@ -20,12 +20,15 @@ void setup()
 
 void loop()
 {
-  if (READING_SUCCESSFUL == barcode_get(&barcodeValue, &speed))
+  barcode_error_t success = barcode_get(&barcodeValue, &speed);
+  if (READING_SUCCESSFUL == success)
   {
     char str[100];
     sprintf(str, "Barcode read:\n----------------\nValue: %d\nSpeed [mm/s]: %d\n\n", barcodeValue, speed);
     Serial.print(str);
   }
+  else Serial.println(success);
+  delay(1000);
 }
 
 /*int main() {
