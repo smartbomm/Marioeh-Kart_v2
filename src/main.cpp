@@ -1,5 +1,7 @@
-#include "SimpleUDP.h"
+#include "SimpleNET.h"
+#include "SimpleGET.h"
 #include "OdometerData.h"
+#include <Arduino.h>
 #include <math.h>
 #include <Arduino_LSM6DS3.h>
 #include <Wire.h>
@@ -8,12 +10,18 @@
 data acell1;
 const String carId = "Car1"; 
 float y, z, x;
+String datei;
 
 void setup() {
-  SUDP_beginn();
+
+  String systemTime = simpleGET("/t"); //initialize the sudp with system time
+  Serial.begin(115200);
+  Serial.println(systemTime);
+  SUDP_beginn((stringToUint64(systemTime))); //convert the string to uint64_t and start the SUDP with the system time
   IMU.begin();
-//TODO: lade strecke
-//loadfileTCP(dateiname.csv)
+
+datei = simpleGET("/mario.csv");
+
 
 }
 
@@ -28,10 +36,8 @@ z=z*512;
   acell1.accel_vec[1] = (int32_t) y;
   acell1.accel_vec[2] = (int32_t) z;
 
-  //acell1.time = millis(); // TODO: implement time in the struct
-  //acell1.carId = carId; // TODO: implement carId in the struct
 
-
-    SUDP_send(acell1);
+   SUDP_send(acell1);
    delay(50);
+
 }
