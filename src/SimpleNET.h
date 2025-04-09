@@ -1,13 +1,12 @@
 #ifndef SIMPLE_NET_H
 #define SIMPLE_NET_H
 
-#ifdef ESP32
-#include <WiFi.h>
-#include <WiFiUdp.h>
-#else
+
 #include <WiFiNINA.h>
 #include <WiFiUdp.h>
-#endif
+#include <stdint.h>
+#include <sam.h>
+
 
 #include "OdometerData.h"
 
@@ -18,7 +17,8 @@
 //#define DEBUGSENT 1
 //#define SERIAL_ENABLE 1
 //#define DEBUGTIME 1
-
+//#define DEBUGTIMESTAMP 1
+//#define ENABLE_MQTT
 
 /*
 #define DEBUGTIMETOSEND Serial.print(x)
@@ -28,7 +28,7 @@
 
 
 //other definitions
-#define DAHEIM 1
+#define LABOR 1
 
 
 //#define ENABLE_MQTT 1
@@ -61,7 +61,7 @@
 #ifdef LABOR
 #define SSID "Labore-Hof AT-MT"
 #define PASSWORD "laborwlan"
-#define SERVER_IP "192.168.9.107"
+#define SERVER_IP "192.168.9.150"
 #endif
 
 #ifdef HOF
