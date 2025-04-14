@@ -1,64 +1,47 @@
-//#include <samd21/include/samd21g18a.h>
 #include <Arduino.h>
-#include <BarcodeReader.h>
-#include <OdometerData.h>
+#include <FlashStorage_SAMD.h>
 #include <FlashStorage.h>
 
+#define Version 0x34
 
-barcodeConfig_t config;
+struct map_config_t {
+    uint16_t version;
+    uint32_t data_amount;
+} remote, local;
 
-uint32_t speed;
-uint8_t barcodeValue;
-odometerData_t odometerData;
+struct coordinate_t {
+    uint16_t x;
+    uint16_t y;
+};
 
-void setup()
+coordinate_t *coordinates;
+
+FlashStorage(test_sto, map_config_t);
+
+void setup() 
 {
-  config.pin = 2u;
-  config.bitLength = 7;
-  barcode_init(config);
-  Serial.begin(9600);
-  delay(1000);
-  Serial.println("START");
-  flash_init();
-  Serial.println("Free memory:");
-  uint32_t freeMemory = flash_free_memory();
-  freeMemory = freeMemory >> 10u;
-  Serial.println(freeMemory);
+    struct coordinate_t c [remote.data_amount];
+    coordinates = c;
 
-  
-  
-  char test [100] = "Was geht ab, Marioeh?";
-  char *test_flash = (char*) flash_write(test, 100);
-    for (;;);
+    Serial.begin(9600);
+    delay(2000);
+    remote.token = 0x4B7D9F71u;
+    remote.version = 0x34;
+    test_sto.read(local);
+    if(local.version == remote.version)
+    {
+        Serial.println("Bereits gespeichert");
+        for(;;);
+    }
+    else
+    {
+        test_sto.write(remote);
+        Serial.println("Data written");
+        for(;;);
+    }
 }
 
 void loop()
 {
-  barcode_error_t success = barcode_get(&barcodeValue, &speed);
-  if (READING_SUCCESSFUL == success)
-  {
-    char str[100];
-    sprintf(str, "Barcode read:\n----------------\nValue: %d\nSpeed [mm/s]: %d\n\n", barcodeValue, speed);
-    Serial.print(str);
-  }
-  else Serial.println(success);
-  delay(1000);
+
 }
-
-/*int main() {
-
-  REG_GCLK_CLKCTRL |= 0b0100000000001001u;
-  REG_EIC_CTRL |= EIC_CTRL_ENABLE;  // Enable EIC
-  REG_EIC_INTENSET |= EIC_EVCTRL_EXTINTEO0;  // Enable event output on pin 0
-  REG_EIC_CONFIG0 |= EIC_CONFIG_SENSE0_BOTH;  // Set event on both edges
-  REG_PORT_DIR0 = 1<<17;
-  for(;;) {
-    REG_PORT_OUT0 = 1<<17;
-    for (int i = 0; i < 500000; i++) asm("nop");
-    REG_PORT_OUT0 = 0;
-    for (int i = 0; i < 500000; i++) asm("nop");
-
-  }
-
-
-  }*/

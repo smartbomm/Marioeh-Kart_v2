@@ -33,6 +33,8 @@ void flash_flush();
 
 void *flash_write(void *data, uint32_t size);
 
+void *flash_start();
+
 #ifdef __cplusplus
 }
 #endif

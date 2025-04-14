@@ -18,10 +18,14 @@ void _erase_flash_row(void *address);
 void _flash_write_page(void *addr);
 
 
-
 void flash_init(void)
 {
   next_free_address = (void*) FLASH_USER_START_ADDR;
+}
+
+void *flash_start()
+{
+  return FLASH_USER_START_ADDR;
 }
 
 void *flash_write(void *data, uint32_t size)
