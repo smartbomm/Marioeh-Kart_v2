@@ -18,7 +18,8 @@ void setup() {
   delay(500);
   String systemTime = simpleGET("/t"); //initialize the sudp with system time
   Serial.begin(115200);
-  SUDP_beginn(0u); //convert the string to uint64_t and start the SUDP with the system time //(stringToUint64(simpleGET("/t")))
+  Serial.println(systemTime);
+  SUDP_beginn((stringToUint64(simpleGET("/t")))); //convert the string to uint64_t and start the SUDP with the system time //
   IMU.begin();
 }
 
