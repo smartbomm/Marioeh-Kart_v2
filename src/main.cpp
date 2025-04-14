@@ -2,6 +2,8 @@
 #include <Arduino.h>
 #include <BarcodeReader.h>
 #include <OdometerData.h>
+#include <FlashStorage.h>
+
 
 barcodeConfig_t config;
 
@@ -15,7 +17,9 @@ void setup()
   config.bitLength = 7;
   barcode_init(config);
   Serial.begin(9600);
+  delay(1000);
   Serial.println("START");
+  flash_init();
 }
 
 void loop()
