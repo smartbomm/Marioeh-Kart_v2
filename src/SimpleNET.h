@@ -6,6 +6,9 @@
 #include <WiFiUdp.h>
 #include <stdint.h>
 #include <sam.h>
+#include <PubSubClient.h>
+#include <Arduino.h>
+#include <vector>
 
 
 #include "OdometerData.h"
@@ -15,7 +18,7 @@
 //#define DEBUGWIFI 1
 //#define DEBUGCSV 1
 //#define DEBUGSENT 1
-//#define SERIAL_ENABLE 1
+#define SERIAL_ENABLE 1
 //#define DEBUGTIME 1
 //#define DEBUGTIMESTAMP 1
 //#define ENABLE_MQTT
@@ -61,13 +64,19 @@
 #ifdef LABOR
 #define SSID "Labore-Hof AT-MT"
 #define PASSWORD "laborwlan"
-#define SERVER_IP "192.168.9.150"
+#define SERVER_IP "192.168.9.102"
 #endif
 
 #ifdef HOF
 #define SSID "karmvc"
 #define PASSWORD "jvTtFfN3wC8g4UcQ"
 #define SERVER_IP "192.168.178.112"
+#endif
+
+#ifdef JOEL
+#define SSID "iPhone von Joel"
+#define PASSWORD "12345678"
+#define SERVER_IP "172.20.10.7"
 #endif
 
 

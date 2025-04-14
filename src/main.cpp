@@ -7,8 +7,7 @@
 #include <Wire.h>
 #include <stdint.h>
 
-data acell1;
-const String carId = "Car1"; 
+data acell1; 
 float y, z, x;
 float xg, yg, zg;
 uint32_t u32_x, u32_y, u32_z;
@@ -19,14 +18,8 @@ void setup() {
   delay(500);
   String systemTime = simpleGET("/t"); //initialize the sudp with system time
   Serial.begin(115200);
-  Serial.println(stringToUint64(systemTime));
-  SUDP_beginn((stringToUint64(simpleGET("/t")))); //convert the string to uint64_t and start the SUDP with the system time
+  SUDP_beginn(0u); //convert the string to uint64_t and start the SUDP with the system time //(stringToUint64(simpleGET("/t")))
   IMU.begin();
-
-//datei = simpleGET("/mario.csv");
-//Serial.print(datei);
-
-
 }
 
 bool banana = false;

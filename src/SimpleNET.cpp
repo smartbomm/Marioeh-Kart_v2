@@ -50,8 +50,11 @@ uint32_t accurateMillis() {
 
 void WIFIstart() {
   while (WiFi.status() != WL_CONNECTED) {
+    #ifdef DEBUGWIFI
+    Serial.println("Connecting to WiFi...");
+    #endif
     WiFi.begin(SSID, PASSWORD);
-    delay(500u);
+    delay(1000u);
   }
 }
 

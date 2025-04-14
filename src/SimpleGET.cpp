@@ -1,8 +1,6 @@
 #include "SimpleGET.h"
 #include "SimpleNET.h"
-#include <Arduino.h>
-#include <stdint.h>
-#include <vector>
+
 
 WiFiClient client;
 
