@@ -20,6 +20,16 @@ void setup()
   delay(1000);
   Serial.println("START");
   flash_init();
+  Serial.println("Free memory:");
+  uint32_t freeMemory = flash_free_memory();
+  freeMemory = freeMemory >> 10u;
+  Serial.println(freeMemory);
+
+  
+  
+  char test [100] = "Was geht ab, Marioeh?";
+  char *test_flash = (char*) flash_write(test, 100);
+    for (;;);
 }
 
 void loop()

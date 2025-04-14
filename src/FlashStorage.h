@@ -1,6 +1,10 @@
 #ifndef FlashStorage_h
 #define FlashStorage_h
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "sam.h"
 #include <Arduino.h>
 
@@ -25,4 +29,11 @@ uint32_t flash_free_memory(void);
  */
 void flash_init(void);
 
+void flash_flush();
+
+void *flash_write(void *data, uint32_t size);
+
+#ifdef __cplusplus
+}
+#endif
 #endif
