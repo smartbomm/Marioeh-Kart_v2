@@ -228,7 +228,7 @@ void SUDP_send(odometerData_t data) {
   Serial.println(String_currentTime);
   #endif
 
-  String message = getMac() + ","
+  String message = "Car/" + getMac() + ","
     + "t_section=" + data.track_section + ","
     + "pos/x=" + data.pos_vec[0] + ","
     + "pos/y=" + data.pos_vec[1] + ","

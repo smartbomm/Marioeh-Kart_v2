@@ -6,7 +6,9 @@
 #include <WiFiUdp.h>
 #include <stdint.h>
 #include <sam.h>
+#ifdef ENABLE_MQTT
 #include <PubSubClient.h>
+#endif
 #include <Arduino.h>
 #include <vector>
 
@@ -64,7 +66,7 @@
 #ifdef LABOR
 #define SSID "Labore-Hof AT-MT"
 #define PASSWORD "laborwlan"
-#define SERVER_IP "192.168.9.101"
+#define SERVER_IP "192.168.9.150"
 #endif
 
 #ifdef HOF
