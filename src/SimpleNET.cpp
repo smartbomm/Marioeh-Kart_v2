@@ -85,6 +85,29 @@ uint64_t stringToUint64(String input) {
   }
   return result;
 }
+uint64_t bytesToUint64_StringDigits(const std::vector<uint8_t>& bytes) {
+  uint64_t result = 0;
+  for (uint8_t b : bytes) {
+      if (b >= '0' && b <= '9') {
+          result = result * 10 + (b - '0');
+      } else if (b == '\n' || b == '\r' || b == ' ') {
+          continue; // ignore whitespace
+      } else {
+          break; // stop at any non-numeric byte
+      }
+  }
+  return result;
+}
+String bytesToString(const std::vector<uint8_t>& bytes) {
+  String result;
+  result.reserve(bytes.size()); // Reserve memory to avoid reallocation
+  for (uint8_t b : bytes) {
+      result += (char)b;
+  }
+  result.trim(); // Remove any trailing spaces, \r, \n
+  return result;
+}
+
 
 String getMac(){
   uint8_t mac[6];

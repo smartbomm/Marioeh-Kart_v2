@@ -1,47 +1,34 @@
 #include "SimpleGET.h"
 #include "SimpleNET.h"
 
-
 WiFiClient client;
 
-std::vector<String> csvLines;
-
-String simpleGET(String path) {
+std::vector<uint8_t> simpleGET(String path) {
     WIFIstart();
-    csvLines.clear();
+    std::vector<uint8_t> responseBytes;
 
     if (client.connect(SERVER_IP, HTTP_PORT)) {
         client.print(String("GET ") + path + " HTTP/1.1\r\n" +
                      "Host: " + SERVER_IP + "\r\n" +
                      "Connection: close\r\n\r\n");
     } else {
-        return "-1";  // Return empty -1 on failure
+        return {};  // return empty vector on failure
     }
 
-    //header end
+    // Skip headers
     while (client.connected()) {
         String line = client.readStringUntil('\n');
-        if (line == "\r") break;
+        if (line == "\r" || line.length() == 1) break;
     }
 
-
-    String fullCsv;
-    while (client.available()) {
-        String line = client.readStringUntil('\n');
-        line.trim(); 
-        if (line.length() > 0) {
-            csvLines.push_back(line); 
-            fullCsv += line + "\n";
-            #ifdef DEBUGCSV
-            Serial.println(line);
-            #endif
+    // Read body as bytes
+    while (client.connected() && client.available()) {
+        int byteRead = client.read();
+        if (byteRead >= 0) {
+            responseBytes.push_back(static_cast<uint8_t>(byteRead));
         }
     }
 
     client.stop();
-    #ifdef DEBUGCSV
-    Serial.println("ende of transaktione");
-    #endif
-
-    return fullCsv;
+    return responseBytes;
 }

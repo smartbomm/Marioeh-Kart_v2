@@ -16,10 +16,12 @@ String datei;
 
 void setup() {
   delay(500);
-  String systemTime = simpleGET("/t"); //initialize the sudp with system time
+  uint64_t systemTime= bytesToUint64_StringDigits(simpleGET("/t")); //initialize the sudp with system time
   Serial.begin(115200);
   Serial.println(systemTime);
-  SUDP_beginn((stringToUint64(simpleGET("/t")))); //convert the string to uint64_t and start the SUDP with the system time //
+  Serial.println(bytesToString(simpleGET("/hi/5/10")));
+  Serial.println(bytesToString(simpleGET("/hi/bytes")));
+  SUDP_beginn((bytesToUint64_StringDigits(simpleGET("/t")))); //convert the string to uint64_t and start the SUDP with the system time //
   IMU.begin();
 }
 

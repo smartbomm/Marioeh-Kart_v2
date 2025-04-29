@@ -66,7 +66,7 @@
 #ifdef LABOR
 #define SSID "Labore-Hof AT-MT"
 #define PASSWORD "laborwlan"
-#define SERVER_IP "192.168.9.150"
+#define SERVER_IP "192.168.9.135"
 #endif
 
 #ifdef HOF
@@ -87,4 +87,6 @@ uint64_t stringToUint64(String input); //convert a string to a uint64_t
 String uint64ToString(uint64_t input); //convert a uint64_t to a string
 void SUDP_send(odometerData_t data);
 void WIFIstart();
+uint64_t bytesToUint64_StringDigits(const std::vector<uint8_t>& bytes); //convert a string to a uint64_t
+String bytesToString(const std::vector<uint8_t>& bytes); //convert a byte array to a string
 #endif
