@@ -1,0 +1,15 @@
+﻿Type;name;anzahl;pos_x;pos_y;rot_z
+SECTION_START;section_1;7;5;0;0
+straight_standard;;;;;
+straight_standard;;;;;
+straight_standard;;;;;
+curve_R1_30_outer;;;;;
+curve_R1_30_outer;;;;;
+curve_R1_30_outer;;;;;
+straight_standard;;;;;
+SECTION_END;;;;;
+SECTION_START;section_2;3;580;720;30
+straight_standard;;;;;
+straight_standard_third;;;;;
+straight_standard_third;;;;;
+SECTION_END;;;;;
