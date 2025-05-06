@@ -13,3 +13,10 @@ straight_standard;;;;;
 straight_standard_third;;;;;
 straight_standard_third;;;;;
 SECTION_END;;;;;
+SECTION_START;section_3;5;234;42;90
+straight_standard;;;;;
+straight_standard_fourth;;;;;
+curve_R1_30_inner;;;;;
+curve_R1_30_inner_;;;;;
+curve_R4_15_outer;;;;;
+SECTION_END;;;;;

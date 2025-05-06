@@ -45,6 +45,7 @@ public class Section {
             throw new IllegalArgumentException("Distance exceeds section length");
         }
         Coordinates result = new Coordinates();
+        result = Coordinates.addCoordinates(result, startPosition);
         for (int i = 0; i< railCount; i++) {
             if (distance > rails[i].rail.length()) {
                 distance -= rails[i].rail.length();
