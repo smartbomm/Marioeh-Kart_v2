@@ -12,7 +12,7 @@ std::vector<uint8_t> simpleGET(String path) {
                      "Host: " + SERVER_IP + "\r\n" +
                      "Connection: close\r\n\r\n");
     } else {
-        return {};  // return empty vector on failure
+        return {}; 
     }
 
     // Skip headers
@@ -21,7 +21,7 @@ std::vector<uint8_t> simpleGET(String path) {
         if (line == "\r" || line.length() == 1) break;
     }
 
-    // Read body as bytes
+
     while (client.connected() && client.available()) {
         int byteRead = client.read();
         if (byteRead >= 0) {

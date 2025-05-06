@@ -5,6 +5,7 @@ uint32_t debugCount = 0;
 #endif
 uint64_t systemTime;
 
+
 volatile uint32_t exactMillis = 0;
 
 void TC4_Handler() {
@@ -15,6 +16,7 @@ void TC4_Handler() {
 }
 
 void startAccurateMillisTimer() {
+
   PM->APBCMASK.reg |= PM_APBCMASK_TC4;
 
   GCLK->CLKCTRL.reg = GCLK_CLKCTRL_ID_TC4_TC5 |
@@ -26,16 +28,18 @@ void startAccurateMillisTimer() {
   while (TC4->COUNT16.STATUS.bit.SYNCBUSY);
   while (TC4->COUNT16.CTRLA.bit.SWRST);
 
+ 
   TC4->COUNT16.CTRLA.reg = TC_CTRLA_MODE_COUNT16 |
-                           TC_CTRLA_PRESCALER_DIV64 |
+                           TC_CTRLA_PRESCALER_DIV1024 |
                            TC_CTRLA_WAVEGEN_MFRQ;
   while (TC4->COUNT16.STATUS.bit.SYNCBUSY);
 
-  TC4->COUNT16.CC[0].reg = 750;
+  TC4->COUNT16.CC[0].reg = 47;
   while (TC4->COUNT16.STATUS.bit.SYNCBUSY);
 
   TC4->COUNT16.INTENSET.reg = TC_INTENSET_MC0;
   NVIC_EnableIRQ(TC4_IRQn);
+
 
   TC4->COUNT16.CTRLA.reg |= TC_CTRLA_ENABLE;
   while (TC4->COUNT16.STATUS.bit.SYNCBUSY);
