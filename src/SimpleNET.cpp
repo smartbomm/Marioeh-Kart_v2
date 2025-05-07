@@ -5,7 +5,6 @@ uint32_t debugCount = 0;
 #endif
 uint64_t systemTime;
 
-
 volatile uint32_t exactMillis = 0;
 
 void TC4_Handler() {
@@ -16,31 +15,35 @@ void TC4_Handler() {
 }
 
 void startAccurateMillisTimer() {
-
+  // Enable bus for TC4
   PM->APBCMASK.reg |= PM_APBCMASK_TC4;
 
+  // Attach GCLK0 to TC4/TC5
   GCLK->CLKCTRL.reg = GCLK_CLKCTRL_ID_TC4_TC5 |
                       GCLK_CLKCTRL_GEN_GCLK0 |
                       GCLK_CLKCTRL_CLKEN;
   while (GCLK->STATUS.bit.SYNCBUSY);
 
+  // Software reset TC4
   TC4->COUNT16.CTRLA.reg = TC_CTRLA_SWRST;
   while (TC4->COUNT16.STATUS.bit.SYNCBUSY);
   while (TC4->COUNT16.CTRLA.bit.SWRST);
 
- 
-  TC4->COUNT16.CTRLA.reg = TC_CTRLA_MODE_COUNT16 |
-                           TC_CTRLA_PRESCALER_DIV1024 |
-                           TC_CTRLA_WAVEGEN_MFRQ;
+  // MODE=16‑bit, PRESCALER=DIV64, WAVEGEN=MFRQ
+  TC4->COUNT16.CTRLA.reg = TC_CTRLA_MODE_COUNT16
+                         | TC_CTRLA_PRESCALER_DIV64
+                         | TC_CTRLA_WAVEGEN_MFRQ;
   while (TC4->COUNT16.STATUS.bit.SYNCBUSY);
 
-  TC4->COUNT16.CC[0].reg = 47;
+  // 48 MHz / 64 = 750 kHz → 750 ticks per ms → CC[0] = 749 for 1 ms interrupts
+  TC4->COUNT16.CC[0].reg = 749;
   while (TC4->COUNT16.STATUS.bit.SYNCBUSY);
 
+  // Enable match interrupt on CC[0]
   TC4->COUNT16.INTENSET.reg = TC_INTENSET_MC0;
   NVIC_EnableIRQ(TC4_IRQn);
 
-
+  // Start timer
   TC4->COUNT16.CTRLA.reg |= TC_CTRLA_ENABLE;
   while (TC4->COUNT16.STATUS.bit.SYNCBUSY);
 }
@@ -89,31 +92,32 @@ uint64_t stringToUint64(String input) {
   }
   return result;
 }
+
 uint64_t bytesToUint64_StringDigits(const std::vector<uint8_t>& bytes) {
   uint64_t result = 0;
   for (uint8_t b : bytes) {
-      if (b >= '0' && b <= '9') {
-          result = result * 10 + (b - '0');
-      } else if (b == '\n' || b == '\r' || b == ' ') {
-          continue; // ignore whitespace
-      } else {
-          break; // stop at any non-numeric byte
-      }
+    if (b >= '0' && b <= '9') {
+      result = result * 10 + (b - '0');
+    } else if (b == '\n' || b == '\r' || b == ' ') {
+      continue; // ignore whitespace
+    } else {
+      break; // stop at any non-numeric byte
+    }
   }
   return result;
 }
+
 String bytesToString(const std::vector<uint8_t>& bytes) {
   String result;
-  result.reserve(bytes.size()); // Reserve memory to avoid reallocation
+  result.reserve(bytes.size());
   for (uint8_t b : bytes) {
-      result += (char)b;
+    result += (char)b;
   }
-  result.trim(); // Remove any trailing spaces, \r, \n
+  result.trim();
   return result;
 }
 
-
-String getMac(){
+String getMac() {
   uint8_t mac[6];
   WiFi.macAddress(mac);
   char macStr[18];
@@ -122,94 +126,6 @@ String getMac(){
   return String(macStr);
 }
 
-#ifdef ENABLE_MQTT
-WiFiClient wifiClient;
-PubSubClient mqttClient(wifiClient);
-
-void reconnectMQTT() {
-  while (!mqttClient.connected()) {
-    #ifdef DEBUGWIFI
-    Serial.print("Attempting MQTT connection...");
-    #endif
-
-    if (mqttClient.connect(MQTT_CLIENT_ID, MQTT_USER, MQTT_PASSWORD)) {
-      #ifdef DEBUGWIFI
-      Serial.println("connected");
-      #endif
-    } else {
-      #ifdef DEBUGWIFI
-      Serial.print("failed, rc=");
-      Serial.print(mqttClient.state());
-      Serial.println(" try again in 5 seconds");
-      #endif
-      delay(5000);
-    }
-  }
-}
-
-void SUDP_beginn(uint64_t u64_time) {
-  startAccurateMillisTimer();
-  systemTime = u64_time - accurateMillis();
-
-  #ifdef SERIAL_ENABLE
-    Serial.begin(115200);
-  #endif
-
-  WiFi.begin(SSID, PASSWORD);
-
-  #ifdef DEBUGWIFI
-  Serial.println("\nWiFi connected!");
-  Serial.print("IP address: ");
-  Serial.println(WiFi.localIP());
-  #endif
-
-  mqttClient.setServer(SERVER_IP, MQTT_PORT);
-}
-
-void SUDP_send(odometerData_t data) {
-  #ifdef DEBUGTIME
-  debugCount = micros();
-  #endif
-
-  WIFIstart();
-
-  if (!mqttClient.connected()) {
-    reconnectMQTT();
-  }
-  mqttClient.loop();
-
-  String baseTopic = getMac() + "/";
-  uint64_t currentTime = accurateMillis() + systemTime;
-  String String_currentTime = uint64ToString(currentTime);
-
-  #ifdef DEBUGTIMESTAMP
-  Serial.print("Timestamp: ");
-  Serial.println(String_currentTime);
-  #endif
-
-  mqttClient.publish((baseTopic + "t_section").c_str(), String(data.track_section).c_str());
-  mqttClient.publish((baseTopic + "pos/x").c_str(), String(data.pos_vec[0]).c_str());
-  mqttClient.publish((baseTopic + "pos/y").c_str(), String(data.pos_vec[1]).c_str());
-  mqttClient.publish((baseTopic + "pos/z").c_str(), String(data.pos_vec[2]).c_str());
-  mqttClient.publish((baseTopic + "pos/l").c_str(), String(data.pos_lin).c_str());
-  mqttClient.publish((baseTopic + "speed/x").c_str(), String(data.speed_vec[0]).c_str());
-  mqttClient.publish((baseTopic + "speed/y").c_str(), String(data.speed_vec[1]).c_str());
-  mqttClient.publish((baseTopic + "speed/z").c_str(), String(data.speed_vec[2]).c_str());
-  mqttClient.publish((baseTopic + "speed/l").c_str(), String(data.speed_lin).c_str());
-  mqttClient.publish((baseTopic + "accel/x").c_str(), String(data.accel_vec[0]).c_str());
-  mqttClient.publish((baseTopic + "accel/y").c_str(), String(data.accel_vec[1]).c_str());
-  mqttClient.publish((baseTopic + "accel/z").c_str(), String(data.accel_vec[2]).c_str());
-  mqttClient.publish((baseTopic + "accel/l").c_str(), String(data.accel_lin).c_str());
-  mqttClient.publish((baseTopic + "time").c_str(), String_currentTime.c_str());
-
-  #ifdef DEBUGTIME
-  debugCount = micros() - debugCount;
-  Serial.print("MQTT publish time: ");
-  Serial.println(debugCount);
-  #endif
-}
-
-#else
 WiFiUDP udp;
 
 void SUDP_beginn(uint64_t u64_time) {
@@ -217,7 +133,7 @@ void SUDP_beginn(uint64_t u64_time) {
   systemTime = u64_time - accurateMillis();
 
   #ifdef SERIAL_ENABLE
-    Serial.begin(115200);
+  Serial.begin(115200);
   #endif
 
   #ifdef DEBUGWIFI
@@ -257,9 +173,9 @@ void SUDP_send(odometerData_t data) {
 
   String message = "Car/" + getMac() + ","
     + "t_section=" + data.track_section + ","
-    + "pos/x=" + data.pos_vec[0] + ","
-    + "pos/y=" + data.pos_vec[1] + ","
-    + "pos/z=" + data.pos_vec[2] + ","
+//    + "pos/x=" + data.pos_vec[0] + ","
+//    + "pos/y=" + data.pos_vec[1] + ","
+//    + "pos/z=" + data.pos_vec[2] + ","
     + "pos/l=" + data.pos_lin + ","
     + "gyros/x=" + data.speed_vec[0] + ","
     + "gyros/y=" + data.speed_vec[1] + ","
@@ -285,4 +201,3 @@ void SUDP_send(odometerData_t data) {
   Serial.println(message);
   #endif
 }
-#endif
