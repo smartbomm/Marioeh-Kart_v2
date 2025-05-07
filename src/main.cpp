@@ -17,15 +17,17 @@ struct coordinate_t {
 coordinate_t *coordinates;
 
 FlashStorage(test_sto, map_config_t);
+arrayFlashStorage(map, coordinate_t,2048);
 
 void setup() 
 {
+    coordinate_t c [2048];
+    map.write(c[0]);
     struct coordinate_t c [remote.data_amount];
     coordinates = c;
 
     Serial.begin(9600);
     delay(2000);
-    remote.token = 0x4B7D9F71u;
     remote.version = 0x34;
     test_sto.read(local);
     if(local.version == remote.version)
