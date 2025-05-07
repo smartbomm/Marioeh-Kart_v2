@@ -85,7 +85,7 @@ void barcode_init(barcodeConfig_t config)
 }
 
 
-barcode_error_t barcode_get(uint8_t* value, uint32_t* velocity)
+barcode_error_t barcode_get(uint8_t &value, uint32_t &velocity)
 {
     if (barcodeReader.edgeCounter >= 18)
     {
@@ -101,8 +101,8 @@ barcode_error_t barcode_get(uint8_t* value, uint32_t* velocity)
                 barcodeValue &= ~(0x80u >> i);  //MSB first
             }
         }
-        *velocity = (uint32_t) barcodeReader.config.bitLength / (barcodeReader.barcodeByte[7].blackTime + barcodeReader.barcodeByte [7].whiteTime);
-        *value = barcodeValue;
+        velocity = (uint32_t) barcodeReader.config.bitLength / (barcodeReader.barcodeByte[7].blackTime + barcodeReader.barcodeByte [7].whiteTime);
+        value = barcodeValue;
         barcodeReader.bitCounter = 0;
         barcodeReader.edgeCounter = 0u;
         return READING_SUCCESSFUL;

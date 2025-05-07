@@ -38,7 +38,7 @@ typedef struct  {
  * @param velocity Pointer variable to store the velocity value in nm/µs = µm/ms = mm/s
  * @return barcode_error_t returns READING_SUCCESSFULL if barcode has been read and READING_IN_PROGRESS if reading is already in process and NO_CODE_DETCTED if there hasn't been detected a code since the last call of the function
  */
-barcode_error_t barcode_get(uint8_t* value, uint32_t* velocity);
+barcode_error_t barcode_get(uint8_t &value, uint32_t &velocity);
 
 /**
  * @brief Initialize the pin configuration, the interrupt and the variables for the barcode reader
