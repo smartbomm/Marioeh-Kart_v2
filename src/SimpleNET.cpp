@@ -171,20 +171,24 @@ void SUDP_send(odometerData_t data) {
   Serial.println(String_currentTime);
   #endif
 
-  String message = "Car/" + getMac() + ","
-    + "t_section=" + data.track_section + ","
-    + "pos/l=" + data.pos_lin + ","
-    + "gyros/x=" + data.speed_vec[0] + ","
-    + "gyros/y=" + data.speed_vec[1] + ","
-    + "gyros/z=" + data.speed_vec[2] + ","
-    + "speed/l=" + data.speed_lin + ","
-    + "accel/x=" + data.accel_vec[0] + ","
-    + "accel/y=" + data.accel_vec[1] + ","
-    + "accel/z=" + data.accel_vec[2] + ","
-    + "accel/l=" + data.accel_lin + ","
-    + "gyro/x=" + data.gyro_vec[0] + ","
-    + "gyro/y=" + data.gyro_vec[1] + ","
-    + "gyro/z=" + data.gyro_vec[2] + ","
+
+String absJsonContent = "{\"t_section\":" + String(data.track_section) + ",\"pos_lin\":" + String(data.pos_lin) + "}";
+
+  String message = "Car/" + getMac() + ";"
+    + "t_section=" + data.track_section + ";"
+    + "pos/l=" + data.pos_lin + ";"
+    + "gyros/x=" + data.speed_vec[0] + ";"
+    + "gyros/y=" + data.speed_vec[1] + ";"
+    + "gyros/z=" + data.speed_vec[2] + ";"
+    + "speed/l=" + data.speed_lin + ";"
+    + "accel/x=" + data.accel_vec[0] + ";"
+    + "accel/y=" + data.accel_vec[1] + ";"
+    + "accel/z=" + data.accel_vec[2] + ";"
+    + "accel/l=" + data.accel_lin + ";"
+    + "gyro/x=" + data.gyro_vec[0] + ";"
+    + "gyro/y=" + data.gyro_vec[1] + ";"
+    + "gyro/z=" + data.gyro_vec[2] + ";"
+    + "pos=" + absJsonContent + ";"
     + "time=" + String_currentTime;
 
   udp.beginPacket(SERVER_IP, UDP_PORT);

@@ -50,7 +50,7 @@
 #ifdef LABOR
 #define SSID "Labore-Hof AT-MT"
 #define PASSWORD "laborwlan"
-#define SERVER_IP "192.168.9.150"
+#define SERVER_IP "192.168.9.135"
 #endif
 
 #ifdef HOF
