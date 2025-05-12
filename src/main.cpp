@@ -1,3 +1,4 @@
+#include <Arduino_LSM6DS3.h>
 #include <Arduino.h>
 #include <math.h>
 #include <Wire.h>
