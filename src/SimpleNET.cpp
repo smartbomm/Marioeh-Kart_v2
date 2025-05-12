@@ -173,9 +173,6 @@ void SUDP_send(odometerData_t data) {
 
   String message = "Car/" + getMac() + ","
     + "t_section=" + data.track_section + ","
-//    + "pos/x=" + data.pos_vec[0] + ","
-//    + "pos/y=" + data.pos_vec[1] + ","
-//    + "pos/z=" + data.pos_vec[2] + ","
     + "pos/l=" + data.pos_lin + ","
     + "gyros/x=" + data.speed_vec[0] + ","
     + "gyros/y=" + data.speed_vec[1] + ","
@@ -185,6 +182,9 @@ void SUDP_send(odometerData_t data) {
     + "accel/y=" + data.accel_vec[1] + ","
     + "accel/z=" + data.accel_vec[2] + ","
     + "accel/l=" + data.accel_lin + ","
+    + "gyro/x=" + data.gyro_vec[0] + ","
+    + "gyro/y=" + data.gyro_vec[1] + ","
+    + "gyro/z=" + data.gyro_vec[2] + ","
     + "time=" + String_currentTime;
 
   udp.beginPacket(SERVER_IP, UDP_PORT);

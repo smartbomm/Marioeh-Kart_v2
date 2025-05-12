@@ -26,7 +26,7 @@
 
 
 //other definitions
-#define HOF 1
+#define LABOR 1
 
 
 //#define ENABLE_MQTT 1
@@ -67,7 +67,7 @@
 
 
 
-void SUDP_beginn(uint64_t u64_time);//gibe the time in microseconds to the function so it can sync the time to the system
+void SUDP_beginn(uint64_t u64_time);//give the time in microseconds to the function so it can sync the time to the system
 uint64_t stringToUint64(String input); //convert a string to a uint64_t
 String uint64ToString(uint64_t input); //convert a uint64_t to a string
 void SUDP_send(odometerData_t data);
