@@ -1,21 +1,34 @@
-#include <Arduino_LSM6DS3.h>
 #include <Arduino.h>
-#include <MathFunctions.h>
+#include <BarcodeReader.h>
+#define Version 0x34
 
-integration_handler_t integration_handler;
-int main() 
+barcodeConfig_t barcode_config;
+uint8_t barcode_value = 0;
+uint32_t barcode_velocity = 0;
+
+void setup()
 {
 
-    integration_handler = integration_create();
-    Serial.begin(9600);
-    while(1)
-    {
-        integration_update(integration_handler, 1, 1);
-        integration_update(integration_handler, 1, 2);
-        integration_update(integration_handler, 1, 3);
-        uint32_t value = integration_get_value(integration_handler);
-        Serial.println(value);
-        delay(1000);
+    barcode_config.pin = 4;       // Pin where the barcode reader is connected to
+    barcode_config.bitLength = 7; // Length in mm of 1 bit (seuqence od black and white section)
+    barcode_init(barcode_config);
+}
 
+void loop()
+{
+    switch (barcode_get(barcode_value, barcode_velocity))
+    {
+    case NO_CODE_DETECTED:
+        Serial.println("No code detected");
+        break;
+    case READING_IN_PROGRESS:
+        Serial.println("Reading in progress");
+        break;
+    case READING_SUCCESSFUL:
+        Serial.print("Barcode value: ");
+        Serial.print(barcode_value);
+        Serial.print(" Velocity: ");
+        Serial.println(barcode_velocity);
+        break;
     }
 }
