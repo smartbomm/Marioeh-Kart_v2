@@ -29,7 +29,7 @@ unsigned long previousMillis = 0;
 
 
 void setup() {
-  Serial.begin(115200);
+  Serial.begin(9600);
   uint64_t systemTime = 0;
   while (systemTime == 0) {
     systemTime = bytesToUint64_StringDigits(simpleGET("/t"));
@@ -89,5 +89,35 @@ void loop() {
     sensorData.pos_lin = banana;
 
     SUDP_send(sensorData);
-  }
+     struct common_buffer_data b1=initialize_buffer();
+     for (int i=0;i<5;i++) {
+    Serial.println(b1.ringbuffer[i]);
+     }
+      push_data_to_buffer(4,&b1);
+      moving_average(&b1);
+      push_data_to_buffer(2,&b1);
+      moving_average(&b1);
+      push_data_to_buffer(6,&b1);
+      moving_average(&b1);
+      push_data_to_buffer(7,&b1);
+      moving_average(&b1);
+      push_data_to_buffer(3,&b1);
+      moving_average(&b1);
+      Serial.println(b1.buffer_sum);
+    for (int i=0;i<5;i++) {
+      Serial.println(b1.ringbuffer[i]);
+    }
+
+      delay(5000);
+      push_data_to_buffer(50,&b1);
+      moving_average(&b1);
+      delay(5000);
+      Serial.println(b1.buffer_sum);
+      for (int i=0;i<5;i++) {
+      Serial.println(b1.ringbuffer[i]);
+      }
+      delay(8000);
+
+    }
+  
 }
