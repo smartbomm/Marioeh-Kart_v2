@@ -1,5 +1,4 @@
 #include <stdint.h>
-#include <string.h>
 
 
 // Define length of buffer
@@ -15,9 +14,11 @@ struct common_buffer_data
 
 
  struct common_buffer_data initialize_buffer (void) {
-    int32_t ringbuffer[RINGBUFFER_SIZE];
-    ringbuffer = memset(ringbuffer, 0 ,sizeof(ringbuffer));
-    struct common_buffer_data b1 = {ringbuffer,0u,0u};
+    struct common_buffer_data b1;
+    b1.index_last_element = 0u;
+    b1.ringbuffer_index = 0u;
+    b1.ringbuffer;
+    memset(b1.ringbuffer,0u,sizeof(b1.ringbuffer));    
     return b1;
 }
 
