@@ -1,13 +1,12 @@
-#include <Arduino_LSM6DS3.h>
 #include <Arduino.h>
 #include <math.h>
 #include <Wire.h>
 #include <stdint.h>
 #include <Arduino_LSM6DS3.h>
 
-#include "SimpleNET.h"
 #include "SimpleGET.h"
 #include "OdometerData.h"
+#include "Ringbuffer.h"
 
 
 constexpr float ACCEL_SCALE = 512.0;              // Custom scaling factor for acceleration
@@ -24,7 +23,10 @@ int32_t fixedAccelX, fixedAccelY, fixedAccelZ;
 int32_t fixedGyroX, fixedGyroY, fixedGyroZ;
 uint16_t banana = 0;
 
+ //Ringbuffer defined in "ringbuffer.h"
+
 unsigned long previousMillis = 0;
+
 
 void setup() {
   Serial.begin(115200);
@@ -37,7 +39,6 @@ void setup() {
   if (!IMU.begin()) {
     while (true);
   }
-
 }
 
 void loop() {
@@ -52,10 +53,12 @@ void loop() {
     if (accelAvailable) {
       IMU.readAcceleration(accelX, accelY, accelZ);
 
-
       fixedAccelX = static_cast<int32_t>(accelX * ACCEL_SCALE);
       fixedAccelY = static_cast<int32_t>(accelY * ACCEL_SCALE);
       fixedAccelZ = static_cast<int32_t>(accelZ * ACCEL_SCALE);
+    
+      // Aktualisierung des Ringpuffers 
+
     }
 
     if (gyroAvailable) {
@@ -64,7 +67,12 @@ void loop() {
       fixedGyroX = static_cast<int32_t>(gyroX * GYRO_SCALE);
       fixedGyroY = static_cast<int32_t>(gyroY * GYRO_SCALE);
       fixedGyroZ = static_cast<int32_t>(gyroZ * GYRO_SCALE);
+
+      // Evtl. auch hier Aktualierung des Ringpuffers für die Gyro-Werte
     }
+
+  
+
 
     sensorData.accel_vec[0] = fixedAccelX;
     sensorData.accel_vec[1] = fixedAccelY;

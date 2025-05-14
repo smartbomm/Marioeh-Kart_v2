@@ -26,7 +26,7 @@
 
 
 //other definitions
-#define HOF 1
+#define LABOR 1
 
 
 //#define ENABLE_MQTT 1
