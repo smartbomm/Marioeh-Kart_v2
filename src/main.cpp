@@ -1,10 +1,12 @@
 #include <Arduino.h>
 #include <BarcodeReader.h>
+#include <MathFunctions.h>
 #define Version 0x34
 
 barcodeConfig_t barcode_config;
 uint8_t barcode_value = 0;
 uint32_t barcode_velocity = 0;
+
 
 void setup()
 {
