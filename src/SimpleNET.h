@@ -5,7 +5,6 @@
 #include <WiFiNINA.h>
 #include <WiFiUdp.h>
 #include <stdint.h>
-#include <sam.h>
 #include <Arduino.h>
 #include <vector>
 
@@ -18,15 +17,16 @@
 //#define DEBUGCSV 1
 //#define DEBUGSENT 1
 #define SERIAL_ENABLE 1
-//#define DEBUGTIME 1
+#define DEBUGTIME 1
 //#define DEBUGTIMESTAMP 1
 
+#define LIGHTWEIGHT 1
 
 
 
 
 //other definitions
-#define LABOR 1
+#define DAHEIM 1
 
 
 //#define ENABLE_MQTT 1
@@ -68,11 +68,8 @@
 
 
 void SUDP_beginn(uint64_t u64_time);//give the time in microseconds to the function so it can sync the time to the system
-uint64_t stringToUint64(String input); //convert a string to a uint64_t
-String uint64ToString(uint64_t input); //convert a uint64_t to a string
 void SUDP_send(odometerData_t data);
 void WIFIstart();
 uint64_t bytesToUint64_StringDigits(const std::vector<uint8_t>& bytes); //convert a string to a uint64_t
-String bytesToString(const std::vector<uint8_t>& bytes); //convert a byte array to a string
 uint32_t accurateMillis(); //get the accurate millis from the timer
 #endif

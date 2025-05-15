@@ -1,5 +1,7 @@
 {
     "files.associations": {
-        "samd21g18a.h": "c"
+        "*.embeddedhtml": "html",
+        "samd21g18a.h": "c",
+        "system_error": "cpp"
     }
 }

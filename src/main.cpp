@@ -11,7 +11,7 @@
 
 constexpr float ACCEL_SCALE = 512.0;              // Custom scaling factor for acceleration
 constexpr float GYRO_SCALE = 32768.0 / 2000.0;    // Scale gyroscope data from dps to fixed-point
-constexpr unsigned long READ_INTERVAL_MS =20;     // Interval between readings
+constexpr unsigned long READ_INTERVAL_MS = 20;     // Interval between readings
 
 
 data sensorData;
@@ -69,9 +69,9 @@ void loop() {
     sensorData.accel_vec[1] = fixedAccelY;
     sensorData.accel_vec[2] = fixedAccelZ;
 
-    sensorData.speed_vec[0] = fixedGyroX;
-    sensorData.speed_vec[1] = fixedGyroY;
-    sensorData.speed_vec[2] = fixedGyroZ;
+    sensorData.gyro_vec[0] = fixedGyroX;
+    sensorData.gyro_vec[1] = fixedGyroY;
+    sensorData.gyro_vec[2] = fixedGyroZ;
     sensorData.track_section = 1;
     if (banana > 1000) {
       banana = 0;
