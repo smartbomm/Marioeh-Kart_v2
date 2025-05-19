@@ -17,13 +17,15 @@ data sensorData;
 int16_t accelX, accelY, accelZ;
 int16_t gyroX, gyroY, gyroZ;
 
-int32_t fixedAccelX, fixedAccelY, fixedAccelZ;
+int32_t filteredAccelX, filteredAccelY, filteredAccelZ;
 int32_t fixedGyroX, fixedGyroY, fixedGyroZ;
 int32_t filtered_data_accel_x, filtered_data_velocity_x, filtered_data_pos_x;
 uint16_t banana = 0;
 
  //Ringbuffer defined in "ringbuffer.h"
 struct common_buffer_data Struct_Accel_X  = initialize_buffer();
+struct common_buffer_data Struct_Accel_Y  = initialize_buffer();
+struct common_buffer_data Struct_Accel_Z  = initialize_buffer();
 
 unsigned long previousMillis = 0;
 
@@ -51,16 +53,30 @@ void loop() {
 
     if (accelAvailable) {
       IMU.readAcceleration(accelX, accelY, accelZ);
+    
+      if ((accelX < 2100) & (accelX > 0)) {
+        // Value is not significant
+        accelX = 0u; 
+      }
+      else if ((accelX > -2100) & (accelX < 0)) {
+        // Value is not significant
+        accelX = 0u;
+      }
+      else {
+        // Value is significant
+      }
 
     
       // Aktualisierung des Ringpuffers 
       push_data_to_buffer(accelX, &Struct_Accel_X);
-
+      push_data_to_buffer(accelY, &Struct_Accel_Y);
+      push_data_to_buffer(accelZ, &Struct_Accel_Z);
+            
       // Auslesen der Filterwerte
-      filtered_data_accel_x = moving_average(&Struct_Accel_X);
-     // Serial.println(filtered_data_accel_x);
+      filteredAccelX = moving_average(&Struct_Accel_X);
+      filteredAccelY = moving_average(&Struct_Accel_Y);
+      filteredAccelZ = moving_average(&Struct_Accel_Z);
       integration(&Struct_Accel_X,&filtered_data_velocity_x);
-
     }
 
     if (gyroAvailable) {
@@ -73,11 +89,11 @@ void loop() {
   
 
 
-    sensorData.accel_vec[0] = accelX;
-    sensorData.accel_vec[1] = accelY;
-    sensorData.accel_vec[2] = accelZ;
+    sensorData.accel_vec[0] = filteredAccelX;
+    sensorData.accel_vec[1] = filteredAccelY;
+    sensorData.accel_vec[2] = filteredAccelZ;
 
-    sensorData.accel_lin = filtered_data_accel_x;
+    sensorData.accel_lin = filteredAccelX;
     sensorData.speed_lin = filtered_data_velocity_x;
     sensorData.pos_lin = filtered_data_pos_x;
     sensorData.track_section = 1;
