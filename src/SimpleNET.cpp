@@ -177,9 +177,6 @@ void SUDP_send(odometerData_t data) {
       "Car/%s;"
       "t_section=%lu;"
       "pos/l=%lu;"
-      "speed/x=%ld;"
-      "speed/y=%ld;"
-      "speed/z=%ld;"
       "speed/l=%lu;"
       "accel/x=%ld;"
       "accel/y=%ld;"
@@ -189,13 +186,10 @@ void SUDP_send(odometerData_t data) {
       "gyros/y=%ld;"
       "gyros/z=%ld;"
       "pos=%s;"
-      "time=%lu",
+      "time=%s",
       getMac().c_str(),
       (unsigned long)data.track_section,
       (unsigned long)data.pos_lin,
-      (unsigned long)data.speed_vec[0],
-      (unsigned long)data.speed_vec[1],
-      (unsigned long)data.speed_vec[2],
       (unsigned long)data.speed_lin,
       (long)data.accel_vec[0],
       (long)data.accel_vec[1],
@@ -205,7 +199,7 @@ void SUDP_send(odometerData_t data) {
       (long)data.gyro_vec[1],
       (long)data.gyro_vec[2],
       absJsonContent,
-      (unsigned long)currentTime);
+      timeStr);
   #endif
 
   udp.beginPacket(SERVER_IP, UDP_PORT);

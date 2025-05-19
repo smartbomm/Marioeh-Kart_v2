@@ -2,6 +2,7 @@
     "files.associations": {
         "*.embeddedhtml": "html",
         "samd21g18a.h": "c",
-        "system_error": "cpp"
+        "system_error": "cpp",
+        "cstdio": "cpp"
     }
 }

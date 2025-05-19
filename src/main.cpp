@@ -52,17 +52,17 @@ void loop() {
       IMU.readAcceleration(accelX, accelY, accelZ);
 
 
-      fixedAccelX = static_cast<int32_t>(accelX * ACCEL_SCALE);
-      fixedAccelY = static_cast<int32_t>(accelY * ACCEL_SCALE);
-      fixedAccelZ = static_cast<int32_t>(accelZ * ACCEL_SCALE);
+      fixedAccelX = (int32_t)(accelX * ACCEL_SCALE);
+      fixedAccelY = (int32_t)(accelY * ACCEL_SCALE);
+      fixedAccelZ = (int32_t)(accelZ * ACCEL_SCALE);
     }
 
     if (gyroAvailable) {
       IMU.readGyroscope(gyroX, gyroY, gyroZ);
 
-      fixedGyroX = static_cast<int32_t>(gyroX * GYRO_SCALE);
-      fixedGyroY = static_cast<int32_t>(gyroY * GYRO_SCALE);
-      fixedGyroZ = static_cast<int32_t>(gyroZ * GYRO_SCALE);
+      fixedGyroX = (int32_t)(gyroX * GYRO_SCALE);
+      fixedGyroY = (int32_t)(gyroY * GYRO_SCALE);
+      fixedGyroZ = (int32_t)(gyroZ * GYRO_SCALE);
     }
 
     sensorData.accel_vec[0] = fixedAccelX;
