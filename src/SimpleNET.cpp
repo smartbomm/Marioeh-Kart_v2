@@ -69,20 +69,20 @@ void uint64ToString(uint64_t value, char* buf, size_t buflen) {
     if (buflen == 0) return;
     buf[buflen-1] = '\0';
     char tmp[32];
-  int i = 30;
+    int i = 30;
     tmp[31] = '\0';
     if (value == 0) {
         strncpy(buf, "0", buflen-1);
         buf[buflen-1] = '\0';
         return;
     }
-  while (value > 0 && i >= 0) {
+    while (value > 0 && i >= 0) {
         tmp[i--] = '0' + (value % 10);
-    value /= 10;
-  }
+        value /= 10;
+    }
     strncpy(buf, &tmp[i+1], buflen-1);
     buf[buflen-1] = '\0';
-    }
+}
 
 
 uint64_t bytesToUint64_StringDigits(const std::vector<uint8_t>& bytes) {
