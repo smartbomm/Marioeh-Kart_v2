@@ -3,6 +3,10 @@
 
 // Define length of buffer
 #define RINGBUFFER_SIZE 30u
+// define scaler acc
+#define Scaler_Acc 256u
+//define g
+#define G 9.81
 
 struct common_buffer_data
 {
@@ -57,7 +61,10 @@ void integration(common_buffer_data* buffer) {
 
 
 }
-
+void scaling (common_buffer_data* buffer)
+{
+buffer->buffer_average=(buffer->buffer_sum*G)/(RINGBUFFER_SIZE*Scaler_Acc);
+}
 
 
 
