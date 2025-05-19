@@ -65,33 +65,25 @@ void WIFIstart() {
   }
 }
 
-String uint64ToString(uint64_t value) {
-  if (value == 0) return "0";
-
-  char buffer[32];
+void uint64ToString(uint64_t value, char* buf, size_t buflen) {
+    if (buflen == 0) return;
+    buf[buflen-1] = '\0';
+    char tmp[32];
   int i = 30;
-  buffer[31] = '\0';
-
+    tmp[31] = '\0';
+    if (value == 0) {
+        strncpy(buf, "0", buflen-1);
+        buf[buflen-1] = '\0';
+        return;
+    }
   while (value > 0 && i >= 0) {
-    buffer[i--] = '0' + (value % 10);
+        tmp[i--] = '0' + (value % 10);
     value /= 10;
   }
-
-  return String(&buffer[i + 1]);
-}
-
-uint64_t stringToUint64(String input) {
-  uint64_t result = 0;
-  for (size_t i = 0; i < input.length(); i++) {
-    char c = input.charAt(i);
-    if (c >= '0' && c <= '9') {
-      result = result * 10 + (c - '0');
-    } else {
-      break;
+    strncpy(buf, &tmp[i+1], buflen-1);
+    buf[buflen-1] = '\0';
     }
-  }
-  return result;
-}
+
 
 uint64_t bytesToUint64_StringDigits(const std::vector<uint8_t>& bytes) {
   uint64_t result = 0;
@@ -107,21 +99,12 @@ uint64_t bytesToUint64_StringDigits(const std::vector<uint8_t>& bytes) {
   return result;
 }
 
-String bytesToString(const std::vector<uint8_t>& bytes) {
-  String result;
-  result.reserve(bytes.size());
-  for (uint8_t b : bytes) {
-    result += (char)b;
-  }
-  result.trim();
-  return result;
-}
 
 String getMac() {
   uint8_t mac[6];
-  WiFi.macAddress(mac);
   char macStr[18];
-  sprintf(macStr, "%02X:%02X:%02X:%02X:%02X:%02X",
+  WiFi.macAddress(mac);
+  snprintf(macStr, sizeof(macStr), "%02X:%02X:%02X:%02X:%02X:%02X",
           mac[0], mac[1], mac[2], mac[3], mac[4], mac[5]);
   return String(macStr);
 }
@@ -165,31 +148,69 @@ void SUDP_send(odometerData_t data) {
 
 
   uint64_t currentTime = accurateMillis() + systemTime;
-  String String_currentTime = uint64ToString(currentTime);
+  char timeStr[32];
+  uint64ToString(currentTime, timeStr, sizeof(timeStr));
 
   #ifdef DEBUGTIMESTAMP
   Serial.print("Timestamp: ");
-  Serial.println(String_currentTime);
+  Serial.println(timeStr);
   #endif
 
-  String message = "Car/" + getMac() + ","
-    + "t_section=" + data.track_section + ","
-//    + "pos/x=" + data.pos_vec[0] + ","
-//    + "pos/y=" + data.pos_vec[1] + ","
-//    + "pos/z=" + data.pos_vec[2] + ","
-    + "pos/l=" + data.pos_lin + ","
-    + "gyros/x=" + data.speed_vec[0] + ","
-    + "gyros/y=" + data.speed_vec[1] + ","
-    + "gyros/z=" + data.speed_vec[2] + ","
-    + "speed/l=" + data.speed_lin + ","
-    + "accel/x=" + data.accel_vec[0] + ","
-    + "accel/y=" + data.accel_vec[1] + ","
-    + "accel/z=" + data.accel_vec[2] + ","
-    + "accel/l=" + data.accel_lin + ","
-    + "time=" + String_currentTime;
+  char absJsonContent[128];
+  snprintf(absJsonContent, sizeof(absJsonContent),
+      "{\"t_section\":%lu,\"pos_lin\":%lu,\"time\":%s}",
+      (unsigned long)data.track_section,
+      (unsigned long)data.pos_lin,
+      timeStr);
+
+
+  #ifdef LIGHTWEIGHT
+  char message[128];
+  snprintf(message, sizeof(message),
+      "Car/%s;"
+      "pos=%s;",
+      getMac().c_str(),
+      absJsonContent);
+  #else
+
+  char message[256];
+  snprintf(message, sizeof(message),
+      "Car/%s;"
+      "t_section=%lu;"
+      "pos/l=%lu;"
+      "speed/x=%ld;"
+      "speed/y=%ld;"
+      "speed/z=%ld;"
+      "speed/l=%lu;"
+      "accel/x=%ld;"
+      "accel/y=%ld;"
+      "accel/z=%ld;"
+      "accel/l=%ld;"
+      "gyros/x=%ld;"
+      "gyros/y=%ld;"
+      "gyros/z=%ld;"
+      "pos=%s;"
+      "time=%lu",
+      getMac().c_str(),
+      (unsigned long)data.track_section,
+      (unsigned long)data.pos_lin,
+      (unsigned long)data.speed_vec[0],
+      (unsigned long)data.speed_vec[1],
+      (unsigned long)data.speed_vec[2],
+      (unsigned long)data.speed_lin,
+      (long)data.accel_vec[0],
+      (long)data.accel_vec[1],
+      (long)data.accel_vec[2],
+      (long)data.accel_lin,
+      (long)data.gyro_vec[0],
+      (long)data.gyro_vec[1],
+      (long)data.gyro_vec[2],
+      absJsonContent,
+      (unsigned long)currentTime);
+  #endif
 
   udp.beginPacket(SERVER_IP, UDP_PORT);
-  udp.print(message);
+  udp.write(message);
   udp.endPacket();
 
   #ifdef DEBUGTIME
@@ -202,3 +223,5 @@ void SUDP_send(odometerData_t data) {
   Serial.println(message);
   #endif
 }
+
+
