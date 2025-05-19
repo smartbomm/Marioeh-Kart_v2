@@ -72,13 +72,13 @@ void loop() {
   
 
 
-    sensorData.accel_vec[0] = filtered_data_accel_x;
-    sensorData.accel_vec[1] = filtered_data_velocity_x;
-    sensorData.accel_vec[2] = filtered_data_pos_x;
+    sensorData.accel_vec[0] = accelX;
+    sensorData.accel_vec[1] = accelY;
+    sensorData.accel_vec[2] = accelZ;
 
-    sensorData.speed_vec[0] = filtered_data_accel_x;
-    sensorData.speed_vec[1] = filtered_data_velocity_x;
-    sensorData.speed_vec[2] = filtered_data_pos_x;
+    sensorData.accel_lin = filtered_data_accel_x;
+    sensorData.speed_lin = filtered_data_velocity_x;
+    sensorData.pos_lin = filtered_data_pos_x;
     sensorData.track_section = 1;
     if (banana > 1000) {
       banana = 0;
