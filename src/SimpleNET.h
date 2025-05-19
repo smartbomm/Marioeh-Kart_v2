@@ -20,13 +20,13 @@
 #define DEBUGTIME 1
 //#define DEBUGTIMESTAMP 1
 
-#define LIGHTWEIGHT 1
+//#define LIGHTWEIGHT 1
 
 
 
 
 //other definitions
-#define DAHEIM 1
+#define LABOR 1
 
 
 //#define ENABLE_MQTT 1
@@ -50,7 +50,7 @@
 #ifdef LABOR
 #define SSID "Labore-Hof AT-MT"
 #define PASSWORD "laborwlan"
-#define SERVER_IP "192.168.9.135"
+#define SERVER_IP "192.168.9.150"
 #endif
 
 #ifdef HOF
