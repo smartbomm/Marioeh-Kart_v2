@@ -19,7 +19,7 @@ int16_t gyroX, gyroY, gyroZ;
 
 int32_t filteredAccelX, filteredAccelY, filteredAccelZ;
 int32_t fixedGyroX, fixedGyroY, fixedGyroZ;
-int32_t filtered_data_accel_x, filtered_data_velocity_x, filtered_data_pos_x;
+int32_t filtered_data_accel_x = 0, filtered_data_velocity_x = 0, filtered_data_pos_x = 0;
 uint16_t banana = 0;
 
  //Ringbuffer defined in "ringbuffer.h"
@@ -53,18 +53,11 @@ void loop() {
 
     if (accelAvailable) {
       IMU.readAcceleration(accelX, accelY, accelZ);
-    
-      if ((accelX < 2100) & (accelX > 0)) {
-        // Value is not significant
-        accelX = 0u; 
+      
+      if (accelX > 0 & accelX < 2200u) {
+        accelX =0u;
       }
-      else if ((accelX > -2100) & (accelX < 0)) {
-        // Value is not significant
-        accelX = 0u;
-      }
-      else {
-        // Value is significant
-      }
+
 
     
       // Aktualisierung des Ringpuffers 
@@ -76,7 +69,12 @@ void loop() {
       filteredAccelX = moving_average(&Struct_Accel_X);
       filteredAccelY = moving_average(&Struct_Accel_Y);
       filteredAccelZ = moving_average(&Struct_Accel_Z);
-      integration(&Struct_Accel_X,&filtered_data_velocity_x);
+      if (filteredAccelX < 2200u) {
+        filtered_data_velocity_x = 0u;
+      }
+      else {
+        integration(&Struct_Accel_X, &filtered_data_velocity_x,filteredAccelX);
+      }
     }
 
     if (gyroAvailable) {
