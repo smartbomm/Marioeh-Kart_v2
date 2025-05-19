@@ -163,6 +163,7 @@ void SUDP_send(odometerData_t data) {
 
   WIFIstart();
 
+
   uint64_t currentTime = accurateMillis() + systemTime;
   String String_currentTime = uint64ToString(currentTime);
 

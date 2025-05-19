@@ -40,9 +40,11 @@ void push_data_to_buffer (int32_t data, common_buffer_data* buffer){
     }
 }
 
-void moving_average (common_buffer_data* buffer) {
+int32_t moving_average (common_buffer_data* buffer) {
     buffer->buffer_sum=buffer->buffer_sum-buffer->kicked_value+buffer->ringbuffer[buffer->ringbuffer_index];
-
+    return buffer->buffer_sum;
 }
+
+
 
 

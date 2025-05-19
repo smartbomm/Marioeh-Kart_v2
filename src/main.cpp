@@ -21,9 +21,11 @@ float gyroX, gyroY, gyroZ;
 
 int32_t fixedAccelX, fixedAccelY, fixedAccelZ;
 int32_t fixedGyroX, fixedGyroY, fixedGyroZ;
+int32_t filtered_data_accel_x, filtered_data_velocity_x, filtered_data_pos_x;
 uint16_t banana = 0;
 
  //Ringbuffer defined in "ringbuffer.h"
+struct common_buffer_data Struct_Accel_X  = initialize_buffer();
 
 unsigned long previousMillis = 0;
 
@@ -35,7 +37,6 @@ void setup() {
     systemTime = bytesToUint64_StringDigits(simpleGET("/t"));
 }
   SUDP_beginn(systemTime);
-
   if (!IMU.begin()) {
     while (true);
   }
@@ -58,6 +59,11 @@ void loop() {
       fixedAccelZ = static_cast<int32_t>(accelZ * ACCEL_SCALE);
     
       // Aktualisierung des Ringpuffers 
+      push_data_to_buffer(fixedAccelX, &Struct_Accel_X);
+
+      // Auslesen der Filterwerte
+      filtered_data_accel_x = moving_average(&Struct_Accel_X);
+     // Serial.println(filtered_data_accel_x);
 
     }
 
@@ -74,13 +80,13 @@ void loop() {
   
 
 
-    sensorData.accel_vec[0] = fixedAccelX;
-    sensorData.accel_vec[1] = fixedAccelY;
-    sensorData.accel_vec[2] = fixedAccelZ;
+    sensorData.accel_vec[0] = filtered_data_accel_x;
+    sensorData.accel_vec[1] = filtered_data_velocity_x;
+    sensorData.accel_vec[2] = filtered_data_pos_x;
 
-    sensorData.speed_vec[0] = fixedGyroX;
-    sensorData.speed_vec[1] = fixedGyroY;
-    sensorData.speed_vec[2] = fixedGyroZ;
+    sensorData.speed_vec[0] = filtered_data_accel_x;
+    sensorData.speed_vec[1] = filtered_data_velocity_x;
+    sensorData.speed_vec[2] = filtered_data_pos_x;
     sensorData.track_section = 1;
     if (banana > 1000) {
       banana = 0;
@@ -89,35 +95,6 @@ void loop() {
     sensorData.pos_lin = banana;
 
     SUDP_send(sensorData);
-     struct common_buffer_data b1=initialize_buffer();
-     for (int i=0;i<5;i++) {
-    Serial.println(b1.ringbuffer[i]);
-     }
-      push_data_to_buffer(4,&b1);
-      moving_average(&b1);
-      push_data_to_buffer(2,&b1);
-      moving_average(&b1);
-      push_data_to_buffer(6,&b1);
-      moving_average(&b1);
-      push_data_to_buffer(7,&b1);
-      moving_average(&b1);
-      push_data_to_buffer(3,&b1);
-      moving_average(&b1);
-      Serial.println(b1.buffer_sum);
-    for (int i=0;i<5;i++) {
-      Serial.println(b1.ringbuffer[i]);
-    }
-
-      delay(5000);
-      push_data_to_buffer(50,&b1);
-      moving_average(&b1);
-      delay(5000);
-      Serial.println(b1.buffer_sum);
-      for (int i=0;i<5;i++) {
-      Serial.println(b1.ringbuffer[i]);
-      }
-      delay(8000);
-
-    }
+  }
   
 }
