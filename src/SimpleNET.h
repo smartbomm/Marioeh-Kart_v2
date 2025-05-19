@@ -32,7 +32,7 @@
 //#define ENABLE_MQTT 1
 
 
-#define UDP_PORT 1883
+#define UDP_PORT 4210
 
 
 #ifdef DAHEIM
