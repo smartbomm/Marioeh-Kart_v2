@@ -59,6 +59,7 @@ void loop() {
       // Auslesen der Filterwerte
       filtered_data_accel_x = moving_average(&Struct_Accel_X);
      // Serial.println(filtered_data_accel_x);
+      integration(&Struct_Accel_X,&filtered_data_velocity_x);
 
     }
 

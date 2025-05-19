@@ -19,6 +19,9 @@ struct common_buffer_data
     int32_t buffer_average;                   //average 
     uint32_t last_time;                       //needed for integration
     uint32_t current_time;                    //needed for Integration
+    uint8_t index_for_integration;           //for calculation of dx
+
+
 };
 
 
@@ -26,6 +29,7 @@ struct common_buffer_data
     struct common_buffer_data b1;
     b1.index_last_element = 0u;   // Starting with zero; values on this position will be replaced
     b1.ringbuffer_index = RINGBUFFER_SIZE-1;     // Initialized to last Element; needed for Moving average
+    b1.index_for_integration = RINGBUFFER_SIZE-2; //Initialized to secondlast Element  for integration
     memset(b1.ringbuffer,0u,sizeof(b1.ringbuffer));
     b1.kicked_value=0u;
     b1.buffer_sum=0u;
@@ -40,13 +44,19 @@ void push_data_to_buffer (int32_t data, common_buffer_data* buffer){
     buffer->ringbuffer[buffer->index_last_element] = data;
     buffer->index_last_element++;
     buffer->ringbuffer_index++;
+    buffer->index_for_integration++;
     buffer->last_time = buffer->current_time;
     buffer->current_time = accurateMillis();
+    
+
     if (buffer->ringbuffer_index >= RINGBUFFER_SIZE) {
         buffer->ringbuffer_index = 0u;
     }
     if (buffer->index_last_element >= RINGBUFFER_SIZE) {
         buffer->index_last_element = 0u;
+    }
+    if (buffer->index_for_integration >= RINGBUFFER_SIZE) {
+        buffer->index_for_integration = 0u;
     }
 }
 
@@ -55,11 +65,10 @@ int32_t moving_average (common_buffer_data* buffer) {
     return buffer->buffer_sum;
 }
 
-void integration(common_buffer_data* buffer) {
-    //uint32_t dt = time
-    //int32_t dx = value 
-
-
+void integration(common_buffer_data* buffer,int32_t * speed) {
+    uint32_t dt = buffer->current_time-buffer->last_time;
+    int32_t a = buffer->ringbuffer[buffer->ringbuffer_index]-buffer->ringbuffer[buffer->index_for_integration];
+    *speed = *speed+a*dt;
 }
 void scaling (common_buffer_data* buffer)
 {
