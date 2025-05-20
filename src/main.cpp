@@ -76,7 +76,7 @@ void loop() {
       filteredAccelX = moving_average(&Struct_Accel_X);
       filteredAccelY = moving_average(&Struct_Accel_Y);
       filteredAccelZ = moving_average(&Struct_Accel_Z);
-      integration(&Struct_Accel_X,&filtered_data_velocity_x);
+      sensorData.gyro_vec[0]=integration(&Struct_Accel_X,&filtered_data_velocity_x);
     }
 
     if (gyroAvailable) {
@@ -97,6 +97,7 @@ void loop() {
     sensorData.speed_lin = filtered_data_velocity_x;
     sensorData.pos_lin = filtered_data_pos_x;
     sensorData.track_section = 1;
+    
     if (banana > 1000) {
       banana = 0;
     }
