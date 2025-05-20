@@ -73,7 +73,7 @@ void loop() {
         filtered_data_velocity_x = 0u;
       }
       else {
-        integration(&Struct_Accel_X, &filtered_data_velocity_x,filteredAccelX);
+       sensorData.gyro_vec[0] = integration(&Struct_Accel_X, &filtered_data_velocity_x,filteredAccelX);
       }
     }
 

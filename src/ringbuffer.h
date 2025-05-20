@@ -65,10 +65,11 @@ int32_t moving_average (common_buffer_data* buffer) {
     return buffer->buffer_sum;
 }
 
-void integration(common_buffer_data* buffer,int32_t * speed) {
+int32_t integration(common_buffer_data* buffer,int32_t * speed, int16_t accel_linear) {
     uint32_t dt = buffer->current_time-buffer->last_time;
-    int32_t a = buffer->ringbuffer[buffer->ringbuffer_index]-buffer->ringbuffer[buffer->index_for_integration];
+    int32_t a = accel_linear;
     *speed = *speed+a*dt;
+    return a;
 }
 double scaling (int32_t* buffer_sum)
 {
