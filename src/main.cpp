@@ -91,7 +91,7 @@ void loop() {
     sensorData.accel_vec[2] = filteredAccelZ;
 
     sensorData.accel_lin = filteredAccelX;
-    sensorData.speed_lin = -filtered_data_velocity_x;
+    sensorData.speed_lin = -filtered_data_velocity_x;  //MAUL !!!!!!!!!!!!!!
     sensorData.pos_lin = filtered_data_pos_x;
     sensorData.track_section = 1;
     
