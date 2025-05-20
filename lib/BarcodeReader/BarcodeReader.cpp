@@ -53,6 +53,7 @@ struct barcodeReader_t
 
 void barcodeIsr()
 {
+    Serial.println("isr");
     barcodeReader.edgeCounter++;
     if (1 == barcodeReader.edgeCounter)
     {
@@ -80,8 +81,6 @@ void barcode_init(barcodeConfig_t config)
     barcodeReader.config.bitLength *= 1000000u;
     barcodeReader.bitCounter = 0u;
     barcodeReader.edgeCounter = 0u;
-    pinMode(config.pin, INPUT);
-    attachInterrupt(digitalPinToInterrupt(config.pin), barcodeIsr, CHANGE);
 }
 
 

@@ -1,15 +1,24 @@
 #include <Arduino.h>
 #include <BarcodeReader.h>
 #include <MathFunctions.h>
+#include <PinConfig.h>
 #define Version 0x34
 
 barcodeConfig_t barcode_config;
 uint8_t barcode_value = 0;
 uint32_t barcode_velocity = 0;
 
+void EIC_Handler(void) {
+    if (EIC->INTFLAG.reg & EIC_INTFLAG_EXTINT7) {
+        EIC->INTFLAG.reg = EIC_INTFLAG_EXTINT7;  // Flag löschen
+        barcodeIsr();  // Barcode ISR aufrufen
+    }
+}
+
 
 void setup()
 {
+    configure_extint();
 
     barcode_config.pin = 4;       // Pin where the barcode reader is connected to
     barcode_config.bitLength = 7; // Length in mm of 1 bit (seuqence od black and white section)
@@ -33,4 +42,5 @@ void loop()
         Serial.println(barcode_velocity);
         break;
     }
+    delay(1000);
 }
