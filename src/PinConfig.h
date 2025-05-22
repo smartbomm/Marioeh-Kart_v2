@@ -13,21 +13,21 @@ void configure_extint() {
     while (GCLK->STATUS.bit.SYNCBUSY);
 
     // PA07 (Arduino D9) für EIC konfigurieren
-    PORT->Group[0].PINCFG[7].bit.PMUXEN = 1;
-    PORT->Group[0].PMUX[7 >> 1].bit.PMUXO = PORT_PMUX_PMUXO_A;
+    PORT->Group[PORTA].PINCFG[7].bit.PMUXEN = 1;
+    PORT->Group[PORTA].PMUX[7 >> 1].bit.PMUXO = PORT_PMUX_PMUXO_A;
 
     // Eingang aktivieren und internen Pull-up setzen
-    PORT->Group[0].PINCFG[7].bit.INEN = 1;
-    PORT->Group[0].PINCFG[7].bit.PULLEN = 1;
-    PORT->Group[0].OUTSET.reg = (1 << 7);  // Pull-Up aktivieren
+    PORT->Group[PORTA].PINCFG[7].bit.INEN = 1;
+    PORT->Group[PORTA].PINCFG[7].bit.PULLEN = 1;
+    PORT->Group[PORTA].OUTSET.reg = (1 << 7);  // Pull-Up aktivieren
 
     // EIC deaktivieren vor Konfiguration
     EIC->CTRL.bit.ENABLE = 0;
     while (EIC->STATUS.bit.SYNCBUSY);
 
     // Sense-Konfiguration: FALLING EDGE
-    EIC->CONFIG[0].reg &= ~EIC_CONFIG_SENSE7_Msk;
-    EIC->CONFIG[0].reg |= EIC_CONFIG_SENSE7_BOTH;
+    EIC->CONFIG[PORTA].reg &= ~EIC_CONFIG_SENSE7_Msk;
+    EIC->CONFIG[PORTA].reg |= EIC_CONFIG_SENSE7_BOTH;
 
     // EXTINT7 aktivieren
     EIC->INTENSET.reg = EIC_INTENSET_EXTINT7;
