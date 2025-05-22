@@ -41,7 +41,7 @@ struct common_buffer_data
 
 void push_data_to_buffer (int32_t data, common_buffer_data* buffer){
     buffer->kicked_value=buffer->ringbuffer[buffer->index_last_element];
-    buffer->ringbuffer[buffer->index_last_element] = data;
+    buffer->ringbuffer[buffer->index_last_element] = -data;
     buffer->index_last_element++;
     buffer->ringbuffer_index++;
     buffer->index_for_integration++;
@@ -72,11 +72,11 @@ int32_t moving_average (common_buffer_data* buffer) {
     return buffer->buffer_sum;
 }
 
-uint32_t integration(common_buffer_data* buffer,uint32_t * speed, int32_t accel_linear) {
+int32_t integration(common_buffer_data* buffer,uint32_t * speed, int32_t accel_linear) {
     uint32_t dt = buffer->current_time-buffer->last_time;
-    int32_t a = accel_linear;
-    *speed = *speed+a*dt;
-    return dt;
+    int32_t dx = buffer->ringbuffer[buffer->ringbuffer_index]-buffer->ringbuffer[buffer->index_for_integration];
+    *speed = *speed+(((dx*dt)/2)+(buffer->ringbuffer[buffer->index_for_integration])*dt);
+    return dx;
 }
 double scaling (int32_t* buffer_sum)
 {

@@ -67,9 +67,10 @@ void loop() {
       push_data_to_buffer(accelZ, &Struct_Accel_Z);
             
       // Auslesen der Filterwerte
-      filteredAccelX = moving_average(&Struct_Accel_X) * -1;
-      filteredAccelY = moving_average(&Struct_Accel_Y) * -1;
-      filteredAccelZ = moving_average(&Struct_Accel_Z) * -1;
+      filteredAccelX = moving_average(&Struct_Accel_X) ;
+      filteredAccelY = moving_average(&Struct_Accel_Y) ;
+      filteredAccelZ = moving_average(&Struct_Accel_Z) ;
+    
     
   
        sensorData.gyro_vec[0] = integration(&Struct_Accel_X, &filtered_data_velocity_x,filteredAccelX);
@@ -91,7 +92,7 @@ void loop() {
     sensorData.accel_vec[2] = filteredAccelZ;
 
     sensorData.accel_lin = filteredAccelX;
-    sensorData.speed_lin = -filtered_data_velocity_x;  //MAUL !!!!!!!!!!!!!!
+    sensorData.speed_lin = filtered_data_velocity_x;  //MAUL !!!!!!!!!!!!!!
     sensorData.pos_lin = filtered_data_pos_x;
     sensorData.track_section = 1;
     
