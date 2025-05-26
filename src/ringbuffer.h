@@ -76,6 +76,7 @@ int32_t integration(common_buffer_data* buffer,uint32_t * speed, int32_t accel_l
     uint32_t dt = buffer->current_time-buffer->last_time;
     int32_t dx = accel_linear-accel_linear_last_value;
     *speed = *speed+((dx*dt)/2)+(accel_linear_last_value*dt);
+    
     return dx;
 }
 double scaling (int32_t* buffer_sum)
