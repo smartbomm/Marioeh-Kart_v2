@@ -3,6 +3,8 @@
 
 // Define length of buffer
 #define RINGBUFFER_SIZE 40u
+// Define Zero-Border for Accelleration values
+#define ZERO_MOVEMENT 2200u
 // define scaler acc
 #define Scaler_Acc 256u
 //define g
@@ -83,6 +85,13 @@ double scaling (int32_t* buffer_sum)
     double scaled_value;
  
 return scaled_value;
+}
+
+void stop_recognition (common_buffer_data acceleration, uint32_t* speed){
+    if acceleration.buffer_sum <= RINGBUFFER_SIZE*ZERO_MOVEMENT{
+        *speed == 0u; //Acelleration has been zero for long, therefore the car isn't moving anymore 
+    }
+
 }
 
 

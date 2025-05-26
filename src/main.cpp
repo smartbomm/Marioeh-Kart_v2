@@ -55,7 +55,7 @@ void loop() {
     if (accelAvailable) {
       IMU.readAcceleration(accelX, accelY, accelZ);
       
-      if (accelX > 0 & accelX < 2200u) {
+      if (accelX > 0 & accelX < ZERO_MOVEMENT) {
         accelX =0u;
       }
 
@@ -75,6 +75,9 @@ void loop() {
     
   
        sensorData.gyro_vec[0] = integration(&Struct_Accel_X, &filtered_data_velocity_x,filteredAccelX,merker_x);
+      // Stop recognition
+      stop_recognition(Struct_Accel_X, &filtered_data_velocity_x);
+
        sensorData.gyro_vec[1] = merker_x;
        sensorData.gyro_vec[2] = integration(&Struct_Accel_X, &filtered_data_pos_x,(int32_t) filtered_data_velocity_x,(int32_t)merker_velocity_x);
 
