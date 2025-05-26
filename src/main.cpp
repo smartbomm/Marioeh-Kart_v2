@@ -22,7 +22,7 @@ int32_t fixedGyroX, fixedGyroY, fixedGyroZ;
 uint32_t filtered_data_velocity_x = 0u;
 uint32_t filtered_data_accel_x, filtered_data_pos_x = 0;
 uint16_t banana = 0;
-
+int32_t merker_x = 0;
  //Ringbuffer defined in "ringbuffer.h"
 struct common_buffer_data Struct_Accel_X  = initialize_buffer();
 struct common_buffer_data Struct_Accel_Y  = initialize_buffer();
@@ -67,14 +67,14 @@ void loop() {
       push_data_to_buffer(accelZ, &Struct_Accel_Z);
             
       // Auslesen der Filterwerte
-      int32_t merker_x = filteredAccelX;
+      merker_x = filteredAccelX;
       filteredAccelX = moving_average(&Struct_Accel_X) ;
       filteredAccelY = moving_average(&Struct_Accel_Y) ;
       filteredAccelZ = moving_average(&Struct_Accel_Z) ;
     
   
        sensorData.gyro_vec[0] = integration(&Struct_Accel_X, &filtered_data_velocity_x,filteredAccelX,merker_x);
-      
+       sensorData.gyro_vec[1] = merker_x;
     }
 
     if (gyroAvailable) {
