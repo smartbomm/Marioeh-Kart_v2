@@ -173,7 +173,7 @@ void SUDP_send(odometerData_t data) {
       absJsonContent);
   #else
 
-  char message[256];
+  char message[512];
   snprintf(message, sizeof(message),
       "Car/%s;"
       "t_section=%lu;"
