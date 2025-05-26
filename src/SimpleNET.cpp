@@ -155,9 +155,9 @@ void SUDP_send(odometerData_t data) {
   Serial.println(timeStr);
   #endif
 
-  char absJsonContent[256];
+  char absJsonContent[128];
   snprintf(absJsonContent, sizeof(absJsonContent),
-      "{\"t_section\":%lu,\"pos_lin\":%lu,\"time\":%s}",
+      "{\"ts\":%lu,\"p\":%lu,\"t\":%s}",
       (unsigned long)data.track_section,
       (unsigned long)data.pos_lin,
       timeStr);
@@ -172,21 +172,21 @@ void SUDP_send(odometerData_t data) {
       absJsonContent);
   #else
 
-  char message[512];
+  char message[256];
   snprintf(message, sizeof(message),
-      "Car/%s;"
-      "t_section=%lu;"
-      "pos/l=%lu;"
-      "speed/l=%lu;"
-      "accel/x=%ld;"
-      "accel/y=%ld;"
-      "accel/z=%ld;"
-      "accel/l=%ld;"
-      "gyros/x=%ld;"
-      "gyros/y=%ld;"
-      "gyros/z=%ld;"
-      "pos=%s;"
-      "time=%s",
+      "C/%s;"
+      "ts=%lu;"
+      "p/l=%lu;"
+      "s/l=%lu;"
+      "a/x=%ld;"
+      "a/y=%ld;"
+      "a/z=%ld;"
+      "a/l=%ld;"
+      "g/x=%ld;"
+      "g/y=%ld;"
+      "g/z=%ld;"
+      "p=%s;"
+      "t=%s",
       getMac().c_str(),
       (unsigned long)data.track_section,
       (unsigned long)data.pos_lin,
