@@ -156,7 +156,7 @@ void SUDP_send(odometerData_t data) {
   Serial.println(timeStr);
   #endif
 
-  char absJsonContent[128];
+  char absJsonContent[256];
   snprintf(absJsonContent, sizeof(absJsonContent),
       "{\"t_section\":%lu,\"pos_lin\":%lu,\"time\":%s}",
       (unsigned long)data.track_section,

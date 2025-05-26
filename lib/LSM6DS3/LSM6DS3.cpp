@@ -62,7 +62,7 @@ int LSM6DS3Class::begin()
   writeRegister(LSM6DS3_CTRL7_G, 0x00);
 
   // Set Bandwidth to ODR/50 and enable the Reference mode
-  writeRegister(LSM6DS3_CTRL8_XL, 0x98);
+  writeRegister(LSM6DS3_CTRL8_XL, 0x09);
 
   return 1;
 }
