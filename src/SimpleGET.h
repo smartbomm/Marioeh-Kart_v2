@@ -5,7 +5,7 @@
 
 #define HTTP_PORT 8000
 
-std::vector<uint8_t> simpleGET(String path); //get the csv file from the server or the system time /t for systemtime and /filename.csv/startbyte/lenth of bytes to read for the csv file
+std::vector<uint8_t> simpleGET(String path); //Current implementation uses the HTTP GET to retrieve data from the server (at the moment serverside only systemtime possible)
 
 #endif
 

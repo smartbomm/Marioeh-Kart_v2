@@ -72,11 +72,11 @@ void loop() {
     sensorData.gyro_vec[0] = fixedGyroX;
     sensorData.gyro_vec[1] = fixedGyroY;
     sensorData.gyro_vec[2] = fixedGyroZ;
-    sensorData.track_section = 1;
-    if (banana > 1000) {
+    if (banana > 5000) {
       banana = 0;
+      sensorData.track_section++;
     }
-    banana = banana+1;
+    banana = banana + 10;
     sensorData.pos_lin = banana;
 
     SUDP_send(sensorData);
