@@ -98,11 +98,13 @@ void loop() {
 */
 
 
-       sensorData.gyro_vec[1] = merker_x;
+       sensorData.gyro_vec[1] = merker_velocity_x;
        
        sensorData.gyro_vec[2] = integration_64bit(Struct_Accel_X, &filtered_data_pos_x, filtered_data_velocity_x, merker_velocity_x);
 
     }
+
+
 
     if (gyroAvailable) {
       IMU.readGyroscope(gyroX, gyroY, gyroZ);
