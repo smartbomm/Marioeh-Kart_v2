@@ -67,13 +67,13 @@ void loop() {
       push_data_to_buffer(accelZ, &Struct_Accel_Z);
             
       // Auslesen der Filterwerte
+      int32_t merker_x = filteredAccelX;
       filteredAccelX = moving_average(&Struct_Accel_X) ;
       filteredAccelY = moving_average(&Struct_Accel_Y) ;
       filteredAccelZ = moving_average(&Struct_Accel_Z) ;
     
-    
   
-       sensorData.gyro_vec[0] = integration(&Struct_Accel_X, &filtered_data_velocity_x,filteredAccelX);
+       sensorData.gyro_vec[0] = integration(&Struct_Accel_X, &filtered_data_velocity_x,filteredAccelX,merker_x);
       
     }
 

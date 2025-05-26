@@ -72,10 +72,10 @@ int32_t moving_average (common_buffer_data* buffer) {
     return buffer->buffer_sum;
 }
 
-int32_t integration(common_buffer_data* buffer,uint32_t * speed, int32_t accel_linear) {
+int32_t integration(common_buffer_data* buffer,uint32_t * speed, int32_t accel_linear,int32_t accel_linear_last_value) {
     uint32_t dt = buffer->current_time-buffer->last_time;
-    int32_t dx = buffer->ringbuffer[buffer->ringbuffer_index]-buffer->ringbuffer[buffer->index_for_integration];
-    *speed = *speed+(((dx*dt)/2)+(buffer->ringbuffer[buffer->index_for_integration])*dt);
+    int32_t dx = accel_linear-accel_linear_last_value;
+    *speed = *speed+((dx*dt)/2)+(accel_linear_last_value*dt);
     return dx;
 }
 double scaling (int32_t* buffer_sum)
