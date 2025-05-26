@@ -21,8 +21,8 @@ int32_t filteredAccelX, filteredAccelY, filteredAccelZ;
 int32_t fixedGyroX, fixedGyroY, fixedGyroZ;
 uint32_t filtered_data_velocity_x = 0u;
 uint32_t filtered_data_accel_x, filtered_data_pos_x = 0;
-uint16_t banana = 0;
-int32_t merker_x = 0;
+int32_t merker_x=0; 
+uint32_t merker_velocity_x = 0;
  //Ringbuffer defined in "ringbuffer.h"
 struct common_buffer_data Struct_Accel_X  = initialize_buffer();
 struct common_buffer_data Struct_Accel_Y  = initialize_buffer();
@@ -68,6 +68,7 @@ void loop() {
             
       // Auslesen der Filterwerte
       merker_x = filteredAccelX;
+      merker_velocity_x = filtered_data_velocity_x;
       filteredAccelX = moving_average(&Struct_Accel_X) ;
       filteredAccelY = moving_average(&Struct_Accel_Y) ;
       filteredAccelZ = moving_average(&Struct_Accel_Z) ;
@@ -75,6 +76,8 @@ void loop() {
   
        sensorData.gyro_vec[0] = integration(&Struct_Accel_X, &filtered_data_velocity_x,filteredAccelX,merker_x);
        sensorData.gyro_vec[1] = merker_x;
+       sensorData.gyro_vec[2] = integration(&Struct_Accel_X, &filtered_data_pos_x,(int32_t) filtered_data_velocity_x,(int32_t)merker_velocity_x;)
+
     }
 
     if (gyroAvailable) {
@@ -87,20 +90,15 @@ void loop() {
   
 
 
-    sensorData.accel_vec[0] = filteredAccelX;
-    sensorData.accel_vec[1] = filteredAccelY;
-    sensorData.accel_vec[2] = filteredAccelZ;
+    sensorData.accel_vec[0] = accelX;
+    sensorData.accel_vec[1] = accelY;
+    sensorData.accel_vec[2] = accelZ;
 
     sensorData.accel_lin = filteredAccelX;
-    sensorData.speed_lin = filtered_data_velocity_x;  //MAUL !!!!!!!!!!!!!!
+    sensorData.speed_lin = filtered_data_velocity_x;
     sensorData.pos_lin = filtered_data_pos_x;
     sensorData.track_section = 1;
     
-    if (banana > 1000) {
-      banana = 0;
-    }
-    banana = banana+1;
-    sensorData.pos_lin = banana;
 
     SUDP_send(sensorData);
   }

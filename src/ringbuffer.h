@@ -2,7 +2,7 @@
 
 
 // Define length of buffer
-#define RINGBUFFER_SIZE 30u
+#define RINGBUFFER_SIZE 40u
 // define scaler acc
 #define Scaler_Acc 256u
 //define g
