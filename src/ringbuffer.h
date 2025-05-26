@@ -5,8 +5,9 @@
 #define RINGBUFFER_SIZE 40u
 // Define Zero-Border for Accelleration values
 #define ZERO_MOVEMENT 2200u
-// define scaler acc
-#define Scaler_Acc 256u
+// define Scaler
+#define SPEED_SCALER 16701u
+#define POSITION_SCALER 16701325u
 //define g
 #define G 9.81 
 
@@ -74,25 +75,23 @@ int32_t moving_average (common_buffer_data* buffer) {
     return buffer->buffer_sum;
 }
 
-int32_t integration(common_buffer_data* buffer,uint32_t * speed, int32_t accel_linear,int32_t accel_linear_last_value) {
-    uint32_t dt = buffer->current_time-buffer->last_time;
+int32_t integration_32bit(common_buffer_data buffer,uint32_t * speed, int32_t accel_linear,int32_t accel_linear_last_value) {
+    uint32_t dt = buffer.current_time-buffer.last_time;
     int32_t dx = accel_linear-accel_linear_last_value;
     *speed = *speed+((dx*(int32_t)dt)/2)+(accel_linear_last_value*dt);
     return dx;
 }
-double scaling (int32_t* buffer_sum)
-{
-    double scaled_value;
- 
-return scaled_value;
+
+int32_t integration_64bit(common_buffer_data buffer,uint64_t * position, uint32_t speed_linear,uint32_t speed_linear_last_value) {
+    uint32_t dt = buffer.current_time-buffer.last_time;
+    uint32_t dx = speed_linear-speed_linear_last_value;
+    *position = *position + ((dx*dt)/2)+(speed_linear_last_value*dt);
+    return dx;
 }
 
-void stop_recognition (common_buffer_data acceleration, uint32_t* speed){
-    if acceleration.buffer_sum <= RINGBUFFER_SIZE*ZERO_MOVEMENT{
-        *speed == 0u; //Acelleration has been zero for long, therefore the car isn't moving anymore 
-    }
 
-}
+
+
 
 
 
