@@ -178,7 +178,7 @@ void SUDP_send(odometerData_t data) {
       "C/%s;"
       "ts=%lu;"
       "p/l=%lu;"
-      "s/l=%lu;"
+      "s/l=%ld;"
       "a/x=%ld;"
       "a/y=%ld;"
       "a/z=%ld;"
@@ -191,7 +191,7 @@ void SUDP_send(odometerData_t data) {
       getMac().c_str(),
       (unsigned long)data.track_section,
       (unsigned long)data.pos_lin,
-      (unsigned long)data.speed_lin,
+      (long)data.speed_lin,
       (long)data.accel_vec[0],
       (long)data.accel_vec[1],
       (long)data.accel_vec[2],

@@ -4,9 +4,9 @@
 // Define length of buffer
 #define RINGBUFFER_SIZE 34u
 // Define Zero-Border for Accelleration values
-#define ZERO_MOVEMENT 2200u
+#define ZERO_MOVEMENT 2200
 // define Scaler
-#define SPEED_SCALER 16701u
+#define SPEED_SCALER 16701
 #define POSITION_SCALER 16701325u
 //define g
 #define G 9.81 
@@ -34,9 +34,9 @@ struct common_buffer_data
     b1.ringbuffer_index = RINGBUFFER_SIZE-1;     // Initialized to last Element; needed for Moving average
     b1.index_for_integration = RINGBUFFER_SIZE-2; //Initialized to secondlast Element  for integration
     memset(b1.ringbuffer,0u,sizeof(b1.ringbuffer));
-    b1.kicked_value=0u;
-    b1.buffer_sum=0u;
-    b1.buffer_average=0u;
+    b1.kicked_value=0;
+    b1.buffer_sum=0;
+    b1.buffer_average=0;
     b1.last_time=0u;
     b1.current_time=0u;
     return b1;
@@ -75,19 +75,19 @@ int32_t moving_average (common_buffer_data* buffer) {
     return buffer->buffer_sum;
 }
 
-int32_t integration_32bit(common_buffer_data buffer,uint32_t * speed, int32_t accel_linear,int32_t accel_linear_last_value) {
-    uint32_t dt = buffer.current_time-buffer.last_time;
+int32_t integration_32bit(common_buffer_data buffer,int32_t * speed, int32_t accel_linear,int32_t accel_linear_last_value) {
+    int32_t dt = buffer.current_time-buffer.last_time;
     int32_t dx = accel_linear-accel_linear_last_value;
     //*speed = *speed+((dx*(int32_t)dt)/2)+(accel_linear_last_value*dt);
     *speed = *speed+accel_linear*dt;
     return dx;
 }
 
-int32_t integration_64bit(common_buffer_data buffer,uint64_t * position, uint32_t speed_linear,uint32_t speed_linear_last_value) {
+int32_t integration_64bit(common_buffer_data buffer,uint64_t * position, int32_t speed_linear,int32_t speed_linear_last_value) {
     uint32_t dt = buffer.current_time-buffer.last_time;
-    uint32_t dx = speed_linear-speed_linear_last_value;
+    int32_t dx = speed_linear-speed_linear_last_value;
     //*position = *position + ((dx*dt)/2)+(speed_linear_last_value*dt);
-    *position = *position + speed_linear*dt;
+    *position = *position + speed_linear*(int32_t)dt;
     return dx;
 }
 

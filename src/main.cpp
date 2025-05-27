@@ -22,12 +22,11 @@ int16_t gyroX, gyroY, gyroZ;
 // Other variable definition
 int32_t filteredAccelX, filteredAccelY, filteredAccelZ;
 int32_t fixedGyroX, fixedGyroY, fixedGyroZ;
-uint32_t filtered_data_velocity_x = 0u;
-uint32_t filtered_data_accel_x = 0u;
-uint64_t filtered_data_pos_x = 0;
+int32_t filtered_data_velocity_x = 0;
+uint64_t filtered_data_pos_x = 0u;
 int32_t merker_x=0; 
-uint32_t merker_velocity_x = 0;
-uint32_t buffer_sum_merker = 0;
+int32_t merker_velocity_x = 0;
+uint32_t buffer_sum_merker = 0u;
 
  //Ringbuffer defined in "ringbuffer.h"
 struct common_buffer_data Struct_Accel_X  = initialize_buffer();
@@ -74,18 +73,20 @@ void loop() {
       push_data_to_buffer(accelY, &Struct_Accel_Y);
       push_data_to_buffer(accelZ, &Struct_Accel_Z);
             
-      // Auslesen der Filterwerte
+      // Überschreiben der alten Merkerwerte
       merker_x = filteredAccelX;
       merker_velocity_x = filtered_data_velocity_x;
+      
+      // Auslesen der Filterwerte
       filteredAccelX = moving_average(&Struct_Accel_X) ;
       filteredAccelY = moving_average(&Struct_Accel_Y) ;
       filteredAccelZ = moving_average(&Struct_Accel_Z) ;
     
-  
+      // Eintragen für Debugging 
        sensorData.gyro_vec[0] = merker_x;       
        sensorData.gyro_vec[1] = integration_32bit(Struct_Accel_X, &filtered_data_velocity_x,filteredAccelX,merker_x);
 
-      /*
+      
       // Stop recognition
       
       if ((buffer_sum_merker <= ZERO_MOVEMENT*RINGBUFFER_SIZE) & (Struct_Accel_X.buffer_sum <= ZERO_MOVEMENT*RINGBUFFER_SIZE)){
@@ -96,7 +97,7 @@ void loop() {
           previousMillis_stop_cond = currentMillis; // Reset timer
           buffer_sum_merker = Struct_Accel_X.buffer_sum; // Write current Buffer in Merker
       }
-*/
+
 
 
       
