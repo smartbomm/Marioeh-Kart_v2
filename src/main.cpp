@@ -82,7 +82,8 @@ void loop() {
       filteredAccelZ = moving_average(&Struct_Accel_Z) ;
     
   
-       sensorData.gyro_vec[0] = integration_32bit(Struct_Accel_X, &filtered_data_velocity_x,filteredAccelX,merker_x);
+       sensorData.gyro_vec[0] = merker_x;       
+       sensorData.gyro_vec[1] = integration_32bit(Struct_Accel_X, &filtered_data_velocity_x,filteredAccelX,merker_x);
 
       /*
       // Stop recognition
@@ -98,8 +99,7 @@ void loop() {
 */
 
 
-       sensorData.gyro_vec[1] = merker_velocity_x;
-       
+      
        sensorData.gyro_vec[2] = integration_64bit(Struct_Accel_X, &filtered_data_pos_x, filtered_data_velocity_x, merker_velocity_x);
 
     }
@@ -122,7 +122,7 @@ void loop() {
 
     sensorData.accel_lin = filteredAccelX;
     sensorData.speed_lin = filtered_data_velocity_x/SPEED_SCALER;
-    sensorData.pos_lin = (uint32_t)(filtered_data_pos_x/POSITION_SCALER);
+    sensorData.pos_lin = (uint32_t)(filtered_data_pos_x/POSITION_SCALER); // account for Integration error
     sensorData.track_section = 1;
     
 
