@@ -27,6 +27,7 @@ uint64_t filtered_data_pos_x = 0u;
 int32_t merker_x=0; 
 int32_t merker_velocity_x = 0;
 uint32_t buffer_sum_merker = 0u;
+uint8_t counter_sending = 0u;
 
  //Ringbuffer defined in "ringbuffer.h"
 struct common_buffer_data Struct_Accel_X  = initialize_buffer();
@@ -89,19 +90,20 @@ void loop() {
       
       // Stop recognition
       
-      if ((buffer_sum_merker <= ZERO_MOVEMENT*RINGBUFFER_SIZE) & (Struct_Accel_X.buffer_sum <= ZERO_MOVEMENT*RINGBUFFER_SIZE)){
-        filtered_data_velocity_x = 0u; //Acceleration has been zero for long, therefore the car isn't moving anymore 
+      //if ((buffer_sum_merker <= ZERO_MOVEMENT*RINGBUFFER_SIZE) & (Struct_Accel_X.buffer_sum <= ZERO_MOVEMENT*RINGBUFFER_SIZE)){
+        //filtered_data_velocity_x = 0u; //Acceleration has been zero for long, therefore the car isn't moving anymore 
 
-      }
-      if (currentMillis - previousMillis_stop_cond >= INTERVAL_STOP_COND) {
-          previousMillis_stop_cond = currentMillis; // Reset timer
-          buffer_sum_merker = Struct_Accel_X.buffer_sum; // Write current Buffer in Merker
-      }
+//      }
+  //    if (currentMillis - previousMillis_stop_cond >= INTERVAL_STOP_COND) {
+    //      previousMillis_stop_cond = currentMillis; // Reset timer
+      //    buffer_sum_merker = Struct_Accel_X.buffer_sum; // Write current Buffer in Merker
+      //}
 
 
 
       
        sensorData.gyro_vec[2] = integration_64bit(Struct_Accel_X, &filtered_data_pos_x, filtered_data_velocity_x, merker_velocity_x);
+       counter_sending++;
 
     }
 
@@ -115,8 +117,7 @@ void loop() {
     }
 
   
-
-
+if (counter_sending>=20) {
     sensorData.accel_vec[0] = accelX;
     sensorData.accel_vec[1] = accelY;
     sensorData.accel_vec[2] = accelZ;
@@ -128,6 +129,8 @@ void loop() {
     
 
     SUDP_send(sensorData);
+    counter_sending=0U;
+}
   }
   
 }
