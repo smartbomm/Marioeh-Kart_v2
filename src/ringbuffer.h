@@ -20,10 +20,10 @@ struct common_buffer_data
     int16_t kicked_value;                     //kicked element is stored here for moving average
     int32_t buffer_sum;                       //sum in moving average filter
     int32_t buffer_average;                   //average 
-    uint32_t last_time;                       //needed for integration
-    uint32_t current_time;                    //needed for Integration
+    int32_t last_time;                       //needed for integration
+    int32_t current_time;                    //needed for Integration
     int32_t merker_buffer_sum;                //needed for calculation of dx in 32 bit integration
-    uint32_t merker_speed;                    //needed for calculation of dx in 64 bit integration
+    int32_t merker_speed;                    //needed for calculation of dx in 64 bit integration
 
 
 };
@@ -37,8 +37,8 @@ struct common_buffer_data
     b1.kicked_value=0;
     b1.buffer_sum=0;
     b1.buffer_average=0;
-    b1.last_time=0u;
-    b1.current_time=0u;
+    b1.last_time=0;
+    b1.current_time=0;
     b1.merker_buffer_sum=0;
     b1.merker_speed=0;
 
@@ -76,9 +76,10 @@ int32_t moving_average (common_buffer_data* buffer)
     return buffer->buffer_sum;
 }
 
-int32_t integration_32bit(common_buffer_data* buffer,int32_t * speed) {
+int32_t integration_32bit(common_buffer_data* buffer,int32_t * speed, int32_t accel_linear) {
     buffer->merker_speed=*speed;
     int32_t dt = buffer->current_time-buffer->last_time;
+
     int32_t dx = buffer->buffer_sum-buffer->merker_buffer_sum;
     *speed = *speed+((dx*dt)/2)+(buffer->merker_buffer_sum*dt);
     //*speed = *speed+accel_linear*dt;
@@ -86,10 +87,10 @@ int32_t integration_32bit(common_buffer_data* buffer,int32_t * speed) {
 }
 
 int32_t integration_64bit(common_buffer_data* buffer,uint64_t * position, int32_t speed_linear) {
-    uint32_t dt = buffer->current_time-buffer->last_time;
+    int32_t dt = buffer->current_time-buffer->last_time;
     int32_t dx = speed_linear-buffer->merker_speed;
-    *position = *position + ((int32_t)(dx*dt)/2)+(buffer->merker_speed*dt);
-    //*position = *position + speed_linear*(int32_t)dt;
+    *position = *position + ((dx*dt)/2)+(buffer->merker_speed*dt);
+    //*position = *position + speed_linear*dt;
     return dx;
 }
 

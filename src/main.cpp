@@ -24,10 +24,8 @@ int32_t filteredAccelX, filteredAccelY, filteredAccelZ;
 int32_t fixedGyroX, fixedGyroY, fixedGyroZ;
 int32_t filtered_data_velocity_x = 0;
 uint64_t filtered_data_pos_x = 0u;
-int32_t merker_x=0; 
-int32_t merker_velocity_x = 0;
-uint32_t buffer_sum_merker = 0u;
 uint8_t counter_sending = 0u;
+int32_t dx_for_debugging = 0u;
 
  //Ringbuffer defined in "ringbuffer.h"
 struct common_buffer_data Struct_Accel_X  = initialize_buffer();
@@ -73,19 +71,14 @@ void loop() {
       push_data_to_buffer(accelX, &Struct_Accel_X);
       push_data_to_buffer(accelY, &Struct_Accel_Y);
       push_data_to_buffer(accelZ, &Struct_Accel_Z);
-            
-      // Überschreiben der alten Merkerwerte
-      merker_x = filteredAccelX;
-      merker_velocity_x = filtered_data_velocity_x;
       
       // Auslesen der Filterwerte
       filteredAccelX = moving_average(&Struct_Accel_X) ;
-      filteredAccelY = moving_average(&Struct_Accel_Y) ;
-      filteredAccelZ = moving_average(&Struct_Accel_Z) ;
+      //filteredAccelY = moving_average(&Struct_Accel_Y) ;
+      //filteredAccelZ = moving_average(&Struct_Accel_Z) ;
     
       // Eintragen für Debugging 
-       sensorData.gyro_vec[0] = Struct_Accel_X.merker_buffer_sum;       
-       sensorData.gyro_vec[1] = integration_32bit(&Struct_Accel_X, &filtered_data_velocity_x);
+      dx_for_debugging = integration_32bit(&Struct_Accel_X, &filtered_data_velocity_x, filteredAccelX);
 
       
       // Stop recognition
@@ -102,10 +95,9 @@ void loop() {
 
 
       
-       sensorData.gyro_vec[2] = Struct_Accel_X.merker_speed;
+
        integration_64bit(&Struct_Accel_X, &filtered_data_pos_x, filtered_data_velocity_x);
        counter_sending++;
-
     }
 
 
@@ -122,6 +114,9 @@ if (counter_sending>=20) {
     sensorData.accel_vec[0] = accelX;
     sensorData.accel_vec[1] = accelY;
     sensorData.accel_vec[2] = accelZ;
+    sensorData.gyro_vec[0] = Struct_Accel_X.merker_buffer_sum;    
+    sensorData.gyro_vec[1] = dx_for_debugging;  
+    sensorData.gyro_vec[2] = Struct_Accel_X.merker_speed; 
 
     sensorData.accel_lin = filteredAccelX;
     sensorData.speed_lin = filtered_data_velocity_x/SPEED_SCALER;
