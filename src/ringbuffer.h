@@ -6,7 +6,7 @@
 // Define Zero-Border for Accelleration values
 #define ZERO_MOVEMENT 2200
 // define Scaler
-#define SPEED_SCALER 14196u
+#define SPEED_SCALER 14196
 #define POSITION_SCALER 14196126u
 //define g
 #define G 9.81 
