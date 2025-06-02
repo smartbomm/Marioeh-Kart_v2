@@ -84,8 +84,8 @@ void loop() {
       filteredAccelZ = moving_average(&Struct_Accel_Z) ;
     
       // Eintragen für Debugging 
-       sensorData.gyro_vec[0] = merker_x;       
-       sensorData.gyro_vec[1] = integration_32bit(Struct_Accel_X, &filtered_data_velocity_x,filteredAccelX,merker_x);
+       sensorData.gyro_vec[0] = Struct_Accel_X.merker_buffer_sum;       
+       sensorData.gyro_vec[1] = integration_32bit(&Struct_Accel_X, &filtered_data_velocity_x);
 
       
       // Stop recognition
@@ -102,7 +102,8 @@ void loop() {
 
 
       
-       sensorData.gyro_vec[2] = integration_64bit(Struct_Accel_X, &filtered_data_pos_x, filtered_data_velocity_x, merker_velocity_x);
+       sensorData.gyro_vec[2] = Struct_Accel_X.merker_speed;
+       integration_64bit(&Struct_Accel_X, &filtered_data_pos_x, filtered_data_velocity_x);
        counter_sending++;
 
     }
