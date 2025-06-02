@@ -9,7 +9,7 @@
 #include "Ringbuffer.h"
 
 // Time intervals
-constexpr unsigned long READ_INTERVAL_MS = 0;     // Interval between readings
+constexpr unsigned long READ_INTERVAL_MS = 1;     // Interval between readings
 constexpr unsigned long INTERVAL_STOP_COND = 100;
 
 // Data struct to be sent
@@ -25,8 +25,8 @@ int32_t fixedGyroX, fixedGyroY, fixedGyroZ;
 int32_t filtered_data_velocity_x = 0;
 uint64_t filtered_data_pos_x = 0u;
 uint8_t counter_sending = 0u;
-int32_t dx_for_debugging = 0u;
-
+int32_t dx_for_debugging = 0;
+uint32_t debugCount = 0u;
  //Ringbuffer defined in "ringbuffer.h"
 struct common_buffer_data Struct_Accel_X  = initialize_buffer();
 struct common_buffer_data Struct_Accel_Y  = initialize_buffer();
@@ -50,28 +50,23 @@ void setup() {
 }
 
 void loop() {
-  unsigned long currentMillis = millis();
+       unsigned long currentMillis = accurateMillis();
+//debugCount = micros();
 
   if (currentMillis - previousMillis >= READ_INTERVAL_MS) {
     previousMillis = currentMillis;
 
-    bool accelAvailable = IMU.accelerationAvailable();
-    bool gyroAvailable = IMU.gyroscopeAvailable();
-
-    if (accelAvailable) {
-      IMU.readAcceleration(accelX, accelY, accelZ);
-      
-      if ((accelX > (int32_t)0) & (accelX < (int32_t)ZERO_MOVEMENT)) {
+    //bool accelAvailable = IMU.accelerationAvailable();
+   // bool gyroAvailable = IMU.gyroscopeAvailable();
+    if (IMU.readAcceleration(accelX, accelY, accelZ)) {
+      if ((accelX > (int32_t)-ZERO_MOVEMENT) & (accelX < (int32_t)ZERO_MOVEMENT)) {
         accelX =0u;
-      }
+      }     
 
-
-    
       // Aktualisierung des Ringpuffers 
       push_data_to_buffer(accelX, &Struct_Accel_X);
       push_data_to_buffer(accelY, &Struct_Accel_Y);
       push_data_to_buffer(accelZ, &Struct_Accel_Z);
-      
       // Auslesen der Filterwerte
       filteredAccelX = moving_average(&Struct_Accel_X) ;
       //filteredAccelY = moving_average(&Struct_Accel_Y) ;
@@ -79,7 +74,7 @@ void loop() {
     
       // Eintragen für Debugging 
       dx_for_debugging = integration_32bit(&Struct_Accel_X, &filtered_data_velocity_x, filteredAccelX);
-
+  
       
       // Stop recognition
       
@@ -93,24 +88,23 @@ void loop() {
       //}
 
 
-
-      
-
        integration_64bit(&Struct_Accel_X, &filtered_data_pos_x, filtered_data_velocity_x);
        counter_sending++;
     }
 
 
 
-    if (gyroAvailable) {
+   /* if (gyroAvailable) {
       IMU.readGyroscope(gyroX, gyroY, gyroZ);
 
 
       // Evtl. auch hier Aktualierung des Ringpuffers für die Gyro-Werte
     }
-
-  
+      */
+    //debugCount=micros()-debugCount;
+   // Serial.println(debugCount);
 if (counter_sending>=20) {
+
     sensorData.accel_vec[0] = accelX;
     sensorData.accel_vec[1] = accelY;
     sensorData.accel_vec[2] = accelZ;
@@ -126,6 +120,7 @@ if (counter_sending>=20) {
 
     SUDP_send(sensorData);
     counter_sending=0U;
+
 }
   }
   

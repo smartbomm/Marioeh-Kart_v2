@@ -4,10 +4,10 @@
 // Define length of buffer
 #define RINGBUFFER_SIZE 34u
 // Define Zero-Border for Accelleration values
-#define ZERO_MOVEMENT 2200
+#define ZERO_MOVEMENT 770
 // define Scaler
 #define SPEED_SCALER 14196
-#define POSITION_SCALER 14196126u
+#define POSITION_SCALER 14196126
 //define g
 #define G 9.81 
 
@@ -77,17 +77,18 @@ int32_t moving_average (common_buffer_data* buffer)
 }
 
 int32_t integration_32bit(common_buffer_data* buffer,int32_t * speed, int32_t accel_linear) {
-    buffer->merker_speed=*speed;
+    buffer->merker_speed= *speed;
     int32_t dt = buffer->current_time-buffer->last_time;
-
+    //int32_t dt = 2;
     int32_t dx = buffer->buffer_sum-buffer->merker_buffer_sum;
     *speed = *speed+((dx*dt)/2)+(buffer->merker_buffer_sum*dt);
     //*speed = *speed+accel_linear*dt;
-    return dx;
+    return dt;
 }
 
-int32_t integration_64bit(common_buffer_data* buffer,uint64_t * position, int32_t speed_linear) {
+int64_t integration_64bit(common_buffer_data* buffer,uint64_t * position, int32_t speed_linear) {
     int32_t dt = buffer->current_time-buffer->last_time;
+    //int32_t dt = 2;
     int32_t dx = speed_linear-buffer->merker_speed;
     *position = *position + ((dx*dt)/2)+(buffer->merker_speed*dt);
     //*position = *position + speed_linear*dt;
