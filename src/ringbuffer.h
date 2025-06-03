@@ -78,7 +78,7 @@ int32_t moving_average (common_buffer_data* buffer)
     return buffer->buffer_sum;
 }
 
-int32_t integration_32bit(common_buffer_data* buffer,int32_t * speed, int32_t accel_linear) 
+int32_t integration_32bit(common_buffer_data* buffer,int32_t* speed, int32_t accel_linear) 
 {
     buffer->merker_speed= *speed;
     int32_t dt = buffer->current_time-buffer->last_time;
