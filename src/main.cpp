@@ -9,7 +9,7 @@
 #include "Ringbuffer.h"
 
 // Time intervals
-constexpr unsigned long READ_INTERVAL_MS = 1;     // Interval between readings
+constexpr unsigned long READ_INTERVAL_MS = 2;     // Interval between readings
 constexpr unsigned long INTERVAL_STOP_COND = 100;
 
 // Data struct to be sent
@@ -51,7 +51,7 @@ void setup() {
 
 void loop() {
        unsigned long currentMillis = accurateMillis();
-//debugCount = micros();
+debugCount = micros();
 
   if (currentMillis - previousMillis >= READ_INTERVAL_MS) {
     previousMillis = currentMillis;
@@ -69,8 +69,8 @@ void loop() {
       push_data_to_buffer(accelZ, &Struct_Accel_Z);
       // Auslesen der Filterwerte
       filteredAccelX = moving_average(&Struct_Accel_X) ;
-      //filteredAccelY = moving_average(&Struct_Accel_Y) ;
-      //filteredAccelZ = moving_average(&Struct_Accel_Z) ;
+      filteredAccelY = moving_average(&Struct_Accel_Y) ;
+      filteredAccelZ = moving_average(&Struct_Accel_Z) ;
     
       // Eintragen für Debugging 
       dx_for_debugging = integration_32bit(&Struct_Accel_X, &filtered_data_velocity_x, filteredAccelX);
@@ -94,20 +94,20 @@ void loop() {
 
 
 
-   /* if (gyroAvailable) {
-      IMU.readGyroscope(gyroX, gyroY, gyroZ);
+    if (IMU.readGyroscope(gyroX, gyroY, gyroZ)) {
+    
 
 
       // Evtl. auch hier Aktualierung des Ringpuffers für die Gyro-Werte
     }
-      */
-    //debugCount=micros()-debugCount;
-   // Serial.println(debugCount);
+      
+    debugCount=micros()-debugCount;
+    Serial.println(debugCount);
 if (counter_sending>=20) {
 
     sensorData.accel_vec[0] = accelX;
-    sensorData.accel_vec[1] = accelY;
-    sensorData.accel_vec[2] = accelZ;
+    sensorData.accel_vec[1] = filteredAccelY;
+    sensorData.accel_vec[2] = filteredAccelZ;
     sensorData.gyro_vec[0] = Struct_Accel_X.merker_buffer_sum;    
     sensorData.gyro_vec[1] = dx_for_debugging;  
     sensorData.gyro_vec[2] = Struct_Accel_X.merker_speed; 

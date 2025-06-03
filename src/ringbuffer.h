@@ -4,7 +4,7 @@
 // Define length of buffer
 #define RINGBUFFER_SIZE 34u
 // Define Zero-Border for Accelleration values
-#define ZERO_MOVEMENT 770
+#define ZERO_MOVEMENT 380
 // define Scaler
 #define SPEED_SCALER 14196
 #define POSITION_SCALER 14196126
