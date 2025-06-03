@@ -29,7 +29,8 @@ struct common_buffer_data
 };
 
 
- struct common_buffer_data initialize_buffer (void) {
+ struct common_buffer_data initialize_buffer (void)
+  {
     struct common_buffer_data b1;
     b1.index_last_element = 0u;   // Starting with zero; values on this position will be replaced
     b1.ringbuffer_index = RINGBUFFER_SIZE-1;     // Initialized to last Element; needed for Moving average
@@ -45,7 +46,8 @@ struct common_buffer_data
     return b1;
 }
 
-void push_data_to_buffer (int32_t data, common_buffer_data* buffer){
+void push_data_to_buffer (int32_t data, common_buffer_data* buffer)
+{
     buffer->kicked_value=buffer->ringbuffer[buffer->index_last_element];
     buffer->ringbuffer[buffer->index_last_element] = -data;
     buffer->index_last_element++;
@@ -76,7 +78,8 @@ int32_t moving_average (common_buffer_data* buffer)
     return buffer->buffer_sum;
 }
 
-int32_t integration_32bit(common_buffer_data* buffer,int32_t * speed, int32_t accel_linear) {
+int32_t integration_32bit(common_buffer_data* buffer,int32_t * speed, int32_t accel_linear) 
+{
     buffer->merker_speed= *speed;
     int32_t dt = buffer->current_time-buffer->last_time;
     //int32_t dt = 2;
@@ -86,7 +89,8 @@ int32_t integration_32bit(common_buffer_data* buffer,int32_t * speed, int32_t ac
     return dt;
 }
 
-int64_t integration_64bit(common_buffer_data* buffer,uint64_t * position, int32_t speed_linear) {
+int64_t integration_64bit(common_buffer_data* buffer,uint64_t * position, int32_t speed_linear) 
+{
     int32_t dt = buffer->current_time-buffer->last_time;
     //int32_t dt = 2;
     int32_t dx = speed_linear-buffer->merker_speed;

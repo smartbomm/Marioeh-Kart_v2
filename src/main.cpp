@@ -37,7 +37,8 @@ unsigned long previousMillis = 0;
 uint32_t previousMillis_stop_cond = 0;
 
 
-void setup() {
+void setup()
+ {
   Serial.begin(9600);
   uint64_t systemTime = 0;
   while (systemTime == 0) {
@@ -49,17 +50,21 @@ void setup() {
   }
 }
 
-void loop() {
+void loop() 
+{
        unsigned long currentMillis = accurateMillis();
 debugCount = micros();
 
-  if (currentMillis - previousMillis >= READ_INTERVAL_MS) {
+  if (currentMillis - previousMillis >= READ_INTERVAL_MS) 
+  {
     previousMillis = currentMillis;
 
     //bool accelAvailable = IMU.accelerationAvailable();
    // bool gyroAvailable = IMU.gyroscopeAvailable();
-    if (IMU.readAcceleration(accelX, accelY, accelZ)) {
-      if ((accelX > (int32_t)-ZERO_MOVEMENT) & (accelX < (int32_t)ZERO_MOVEMENT)) {
+    if (IMU.readAcceleration(accelX, accelY, accelZ)) 
+    {
+      if ((accelX > (int32_t)-ZERO_MOVEMENT) & (accelX < (int32_t)ZERO_MOVEMENT))
+      {
         accelX =0u;
       }     
 
@@ -94,7 +99,8 @@ debugCount = micros();
 
 
 
-    if (IMU.readGyroscope(gyroX, gyroY, gyroZ)) {
+    if (IMU.readGyroscope(gyroX, gyroY, gyroZ)) 
+    {
     
 
 
@@ -103,7 +109,8 @@ debugCount = micros();
       
     debugCount=micros()-debugCount;
     Serial.println(debugCount);
-if (counter_sending>=20) {
+if (counter_sending>=20) 
+{
 
     sensorData.accel_vec[0] = accelX;
     sensorData.accel_vec[1] = filteredAccelY;
