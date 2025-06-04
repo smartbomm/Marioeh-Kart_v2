@@ -67,6 +67,11 @@ debugCount = micros();
       {
         accelX =0u;
       }     
+      // zero movemnet auch für y
+      if ((accelY > (int32_t)-ZERO_MOVEMENT) & (accelY < (int32_t)ZERO_MOVEMENT))
+      {
+        accelY =0u;
+      }     
 
       // Aktualisierung des Ringpuffers 
       push_data_to_buffer(accelX, &Struct_Accel_X);
@@ -78,7 +83,7 @@ debugCount = micros();
       filteredAccelZ = moving_average(&Struct_Accel_Z) ;
     
       // Eintragen für Debugging 
-      dx_for_debugging = integration_32bit(&Struct_Accel_X, &filtered_data_velocity_x, filteredAccelX);
+      dx_for_debugging = integration_32bit(&Struct_Accel_X, &filtered_data_velocity_x, filteredAccelX,filteredAccelY);
   
       
       // Stop recognition
