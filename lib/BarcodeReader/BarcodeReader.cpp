@@ -53,7 +53,7 @@ struct barcodeReader_t
 
 void barcodeIsr()
 {
-    Serial.println("isr");
+    //Serial.println("isr");
     barcodeReader.edgeCounter++;
     if (1 == barcodeReader.edgeCounter)
     {
