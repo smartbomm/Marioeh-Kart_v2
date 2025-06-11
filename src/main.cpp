@@ -122,7 +122,7 @@ if (counter_sending>=20)
     sensorData.accel_vec[2] = filteredAccelZ;
     sensorData.gyro_vec[0] = Struct_Accel_X.merker_buffer_sum;    
     sensorData.gyro_vec[1] = dx_for_debugging;  
-    sensorData.gyro_vec[2] = Struct_Accel_X.merker_speed; 
+    sensorData.gyro_vec[2] = gyroZ; 
 
     sensorData.accel_lin = filteredAccelX;
     sensorData.speed_lin = filtered_data_velocity_x/SPEED_SCALER;

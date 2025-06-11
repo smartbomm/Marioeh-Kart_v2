@@ -15,7 +15,7 @@
 // define empiric factor for valueing accel_Y in acceleration
 #define kacc 200
 // define empiric factor for valueing accel_Y in breaking
-#define kbrak 130
+#define kbrak 100
 
 
 struct common_buffer_data
@@ -92,26 +92,26 @@ int32_t integration_32bit(common_buffer_data* buffer,int32_t* speed, int32_t acc
     int32_t dx; 
     // folgend ist ein erster versuch einer betrachtung von Kurven 
     //hierzu wird der integration 32 bit accel y mit übergeben
-    if (accel_Y<-ZERO_MOVEMENT_Y)
+    if (accel_Y<-ZERO_MOVEMENT_Y)  //rechtskurve
     {
-        if (buffer->buffer_sum>0) 
+        if (buffer->buffer_sum>0) //fall 3
         {
-            buffer->acc_complete=buffer->buffer_sum*(1+(-accel_Y*kacc/(*speed)));
+            buffer->acc_complete=buffer->buffer_sum*(1+(accel_Y/kacc));
         }
-        else 
+        else //fall 4
         {
-            buffer->acc_complete=buffer->buffer_sum*(1+(accel_Y*kbrak/(*speed)));
+            buffer->acc_complete=buffer->buffer_sum*(1+(-accel_Y/kbrak));
         }
     }
-    else if (accel_Y>ZERO_MOVEMENT_Y) 
+    else if (accel_Y>ZERO_MOVEMENT_Y) // linkskurve
     {
-        if (buffer->buffer_sum>0) 
+        if (buffer->buffer_sum>0)   //fall 1
         {
-            buffer->acc_complete=buffer->buffer_sum*(1+(-accel_Y*kacc/(*speed)));
+            buffer->acc_complete=buffer->buffer_sum*(1+(-accel_Y/kacc));
         }
-        else 
+        else   //fall 2
         {
-            buffer->acc_complete=buffer->buffer_sum*(1+(accel_Y*kbrak/(*speed)));
+            buffer->acc_complete=buffer->buffer_sum*(1+(accel_Y/kbrak));
         }
     }
     else 
