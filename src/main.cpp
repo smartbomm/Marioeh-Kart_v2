@@ -25,7 +25,7 @@ int32_t fixedGyroX, fixedGyroY, fixedGyroZ;
 int32_t filtered_data_velocity_x = 0;
 uint64_t filtered_data_pos_x = 0u;
 uint8_t counter_sending = 0u;
-int32_t dx_for_debugging = 0;
+int32_t acc_complete_for_debugging = 0;
 uint32_t debugCount = 0u;
  //Ringbuffer defined in "ringbuffer.h"
 struct common_buffer_data Struct_Accel_X  = initialize_buffer();
@@ -83,7 +83,7 @@ debugCount = micros();
       filteredAccelZ = moving_average(&Struct_Accel_Z) ;
     
       // Eintragen für Debugging 
-      dx_for_debugging = integration_32bit(&Struct_Accel_X, &filtered_data_velocity_x, filteredAccelX,filteredAccelY);
+      acc_complete_for_debugging = integration_32bit(&Struct_Accel_X, &filtered_data_velocity_x, filteredAccelX,filteredAccelY);
   
       
       // Stop recognition
@@ -121,7 +121,7 @@ if (counter_sending>=20)
     sensorData.accel_vec[1] = filteredAccelY;
     sensorData.accel_vec[2] = filteredAccelZ;
     sensorData.gyro_vec[0] = Struct_Accel_X.merker_buffer_sum;    
-    sensorData.gyro_vec[1] = dx_for_debugging;  
+    sensorData.gyro_vec[1] = acc_complete_for_debugging;  
     sensorData.gyro_vec[2] = gyroZ; 
 
     sensorData.accel_lin = filteredAccelX;

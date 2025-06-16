@@ -13,9 +13,9 @@
 // define Zero-Border for contemplation of accel_y
 #define ZERO_MOVEMENT_Y 40000 
 // define empiric factor for valueing accel_Y in acceleration; vorher 12000
-#define kacc  5000000
+#define kacc  10000000
 // define empiric factor for valueing accel_Y in breaking
-#define kbrak 5000000
+#define kbrak 50000000
 
 
 struct common_buffer_data
@@ -96,35 +96,36 @@ int32_t integration_32bit(common_buffer_data* buffer,int32_t* speed, int32_t acc
     //hierzu wird der integration 32 bit accel y mit übergeben
     if (accel_Y<-ZERO_MOVEMENT_Y)  //rechtskurve
     {
-        if (buffer->buffer_sum>=0) //fall 3
+        if (accel_linear>=0) //fall 3
         {
-            buffer->acc_complete=buffer->buffer_sum*(1+(-accel_Y*(kacc/(*speed))));
+            buffer->acc_complete=accel_linear*(1+(accel_Y*(kacc/(*speed))));
         }
         else //fall 4
         {
-            buffer->acc_complete=buffer->buffer_sum*(1+(accel_Y*(kbrak/(*speed))));
+            buffer->acc_complete=accel_linear*(1+(-accel_Y*(kbrak/(*speed))));
         }
     }
-    else if (accel_Y>ZERO_MOVEMENT_Y) // linkskurve
+    else if (accel_Y>=ZERO_MOVEMENT_Y) // linkskurve
     {
-        if (buffer->buffer_sum>=0)   //fall 1
+        if (accel_linear>=0)   //fall 1
         {
-            buffer->acc_complete=buffer->buffer_sum*(1+(accel_Y*(kacc/(*speed))));
+            buffer->acc_complete=accel_linear*(1+(-accel_Y*(kacc/(*speed))));
         }
         else   //fall 2
         {
-            buffer->acc_complete=buffer->buffer_sum*(1+(-accel_Y*(kbrak/(*speed))));
+            buffer->acc_complete=accel_linear*(1+(accel_Y*(kbrak/(*speed))));
         }
     }
     else 
-    {
-        buffer->acc_complete=buffer->buffer_sum;  // fall für gerade
-    }
+        {
+    
+        buffer->acc_complete=accel_linear;  // fall für gerade
+        }
     dx=buffer->acc_complete-buffer->merker_accel_complete;  //dx wird aus gesamt beschleunigung errechnet
     buffer->merker_speed= *speed;
     int32_t dt = buffer->current_time-buffer->last_time;
     *speed = *speed+((dx*dt)/2)+(buffer->merker_accel_complete*dt);
-    return dt;
+    return buffer->acc_complete;
 }
 
 int64_t integration_64bit(common_buffer_data* buffer,uint64_t * position, int32_t speed_linear) 
