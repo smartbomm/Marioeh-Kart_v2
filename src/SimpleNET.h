@@ -16,7 +16,7 @@
 //#define DEBUGWIFI 1
 //#define DEBUGCSV 1
 //#define DEBUGSENT 1
-// #define SERIAL_ENABLE 1
+ //#define SERIAL_ENABLE 1
 //#define DEBUGTIME 1
 //#define DEBUGTIMESTAMP 1
 
