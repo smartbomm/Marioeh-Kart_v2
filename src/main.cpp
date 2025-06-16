@@ -118,8 +118,8 @@ if (counter_sending>=20)
 {
 
     sensorData.accel_vec[0] = accelX;
-    sensorData.accel_vec[1] = filteredAccelY;
-    sensorData.accel_vec[2] = filteredAccelZ;
+    sensorData.accel_vec[1] = filteredAccelY/RINGBUFFER_SIZE;
+    sensorData.accel_vec[2] = filteredAccelZ/RINGBUFFER_SIZE;
     sensorData.gyro_vec[0] = Struct_Accel_X.merker_buffer_sum;    
     sensorData.gyro_vec[1] = dx_for_debugging;  
     sensorData.gyro_vec[2] = gyroZ; 

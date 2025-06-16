@@ -3,7 +3,7 @@
 
 // Define length of buffer
 #define RINGBUFFER_SIZE 34u
-// Define Zero-Border for Accelleration values
+// Define Zero-Border for Accelleration values in x
 #define ZERO_MOVEMENT 380
 // define Scaler
 #define SPEED_SCALER 14196
@@ -11,7 +11,7 @@
 //define g
 #define G 9.81
 // define Zero-Border for contemplation of accel_y
-#define ZERO_MOVEMENT_Y 4000 
+#define ZERO_MOVEMENT_Y 40000 
 // define empiric factor for valueing accel_Y in acceleration
 #define kacc 200
 // define empiric factor for valueing accel_Y in breaking
@@ -51,6 +51,7 @@ struct common_buffer_data
     b1.merker_buffer_sum=0;
     b1.merker_speed=0;
     b1.acc_complete=0;
+    b1.merker_accel_complete=0;
 
     return b1;
 }
@@ -90,6 +91,7 @@ int32_t moving_average (common_buffer_data* buffer)
 int32_t integration_32bit(common_buffer_data* buffer,int32_t* speed, int32_t accel_linear,int32_t accel_Y) 
 {
     int32_t dx; 
+    buffer->merker_accel_complete=buffer->acc_complete;  //merker wird überschrieben
     // folgend ist ein erster versuch einer betrachtung von Kurven 
     //hierzu wird der integration 32 bit accel y mit übergeben
     if (accel_Y<-ZERO_MOVEMENT_Y)  //rechtskurve
@@ -118,7 +120,6 @@ int32_t integration_32bit(common_buffer_data* buffer,int32_t* speed, int32_t acc
     {
         buffer->acc_complete=buffer->buffer_sum;  // fall für gerade
     }
-    buffer->merker_accel_complete=buffer->acc_complete;  //merker wird überschrieben
     dx=buffer->acc_complete-buffer->merker_accel_complete;  //dx wird aus gesamt beschleunigung errechnet
     buffer->merker_speed= *speed;
     int32_t dt = buffer->current_time-buffer->last_time;
