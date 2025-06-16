@@ -13,7 +13,7 @@
 // define Zero-Border for contemplation of accel_y
 #define ZERO_MOVEMENT_Y 40000 
 // define empiric factor for valueing accel_Y in acceleration; vorher 12000
-#define kacc  10000000
+#define kacc  15000000
 // define empiric factor for valueing accel_Y in breaking
 #define kbrak 50000000
 
@@ -98,22 +98,22 @@ int32_t integration_32bit(common_buffer_data* buffer,int32_t* speed, int32_t acc
     {
         if (accel_linear>=0) //fall 3
         {
-            buffer->acc_complete=accel_linear*(1+(accel_Y*(kacc/(*speed))));
+            buffer->acc_complete=accel_linear+(accel_Y*(kacc/(*speed)));
         }
         else //fall 4
         {
-            buffer->acc_complete=accel_linear*(1+(-accel_Y*(kbrak/(*speed))));
+            buffer->acc_complete=accel_linear+(-accel_Y*(kbrak/(*speed)));
         }
     }
     else if (accel_Y>=ZERO_MOVEMENT_Y) // linkskurve
     {
         if (accel_linear>=0)   //fall 1
         {
-            buffer->acc_complete=accel_linear*(1+(-accel_Y*(kacc/(*speed))));
+            buffer->acc_complete=accel_linear+(-accel_Y*(kacc/(*speed)));
         }
         else   //fall 2
         {
-            buffer->acc_complete=accel_linear*(1+(accel_Y*(kbrak/(*speed))));
+            buffer->acc_complete=accel_linear+(accel_Y*(kbrak/(*speed)));
         }
     }
     else 
