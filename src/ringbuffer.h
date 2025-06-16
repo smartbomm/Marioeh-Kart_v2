@@ -12,10 +12,10 @@
 #define G 9.81
 // define Zero-Border for contemplation of accel_y
 #define ZERO_MOVEMENT_Y 40000 
-// define empiric factor for valueing accel_Y in acceleration
-#define kacc 200
+// define empiric factor for valueing accel_Y in acceleration; vorher 12000
+#define kacc 40000
 // define empiric factor for valueing accel_Y in breaking
-#define kbrak 100
+#define kbrak 4000
 
 
 struct common_buffer_data
