@@ -9,7 +9,7 @@
 #include "Ringbuffer.h"
 
 // Time intervals
-constexpr unsigned long READ_INTERVAL_MS = 2;     // Interval between readings
+constexpr unsigned long READ_INTERVAL_MS = 1;     // Interval between readings
 constexpr unsigned long INTERVAL_STOP_COND = 100;
 
 // Data struct to be sent
