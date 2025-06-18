@@ -2,9 +2,11 @@
 #include <BarcodeReader.h>
 #include <MathFunctions.h>
 #include <PinConfig.h>
-#define Version 0x34
 
-barcodeConfig_t barcode_config;
+barcodeConfig_t barcode_config = {
+    .pin = 4,          // Pin where the barcode reader is connected to
+    .bitLength = 7,    // Length in mm of 1 bit (sequence of black and white section)
+};
 uint8_t barcode_value = 0;
 uint32_t barcode_velocity = 0;
 
@@ -19,9 +21,6 @@ void EIC_Handler(void) {
 void setup()
 {
     configure_extint();
-
-    barcode_config.pin = 4;       // Pin where the barcode reader is connected to
-    barcode_config.bitLength = 7; // Length in mm of 1 bit (seuqence od black and white section)
     barcode_init(barcode_config);
 }
 
