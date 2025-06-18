@@ -6,7 +6,7 @@
 
 #include "SimpleGET.h"
 #include "OdometerData.h"
-#include "Ringbuffer.h"
+#include "ringbuffer.h"
 
 // Time intervals
 constexpr unsigned long READ_INTERVAL_MS = 1;     // Interval between readings
