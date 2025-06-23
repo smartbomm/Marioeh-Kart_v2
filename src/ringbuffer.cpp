@@ -60,11 +60,11 @@ int32_t integration_32bit(common_buffer_data* buffer,int32_t* speed, int32_t acc
     //hierzu wird der integration 32 bit accel y mit übergeben
     if (accel_Y<-ZERO_MOVEMENT_Y)  //rechtskurve
     {
-            buffer->acc_complete=accel_linear+(accel_Y*(k/(*speed)));
+            buffer->acc_complete=accel_linear+(-accel_Y*(k/(*speed)));
     }
     else if (accel_Y>=ZERO_MOVEMENT_Y) // linkskurve
     {
-            buffer->acc_complete=accel_linear+(-accel_Y*(k/(*speed)));
+            buffer->acc_complete=accel_linear+(accel_Y*(k/(*speed)));
     }
     else 
         {
