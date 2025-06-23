@@ -79,7 +79,7 @@ int32_t integration_32bit(common_buffer_data* buffer,int32_t* speed, int32_t acc
     return buffer->acc_complete;
 }
 
-int64_t integration_64bit(common_buffer_data* buffer,uint64_t * position, int32_t speed_linear) 
+void integration_64bit(common_buffer_data* buffer,uint64_t * position, int32_t speed_linear) 
 {
     int32_t dt = buffer->current_time-buffer->last_time;
     int32_t v1=buffer->merker_speed;
