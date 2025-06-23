@@ -15,7 +15,7 @@
 // define Zero-Border for contemplation of accel_y
 #define ZERO_MOVEMENT_Y 40000 
 // define empiric factor for valueing accel_Y in acceleration; vorher 12000
-#define k      200
+#define k      4000
 // define empiric factor for valueing accel_Y in breaking
 #define kbrak 50000000
 
