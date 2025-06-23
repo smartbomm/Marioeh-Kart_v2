@@ -76,7 +76,7 @@ int32_t integration_32bit(common_buffer_data* buffer,int32_t* speed, int32_t acc
     int32_t a3=(a1+2*a4)/3;
     int32_t dt = buffer->current_time-buffer->last_time;
     *speed = *speed+((a1+2*a2+2*a3+a4)/6)*dt;
-    return buffer->acc_complete;
+    return dt;
 }
 
 void integration_64bit(common_buffer_data* buffer,uint64_t * position, int32_t speed_linear) 

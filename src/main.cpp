@@ -112,7 +112,7 @@ debugCount = micros();
       // Evtl. auch hier Aktualierung des Ringpuffers für die Gyro-Werte
     }
       
-    debugCount=micros()-debugCount;
+   debugCount=micros()-debugCount;
     Serial.println(debugCount);
 if (counter_sending>=20) 
 {

@@ -64,7 +64,7 @@ int LSM6DS3Class::begin()
   // Set the Gyroscope control register
   // Output data rate: 104Hz
   // Full-Scale Selection: 500dps
-  writeRegister(LSM6DS3_CTRL2_G, 0x44);
+  writeRegister(LSM6DS3_CTRL2_G, 0x89);
 
   // Hardware configurations
   // No need for changes
