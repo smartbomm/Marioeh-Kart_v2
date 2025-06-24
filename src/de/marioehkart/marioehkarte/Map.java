@@ -27,45 +27,69 @@ public class Map {
     /// @throws Exception If an error occurs while creating the error log file.
     /// @details The constructor initializes the sections and mappedSections arrays,
     /// and creates a FileWriter for logging errors.
-    /// The error log file is created in the specified directory with the name "error.log".
+    /// The error log file is created in the specified directory with the name
+    /// "error.log".
     /// The sections array is used to store the sections of the map,
-    /// and the mappedSections array is used to map section numbers to their corresponding indices in the sections array.
-    /// The error log file is used to log any errors that occur during the execution of the program.
+    /// and the mappedSections array is used to map section numbers to their
+    /// corresponding indices in the sections array.
+    /// The error log file is used to log any errors that occur during the execution
+    /// of the program.
     public Map(String directory) throws Exception {
         sections = new ArrayList<Section>();
+        sections.add(new Section(new Coordinates(), 0)); // Add a dummy section at index 0 for error handling
         mappedSections = new int[256];
         this.workDirectory = directory;
         errorWriter = new FileWriter(workDirectory + "/error.log", true);
         // Constructor
     }
+
     /// @brief Closes the error log file.
     /// @throws Exception If an error occurs while closing the error log file.
-    /// @details This method is used to close the error log file after all operations are completed.
-    /// It ensures that any remaining data in the buffer is written to the file before closing it.
-    /// The error log file is used to log any errors that occur during the execution of the program.
+    /// @details This method is used to close the error log file after all
+    /// operations are completed.
+    /// It ensures that any remaining data in the buffer is written to the file
+    /// before closing it.
+    /// The error log file is used to log any errors that occur during the execution
+    /// of the program.
     public void close() throws Exception {
         // Method to close the error log file
         errorWriter.close();
     }
-///! @brief Gets the coordinates for a specific section and distance.
+
+    /// ! @brief Gets the coordinates for a specific section and distance.
     /// @param section The section number.
     /// @param distance The distance along the section.
     /// @return The coordinates for the specified section and distance.
     /// @throws Exception If an error occurs while getting the coordinates.
-    /// @details This method retrieves the coordinates for a specific section and distance.
+    /// @details This method retrieves the coordinates for a specific section and
+    /// distance.
     /// It uses the mappedSections array to find the corresponding section index,
-    /// and then calls the position method of the Section class to get the coordinates.
-    public Coordinates getCoordinates(int section, double distance) {
-        section = mappedSections[section];
-        Coordinates result = sections.get(section).position(distance);
+    /// and then calls the position method of the Section class to get the
+    /// coordinates.
+    public Coordinates getCoordinates(int section, double distance) throws Exception {
+        Coordinates result = null;
+        try {
+            int sectionIndex = mappedSections[section];
+            if (0 == sectionIndex) {
+                throw new IllegalArgumentException("Tried to get Section " + section + ": not found.");
+            }
+            result = sections.get(section).position(distance);
+        } catch (IllegalArgumentException e) {
+            errorWriter.append(LocalDateTime.now() + ": Illegal Argument Exception: " + e.getMessage() + "\n");
+            errorWriter.flush();
+            System.out.println("IO Exception: " + e.getMessage());
+        }
+
         // Method to get coordinates
         return result;
     }
-///! @brief Reads a CSV file and populates the map with sections and rails.
+
+    /// ! @brief Reads a CSV file and populates the map with sections and rails.
     /// @param csv The path to the CSV file.
     /// @param separator The separator used in the CSV file.
     /// @throws Exception If an error occurs while reading the CSV file.
-    /// @details This method reads a CSV file containing section data and populates the map with sections and rails.
+    /// @details This method reads a CSV file containing section data and populates
+    /// the map with sections and rails.
     public void feed(String csv, String separator) throws Exception {
         // Method to read CSV file
         BufferedReader csvReader = null;
@@ -73,9 +97,9 @@ public class Map {
             csvReader = new BufferedReader(new FileReader(csv));
             String line;
             line = csvReader.readLine(); // erste line überspringen
-            int sectionCount = -1;
+            int sectionCount = 0;
             while ((line = csvReader.readLine()) != null) {
-                String[] values = line.split(separator); 
+                String[] values = line.split(separator);
                 System.out.print(values[0]);
                 if (values[0].equals("SECTION_START")) {
                     sectionCount++;
@@ -86,8 +110,8 @@ public class Map {
                     sectionCoordinates.angle_x = Math.toRadians(Double.parseDouble(values[5]));
                     sections.add(new Section(sectionCoordinates, Integer.parseInt(values[2])));
                     mappedSections[Integer.parseInt(values[1])] = sectionCount;
-                } 
-                else if (values[0].equals("SECTION_END"));
+                } else if (values[0].equals("SECTION_END"))
+                    ;
                 else {
                     sections.get(sectionCount).addRail(Rail.fromString(values[0]));
                 }
@@ -119,6 +143,6 @@ public class Map {
     private FileWriter errorWriter;
     private String workDirectory;
     private ArrayList<Section> sections; // Create an ArrayList object
-    private int [] mappedSections; // Create an array of doubles
+    private int[] mappedSections; // Create an array of doubles
 
 }
