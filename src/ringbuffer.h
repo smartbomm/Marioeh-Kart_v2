@@ -14,10 +14,10 @@
 #define G 9.81
 // define Zero-Border for contemplation of accel_y
 #define ZERO_MOVEMENT_Y 40000 
-// define empiric factor for valueing accel_Y in acceleration; vorher 12000
-#define k      4000
-// define empiric factor for valueing accel_Y in breaking
-#define kbrak 50000000
+// define empiric factor for valueing accel_Y in left turns
+#define kleft     18000000
+// define empiric factor for valueing accel_Y in right turns
+#define kright    15000000
 
 
 struct common_buffer_data
