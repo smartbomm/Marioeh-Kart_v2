@@ -7,6 +7,7 @@
 #include "SimpleGET.h"
 #include "OdometerData.h"
 #include "ringbuffer.h"
+#include "Hardware_Config.h"
 
 // Time intervals
 constexpr unsigned long READ_INTERVAL_MS = 1;     // Interval between readings
@@ -27,10 +28,12 @@ uint64_t filtered_data_pos_x = 0u;
 uint8_t counter_sending = 0u;
 int32_t acc_complete_for_debugging = 0;
 uint32_t debugCount = 0u;
+
  //Ringbuffer defined in "ringbuffer.h"
 struct common_buffer_data Struct_Accel_X  = initialize_buffer();
 struct common_buffer_data Struct_Accel_Y  = initialize_buffer();
 struct common_buffer_data Struct_Accel_Z  = initialize_buffer();
+struct common_buffer_data Struct_Motor_Voltage = initialize_buffer();
 
 // Timestamps
 unsigned long previousMillis = 0;
@@ -59,6 +62,8 @@ debugCount = micros();
   {
     previousMillis = currentMillis;
 
+
+
     //bool accelAvailable = IMU.accelerationAvailable();
    // bool gyroAvailable = IMU.gyroscopeAvailable();
     if (IMU.readAcceleration(accelX, accelY, accelZ)) 
@@ -77,14 +82,21 @@ debugCount = micros();
       push_data_to_buffer(accelX, &Struct_Accel_X);
       push_data_to_buffer(accelY, &Struct_Accel_Y);
       push_data_to_buffer(accelZ, &Struct_Accel_Z);
+      push_data_to_buffer(analogRead(Motor), &Struct_Motor_Voltage);
       // Auslesen der Filterwerte
       filteredAccelX = moving_average(&Struct_Accel_X) ;
       filteredAccelY = moving_average(&Struct_Accel_Y) ;
       filteredAccelZ = moving_average(&Struct_Accel_Z) ;
+      motor_voltage = moving_average(&Struct_Motor_Voltage);
+
     
-      // Eintragen für Debugging 
-      acc_complete_for_debugging = integration_32bit(&Struct_Accel_X, &filtered_data_velocity_x, filteredAccelX,filteredAccelY);
-  
+      // Speed processing with check against hardwired logic
+      if ((motor_voltage < DEADZONE_MOTOR)) {
+        acc_complete_for_debugging = integration_32bit(&Struct_Accel_X, &filtered_data_velocity_x, filteredAccelX,filteredAccelY);
+        }
+      else {
+        filtered_data_velocity_x = 0;
+        }
       
       // Stop recognition
       
@@ -122,12 +134,16 @@ if (counter_sending>=20)
     sensorData.accel_vec[2] = filteredAccelZ;
     sensorData.gyro_vec[0] = Struct_Accel_X.merker_buffer_sum;    
     sensorData.gyro_vec[1] = acc_complete_for_debugging;  
-    sensorData.gyro_vec[2] = gyroZ; 
+    sensorData.gyro_vec[2] = motor_voltage; 
 
     sensorData.accel_lin = filteredAccelX;
     sensorData.speed_lin = filtered_data_velocity_x/SPEED_SCALER;
     sensorData.pos_lin = (uint32_t)(filtered_data_pos_x/POSITION_SCALER); // account for Integration error
+
     sensorData.track_section = 1;
+
+    // Debug Motor Voltage
+    Serial.print(motor_voltage);
     
 
     SUDP_send(sensorData);
