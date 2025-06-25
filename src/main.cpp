@@ -1,61 +1,46 @@
 #include <Arduino.h>
-#include <BarCodeHw.h>
+#include <BarcodeReader.h>
+#include <MathFunctions.h>
+#include <PinConfig.h>
 
-uint8_t myCounter = 0;
+barcodeConfig_t barcode_config = {
+    .pin = PIN_PA07,          // Pin where the barcode reader is connected to
+    .bitLength = 7,    // Length in mm of 1 bit (sequence of black and white section)
+};
+uint8_t barcode_value = 0;
+uint32_t barcode_velocity = 0;
 
-void myIsr()
-{
-    // This is a user-defined ISR that will be called when the timer expires
-    myCounter++;
-}
-
-void tc3_test()
-{
-
-    pinMode(LED_BUILTIN, OUTPUT); // Set pin 13 as output for debugging (optional)
-    // Initialize TC3 with a timeout of 1000 ms
-    _tc3_init(1000000);
-
-    // Set a user-defined ISR (optional)
-    _tc3_set_isr(myIsr);
-
-    // Start the timer
-    _tc3_start();
-
-    Serial.begin(9600);
-    Serial.println("TC3 Test Started");
-
-    while (1)
-    {
-        if (myCounter % 2)
-        {
-            digitalWrite(LED_BUILTIN, HIGH); // Turn on the LED
-            Serial.print("ON ");
-            Serial.print(myCounter);
-            Serial.println(" times");
-        }
-        else
-        {
-            Serial.print("OFF ");
-            Serial.print(myCounter);
-            Serial.println(" times");
-            digitalWrite(LED_BUILTIN, LOW); // Turn off the LED
-            if (~(myCounter % 6))
-            {
-                Serial.println("Counter reset and timer restarted");
-                _tc3_restart(); // Restart the timer every 6 counts
-                if (~(myCounter % 15))
-                {
-                    Serial.println("Counter reset and timer stopped");
-                    _tc3_stop();
-                    Serial.println("TC3 Test Completed");
-                    return;
-                }
-            }
-        }
+void EIC_Handler(void) {
+    if (EIC->INTFLAG.reg & EIC_INTFLAG_EXTINT7) {
+        EIC->INTFLAG.reg = EIC_INTFLAG_EXTINT7;  // Flag löschen
+        barcodeIsr();  // Barcode ISR aufrufen
     }
 }
 
-int main() {
-    tc3_test();
+
+void setup()
+{
+    
+    configure_extint();
+    barcode_init(barcode_config);
+}
+
+void loop()
+{
+    switch (barcode_get(barcode_value, barcode_velocity))
+    {
+    case NO_CODE_DETECTED:
+        Serial.println("No code detected");
+        break;
+    case READING_IN_PROGRESS:
+        Serial.println("Reading in progress");
+        break;
+    case READING_SUCCESSFUL:
+        Serial.print("Barcode value: ");
+        Serial.print(barcode_value);
+        Serial.print(" Velocity: ");
+        Serial.println(barcode_velocity);
+        break;
+    }
+    delay(1000);
 }
