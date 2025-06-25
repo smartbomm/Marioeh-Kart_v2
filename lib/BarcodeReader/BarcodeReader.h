@@ -1,6 +1,8 @@
 #ifndef BarcodeReader_h
 #define BarcodeReader_h
 #include <Arduino.h>
+#include <DEBUG.h>
+
 
 /**
  * @brief Firmware component to read a barcode linear. 
@@ -17,19 +19,27 @@ typedef enum
 {
     NO_CODE_DETECTED,
     READING_IN_PROGRESS,
-    READING_SUCCESSFUL
+    READING_SUCCESSFUL,
+    PHASE_MISMATCH_ERROR,
+    TIMEOUT_ERROR
 } barcode_error_t;
+
+
+
+
 
 /**
  * @brief Configuration struct for the barcode reader
  * @param pin Digital input pin where the barcode reader is connected to
  * @param bitLength Length in mm of 1 bit (seuqence od black and white section)
- * 
+ * @param readingTimeout Timeout in µs for the reading process
  */
 typedef struct  {
     uint8_t pin;
     uint32_t bitLength;
+    uint16_t readingTimeout;
 } barcodeConfig_t;
+
 
 /**
  * @brief Read the value and the calculated velocity from a barcode

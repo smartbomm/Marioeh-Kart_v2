@@ -6,6 +6,7 @@
 barcodeConfig_t barcode_config = {
     .pin = PIN_PA07,          // Pin where the barcode reader is connected to
     .bitLength = 4,    // Length in mm of 1 bit (sequence of black and white section)
+    .readingTimeout = 40000  // Timeout in µs for the reading process
 };
 uint8_t barcode_value = 0;
 uint32_t barcode_velocity = 0;
@@ -20,6 +21,7 @@ void EIC_Handler(void) {
 
 void setup()
 {
+
     
     configure_extint();
     barcode_init(barcode_config);
@@ -40,6 +42,12 @@ void loop()
         Serial.print(barcode_value);
         Serial.print(" Velocity: ");
         Serial.println(barcode_velocity);
+        break;
+    case PHASE_MISMATCH_ERROR:
+        Serial.println("Phase mismatch error");
+        break;
+    case TIMEOUT_ERROR:
+        Serial.println("Timeout error");
         break;
     }
     delay(1000);
