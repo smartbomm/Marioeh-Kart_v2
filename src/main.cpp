@@ -5,7 +5,7 @@
 
 barcodeConfig_t barcode_config = {
     .pin = PIN_PA07,          // Pin where the barcode reader is connected to
-    .bitLength = 7,    // Length in mm of 1 bit (sequence of black and white section)
+    .bitLength = 4,    // Length in mm of 1 bit (sequence of black and white section)
 };
 uint8_t barcode_value = 0;
 uint32_t barcode_velocity = 0;
