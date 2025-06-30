@@ -1,8 +1,11 @@
 #include <Arduino.h>
 #include <BarcodeReader.h>
-#include <MathFunctions.h>
 #include <PinConfig.h>
-#include <DEBUG.h>
+
+
+//This is an example sketch to test the barcode reader library
+//It reads a barcode and prints the value and velocity to the serial monitor
+
 
 barcodeConfig_t barcode_config = {
     .pin = PIN_PA07,          // Pin where the barcode reader is connected to
@@ -27,12 +30,13 @@ void EIC_Handler(void) {
 
 void setup()
 {
-    DEBUG_START();
     Serial.begin(115200);
+    while(!Serial); // Warten, bis die serielle Verbindung hergestellt ist
+
+    Serial.println("Barcode Reader Test");
     
     configure_extint();
     barcode_init(barcode_config);
-    DEBUG(example_error, (uint8_t) Error1);
 
     
 }
@@ -40,30 +44,28 @@ void setup()
 void loop()
 {
     barcode_error_t error = barcode_get(barcode_value, barcode_velocity);
-    if(barcode_value == 31)
+    switch (error)
     {
-        successCounter++;
-        barcode_value = 0;
-    }
-    else if (error == PHASE_MISMATCH_ERROR)
-    {
-        phaseErrorCounter++;
-        errorCounter++;
-    }
-    else if (error == TIMEOUT_ERROR)
-    {
-        errorCounter++;
-        timeoutCounter++;;
-    }
-    if(!(errorCounter %20))
-    {
-        Serial.print("Success: ");
-        Serial.print(successCounter);
-        Serial.print(" | Phase Errors: ");
-        Serial.print(phaseErrorCounter);
-        Serial.print(" | Timeouts: ");
-        Serial.println(timeoutCounter);
-        errorCounter++;
+    case NO_CODE_DETECTED:
+        Serial.println("NO_CODE_DETECTED");
+        break;
+    case READING_IN_PROGRESS:
+        Serial.println("READING_IN_PROGRESS");
+        break;
+    case READING_SUCCESSFUL:
+        Serial.print("READING_SUCCESSFUL: ");
+        Serial.print("Barcode value: ");
+        Serial.print(barcode_value);
+        Serial.print(", Velocity: ");
+        Serial.println(barcode_velocity);
+        break;
+    case PHASE_MISMATCH_ERROR:
+        Serial.print("PHASE_MISMATCH_ERROR");
+        Serial.println();
+        break;
+    case TIMEOUT_ERROR:
+        Serial.println("TIMEOUT_ERROR");
+        break;
     }
     delay(500);
 }
