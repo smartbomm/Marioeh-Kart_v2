@@ -54,4 +54,5 @@ void configure_extint() {
     NVIC_EnableIRQ(EIC_IRQn);
 }
 
+
 #endif

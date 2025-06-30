@@ -8,6 +8,7 @@
 #include "OdometerData.h"
 #include "ringbuffer.h"
 #include "Hardware_Config.h"
+#include <BarcodeReader.h>
 
 // Time intervals
 constexpr unsigned long READ_INTERVAL_MS = 2;     // Interval between readings
@@ -29,6 +30,8 @@ uint8_t counter_sending = 0u;
 int32_t acc_complete_for_debugging = 0;
 uint32_t debugCount = 0u;
 uint16_t counter_standstill = 0u;
+uint8_t barcode_value = 0u;
+uint32_t barcode_debug_velocity = 0u;
 
  //Ringbuffer defined in "ringbuffer.h"
 struct common_buffer_data Struct_Accel_X  = initialize_buffer();
@@ -40,6 +43,20 @@ struct common_buffer_data Struct_Motor_Voltage = initialize_buffer();
 unsigned long previousMillis = 0;
 uint32_t previousMillis_stop_cond = 0;
 
+// Barcode 
+void EIC_Handler(void) {
+    if (EIC->INTFLAG.reg & EIC_INTFLAG_EXTINT7) {
+        EIC->INTFLAG.reg = EIC_INTFLAG_EXTINT7;  // Flag löschen
+        barcodeIsr();  // Barcode ISR aufrufen
+    }
+}
+
+barcodeConfig_t barcode_config = {
+    .pin = PIN_PA07,          // Pin where the barcode reader is connected to
+    .bitLength = 10,    // Length in mm of 1 bit (sequence of black and white section)
+    .readingTimeout = 40000  // Timeout in µs for the reading process
+};
+
 
 void setup()
  {
@@ -47,11 +64,13 @@ void setup()
   uint64_t systemTime = 0;
   while (systemTime == 0) {
     systemTime = bytesToUint64_StringDigits(simpleGET("/t"));
-}
+  }
   SUDP_beginn(systemTime);
   if (!IMU.begin()) {
     while (true);
   }
+  configure_extint();
+  barcode_init(barcode_config);
 }
 
 void loop() 
@@ -133,6 +152,10 @@ debugCount = micros();
       
    debugCount=micros()-debugCount;
     Serial.println(debugCount);
+
+  // Barcode recognition
+    barcode_error_t error = barcode_get(barcode_value, barcode_debug_velocity);
+    
 if (counter_sending>=20) 
 {
 
@@ -140,14 +163,14 @@ if (counter_sending>=20)
     sensorData.accel_vec[1] = filteredAccelY;
     sensorData.accel_vec[2] = filteredAccelZ;
     sensorData.gyro_vec[0] = Struct_Accel_X.merker_buffer_sum;    
-    sensorData.gyro_vec[1] = acc_complete_for_debugging;  
-    sensorData.gyro_vec[2] = motor_voltage; 
+    sensorData.gyro_vec[1] = error;  
+    sensorData.gyro_vec[2] = barcode_debug_velocity; 
 
     sensorData.accel_lin = filteredAccelX;
     sensorData.speed_lin = filtered_data_velocity_x/SPEED_SCALER;
     sensorData.pos_lin = (uint32_t)(filtered_data_pos_x/POSITION_SCALER); // account for Integration error
 
-    sensorData.track_section = 1;
+    sensorData.track_section = barcode_value;
 
     // Debug Motor Voltage
     Serial.print(motor_voltage);
