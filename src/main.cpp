@@ -53,7 +53,7 @@ void EIC_Handler(void) {
 
 barcodeConfig_t barcode_config = {
     .pin = PIN_PA07,          // Pin where the barcode reader is connected to
-    .bitLength = 10,    // Length in mm of 1 bit (sequence of black and white section)
+    .bitLength = 9489,    // Length in µm of 1 bit (sequence of black and white section)
     .readingTimeout = 40000  // Timeout in µs for the reading process
 };
 
@@ -165,13 +165,15 @@ if (counter_sending>=20)
     sensorData.gyro_vec[0] = Struct_Accel_X.merker_buffer_sum;    
     sensorData.gyro_vec[1] = error;  
     sensorData.gyro_vec[2] = barcode_debug_velocity; 
+    sensorData.error_code = error; // 0 as standard --> machts was ihr wollt damit
+
 
     sensorData.accel_lin = filteredAccelX;
     sensorData.speed_lin = filtered_data_velocity_x/SPEED_SCALER;
     sensorData.pos_lin = (uint32_t)(filtered_data_pos_x/POSITION_SCALER); // account for Integration error
 
     sensorData.track_section = barcode_value;
-    sensorData.error_code = 0; // 0 as standard --> machts was ihr wollt damit
+   
 
     // Debug Motor Voltage
     Serial.print(motor_voltage);

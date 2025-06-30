@@ -134,7 +134,7 @@ void barcodeIsr()
 void barcode_init(barcodeConfig_t config)
 {
     barcodeReader.config = config;
-    barcodeReader.config.bitLength *= 1000000u;
+    barcodeReader.config.bitLength *= 1000u;
     barcodeReader.pin = config.pin;
     barcodeReader.readingTimeout = config.readingTimeout;
     barcodeReader.bitCounter = 0u;
