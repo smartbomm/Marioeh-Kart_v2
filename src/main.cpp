@@ -2,6 +2,7 @@
 #include <BarcodeReader.h>
 #include <MathFunctions.h>
 #include <PinConfig.h>
+#include <DEBUG.h>
 
 barcodeConfig_t barcode_config = {
     .pin = PIN_PA07,          // Pin where the barcode reader is connected to
@@ -10,6 +11,11 @@ barcodeConfig_t barcode_config = {
 };
 uint8_t barcode_value = 0;
 uint32_t barcode_velocity = 0;
+
+uint8_t successCounter = 0;
+uint8_t phaseErrorCounter = 0;
+uint8_t timeoutCounter = 0;
+uint8_t errorCounter = 0;
 
 void EIC_Handler(void) {
     if (EIC->INTFLAG.reg & EIC_INTFLAG_EXTINT7) {
@@ -21,34 +27,43 @@ void EIC_Handler(void) {
 
 void setup()
 {
-
+    DEBUG_START();
+    Serial.begin(115200);
     
     configure_extint();
     barcode_init(barcode_config);
+    DEBUG(example_error, (uint8_t) Error1);
+
+    
 }
 
 void loop()
 {
-    switch (barcode_get(barcode_value, barcode_velocity))
+    barcode_error_t error = barcode_get(barcode_value, barcode_velocity);
+    if(barcode_value == 31)
     {
-    case NO_CODE_DETECTED:
-        Serial.println("No code detected");
-        break;
-    case READING_IN_PROGRESS:
-        Serial.println("Reading in progress");
-        break;
-    case READING_SUCCESSFUL:
-        Serial.print("Barcode value: ");
-        Serial.print(barcode_value);
-        Serial.print(" Velocity: ");
-        Serial.println(barcode_velocity);
-        break;
-    case PHASE_MISMATCH_ERROR:
-        Serial.println("Phase mismatch error");
-        break;
-    case TIMEOUT_ERROR:
-        Serial.println("Timeout error");
-        break;
+        successCounter++;
+        barcode_value = 0;
     }
-    delay(1000);
+    else if (error == PHASE_MISMATCH_ERROR)
+    {
+        phaseErrorCounter++;
+        errorCounter++;
+    }
+    else if (error == TIMEOUT_ERROR)
+    {
+        errorCounter++;
+        timeoutCounter++;;
+    }
+    if(!(errorCounter %20))
+    {
+        Serial.print("Success: ");
+        Serial.print(successCounter);
+        Serial.print(" | Phase Errors: ");
+        Serial.print(phaseErrorCounter);
+        Serial.print(" | Timeouts: ");
+        Serial.println(timeoutCounter);
+        errorCounter++;
+    }
+    delay(500);
 }

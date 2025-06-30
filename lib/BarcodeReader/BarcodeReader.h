@@ -24,10 +24,6 @@ typedef enum
     TIMEOUT_ERROR
 } barcode_error_t;
 
-
-
-
-
 /**
  * @brief Configuration struct for the barcode reader
  * @param pin Digital input pin where the barcode reader is connected to

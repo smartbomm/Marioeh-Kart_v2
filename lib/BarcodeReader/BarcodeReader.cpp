@@ -1,10 +1,25 @@
 #include <BarcodeReader.h>
 
+//Macros
+
 #define BARCODE_bits 8
 #define BARCODE_edges (BARCODE_bits * 2 + 2)
 
 #define DISABLE_EXTINT_7() EIC->INTENCLR.reg = EIC_INTENCLR_EXTINT3;
 #define ENABLE_EXTINT_7() EIC->INTENSET.reg = EIC_INTENSET_EXTINT3;
+
+
+#ifdef DEBUG
+uint8_t _PHASE_MISMATCH_ERROR = 0; // Variable to store the phase mismatch error code for debugging
+#define _PHASE_MISMATCH_ERROR(no) _PHASE_MISMATCH_ERROR = no; // Variable to store the phase mismatch error code for debugging
+#define DEBUG_PHASE_MISMATCH_ERROR _PHASE_MISMATCH_ERROR // Macro to get the phase mismatch error code for debugging
+
+#else
+#define _PHASE_MISMATCH_ERROR(no)
+#define DEBUG_PHASE_MISMATCH_ERROR 
+#endif
+
+
 
 typedef enum
 {
@@ -18,8 +33,11 @@ typedef struct bcb
     uint32_t blackTime;
 } barCodeBit_t;
 
+// Private ENUMS
+
+
 // Private Variables
-barcode_error_t barcode_error = NO_CODE_DETECTED; //Variable to store the error code from the barcode reader
+barcode_error_t barcode_error = NO_CODE_DETECTED; // Variable to store the error code from the barcode reader
 
 // Private Functions Prototypes
 void _reset_counters();
@@ -60,8 +78,7 @@ struct barcodeReader_t
 
 void barcodeIsr()
 {
-    DEBUG_PRINTLN("Barcode ISR triggered");
-    
+
     barcodeReader.edgeCounter++;
     uint32_t actualTime = micros();
 
@@ -70,14 +87,14 @@ void barcodeIsr()
     bool counterPhase = barcodeReader.edgeCounter % 2; // 1 = White Phase, 0 = Black Phase
     if (pinPhase != counterPhase)
     {
+        _PHASE_MISMATCH_ERROR(barcodeReader.edgeCounter);
         // Phase mismatch, reset edge counter
         _reset_counters();
         barcode_error = PHASE_MISMATCH_ERROR;
-        DISABLE_EXTINT_7();
-        DEBUG_PRINTLN("Phase MISMATCH ERROR");
+        
+        //DISABLE_EXTINT_7();
         return;
     }
-    
 
     // First edge
     if (1 == barcodeReader.edgeCounter)
@@ -85,7 +102,7 @@ void barcodeIsr()
         barcodeReader.lastTime = micros();
         return;
     }
-    //All other edges
+    // All other edges
     else if (barcodeReader.edgeCounter < 18u)
     {
         // Check for timeouts
@@ -94,8 +111,7 @@ void barcodeIsr()
             // Timeout error, reset edge counter
             _reset_counters();
             barcode_error = TIMEOUT_ERROR;
-            DISABLE_EXTINT_7();
-            DEBUG_PRINTLN("Timeout ERROR");
+            //DISABLE_EXTINT_7();
             return;
         }
         if (pinPhase) // Black Phase ending
@@ -108,10 +124,9 @@ void barcodeIsr()
             barcodeReader.barcodeByte[barcodeReader.bitCounter].whiteTime = actualTime - barcodeReader.lastTime;
         }
         barcodeReader.lastTime = actualTime;
-        if (barcodeReader.edgeCounter == 18)
+        if (barcodeReader.edgeCounter == 18u)
         {
             DISABLE_EXTINT_7();
-            DEBUG_PRINTLN("Barcode reading finished");
         }
     }
 }
@@ -167,6 +182,32 @@ barcode_error_t barcode_get(uint8_t &value, uint32_t &velocity)
     {
         reading_status = READING_IN_PROGRESS;
     }
+#ifdef DEBUG
+    switch (reading_status)
+    {
+    case NO_CODE_DETECTED:
+        DEBUG_PRINTLN("NO_CODE_DETECTED");
+        break;
+    case READING_IN_PROGRESS:
+        DEBUG_PRINTLN("READING_IN_PROGRESS");
+        break;
+    case READING_SUCCESSFUL:
+        DEBUG_PRINT("READING_SUCCESSFUL: ");
+        DEBUG_PRINT("Barcode value: ");
+        DEBUG_PRINT(value);
+        DEBUG_PRINT(", Velocity: ");
+        DEBUG_PRINTLN(velocity);
+        break;
+    case PHASE_MISMATCH_ERROR:
+        DEBUG_PRINT("PHASE_MISMATCH_ERROR, edge no. ");
+        DEBUG_PRINT(DEBUG_PHASE_MISMATCH_ERROR);
+        DEBUG_PRINTLN();
+        break;
+    case TIMEOUT_ERROR:
+        DEBUG_PRINTLN("TIMEOUT_ERROR");
+        break;
+    }
+#endif
     return reading_status;
 }
 
