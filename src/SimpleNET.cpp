@@ -187,7 +187,8 @@ void SUDP_send(odometerData_t data) {
       "g/y=%ld;"
       "g/z=%ld;"
       "p=%s;"
-      "t=%s",
+      "t=%s;"
+      "e=%d",
       getMac().c_str(),
       (unsigned long)data.track_section,
       (unsigned long)data.pos_lin,
@@ -200,7 +201,8 @@ void SUDP_send(odometerData_t data) {
       (long)data.gyro_vec[1],
       (long)data.gyro_vec[2],
       absJsonContent,
-      timeStr);
+      timeStr,
+      data.error_code);
   #endif
 
   udp.beginPacket(SERVER_IP, UDP_PORT);

@@ -171,6 +171,7 @@ if (counter_sending>=20)
     sensorData.pos_lin = (uint32_t)(filtered_data_pos_x/POSITION_SCALER); // account for Integration error
 
     sensorData.track_section = barcode_value;
+    sensorData.error_code = 0; // 0 as standard --> machts was ihr wollt damit
 
     // Debug Motor Voltage
     Serial.print(motor_voltage);

@@ -118,9 +118,9 @@ int LSM6DS3Class::readAcceleration(int16_t& x, int16_t& y, int16_t& z)
   int16_t data[3];
 
   if (!readRegisters(LSM6DS3_OUTX_L_XL, (uint8_t*)data, sizeof(data))) {
-    x = NAN;
-    y = NAN;
-    z = NAN;
+    x = 0;
+    y = 0;
+    z = 0;
 
     return 0;
   }
@@ -151,9 +151,9 @@ int LSM6DS3Class::readGyroscope(int16_t& x, int16_t& y, int16_t& z)
   int16_t data[3];
 
   if (!readRegisters(LSM6DS3_OUTX_L_G, (uint8_t*)data, sizeof(data))) {
-    x = NAN;
-    y = NAN;
-    z = NAN;
+    x = 0;
+    y = 0;
+    z = 0;
 
     return 0;
   }
@@ -184,7 +184,7 @@ int LSM6DS3Class::readTemperature(int16_t& t)
   int16_t data;
 
   if (!readRegisters(LSM6DS3_OUT_TEMP_L, (uint8_t*)data, sizeof(data))) {
-    t = NAN;
+    t = 0;
 
     return 0;
   }

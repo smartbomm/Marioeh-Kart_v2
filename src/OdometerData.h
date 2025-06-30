@@ -5,6 +5,7 @@
 #define VERSION 0.1
 
 typedef struct data {
+    uint8_t error_code;
     uint8_t track_section;
     uint32_t pos_lin;
     int32_t speed_lin;
