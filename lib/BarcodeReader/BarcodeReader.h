@@ -27,7 +27,7 @@ typedef enum
 /**
  * @brief Configuration struct for the barcode reader
  * @param pin Digital input pin where the barcode reader is connected to
- * @param bitLength Length in mm of 1 bit (seuqence od black and white section)
+ * @param bitLength Length in µm of 1 bit (seuqence of black and white section)
  * @param readingTimeout Timeout in µs for the reading process
  */
 typedef struct  {
