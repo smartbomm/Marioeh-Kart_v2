@@ -28,6 +28,7 @@ uint64_t filtered_data_pos_x = 0u;
 uint8_t counter_sending = 0u;
 int32_t acc_complete_for_debugging = 0;
 uint32_t debugCount = 0u;
+uint16_t counter_standstill = 0u;
 
  //Ringbuffer defined in "ringbuffer.h"
 struct common_buffer_data Struct_Accel_X  = initialize_buffer();
@@ -91,12 +92,17 @@ debugCount = micros();
       motor_voltage = moving_average(&Struct_Motor_Voltage);
 
     
-      // Speed processing with check against hardwired logic
-      if ((motor_voltage < DEADZONE_MOTOR)) {
-        acc_complete_for_debugging = integration_32bit(&Struct_Accel_X, &filtered_data_velocity_x, filteredAccelX,filteredAccelY);
-        }
-      else {
+      // Speed processing with check against hardwired logic over a short time intervall
+      if ((motor_voltage > DEADZONE_MOTOR) && (filteredAccelX == 0)) {
+          counter_standstill++;
+      }
+      
+      if (counter_standstill >= STANDSTILL) {
         filtered_data_velocity_x = 0;
+        counter_standstill = 0u;
+        }
+      else{
+        acc_complete_for_debugging = integration_32bit(&Struct_Accel_X, &filtered_data_velocity_x, filteredAccelX,filteredAccelY);
         }
       
       // Stop recognition

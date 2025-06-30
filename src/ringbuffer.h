@@ -19,6 +19,9 @@
 // define empiric factor for valueing accel_Y in right turns
 #define kright    15000000
 
+// define a amount of samples before a standstill is calculated
+#define STANDSTILL  20
+
 
 struct common_buffer_data
 {
