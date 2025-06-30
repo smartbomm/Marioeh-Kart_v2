@@ -10,7 +10,7 @@
 #include "Hardware_Config.h"
 
 // Time intervals
-constexpr unsigned long READ_INTERVAL_MS = 1;     // Interval between readings
+constexpr unsigned long READ_INTERVAL_MS = 2;     // Interval between readings
 constexpr unsigned long INTERVAL_STOP_COND = 100;
 
 // Data struct to be sent
@@ -82,6 +82,7 @@ debugCount = micros();
       push_data_to_buffer(accelX, &Struct_Accel_X);
       push_data_to_buffer(accelY, &Struct_Accel_Y);
       push_data_to_buffer(accelZ, &Struct_Accel_Z);
+
       push_data_to_buffer(analogRead(Motor), &Struct_Motor_Voltage);
       // Auslesen der Filterwerte
       filteredAccelX = moving_average(&Struct_Accel_X) ;
