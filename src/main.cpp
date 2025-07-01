@@ -115,6 +115,9 @@ debugCount = micros();
       if ((motor_voltage > DEADZONE_MOTOR) && (filteredAccelX == 0)) {
           counter_standstill++;
       }
+      else {
+        counter_standstill = 0;
+      }
       
       if (counter_standstill >= STANDSTILL) {
         filtered_data_velocity_x = 0;
@@ -157,6 +160,8 @@ debugCount = micros();
     barcode_error_t error = barcode_get(barcode_value, barcode_debug_velocity);
     if (error == READING_SUCCESSFUL){
       filtered_data_pos_x = 0;
+      filtered_data_velocity_x=(int32_t)(barcode_debug_velocity*SPEED_SCALER);
+
     }
     
 if (counter_sending>=20) 
