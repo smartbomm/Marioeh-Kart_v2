@@ -155,6 +155,9 @@ debugCount = micros();
 
   // Barcode recognition
     barcode_error_t error = barcode_get(barcode_value, barcode_debug_velocity);
+    if (error == READING_SUCCESSFUL){
+      filtered_data_pos_x = 0;
+    }
     
 if (counter_sending>=20) 
 {
@@ -163,7 +166,7 @@ if (counter_sending>=20)
     sensorData.accel_vec[1] = accelY;
     sensorData.accel_vec[2] = accelZ;
     sensorData.gyro_vec[0] = Struct_Accel_X.merker_buffer_sum;    
-    sensorData.gyro_vec[1] = error;  
+    sensorData.gyro_vec[1] = gyroY;  
     sensorData.gyro_vec[2] = barcode_debug_velocity; 
     sensorData.error_code = error; // 0 as standard --> machts was ihr wollt damit
 

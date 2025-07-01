@@ -9,15 +9,6 @@
 #define ENABLE_EXTINT_7() EIC->INTENSET.reg = EIC_INTENSET_EXTINT3;
 
 
-#ifdef DEBUG
-uint8_t _PHASE_MISMATCH_ERROR = 0; // Variable to store the phase mismatch error code for debugging
-#define _PHASE_MISMATCH_ERROR(no) _PHASE_MISMATCH_ERROR = no; // Variable to store the phase mismatch error code for debugging
-#define DEBUG_PHASE_MISMATCH_ERROR _PHASE_MISMATCH_ERROR // Macro to get the phase mismatch error code for debugging
-
-#else
-#define _PHASE_MISMATCH_ERROR(no)
-#define DEBUG_PHASE_MISMATCH_ERROR 
-#endif
 
 
 
@@ -87,7 +78,6 @@ void barcodeIsr()
     bool counterPhase = barcodeReader.edgeCounter % 2; // 1 = White Phase, 0 = Black Phase
     if (pinPhase != counterPhase)
     {
-        _PHASE_MISMATCH_ERROR(barcodeReader.edgeCounter);
         // Phase mismatch, reset edge counter
         _reset_counters();
         barcode_error = PHASE_MISMATCH_ERROR;
