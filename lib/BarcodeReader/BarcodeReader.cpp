@@ -9,6 +9,15 @@
 #define ENABLE_EXTINT_7() EIC->INTENSET.reg = EIC_INTENSET_EXTINT3;
 
 
+#ifdef DEBUG
+uint8_t _PHASE_MISMATCH_ERROR = 0; // Variable to store the phase mismatch error code for debugging
+#define _PHASE_MISMATCH_ERROR(no) _PHASE_MISMATCH_ERROR = no; // Variable to store the phase mismatch error code for debugging
+#define DEBUG_PHASE_MISMATCH_ERROR _PHASE_MISMATCH_ERROR // Macro to get the phase mismatch error code for debugging
+
+#else
+#define _PHASE_MISMATCH_ERROR(no)
+#define DEBUG_PHASE_MISMATCH_ERROR 
+#endif
 
 
 
@@ -78,6 +87,7 @@ void barcodeIsr()
     bool counterPhase = barcodeReader.edgeCounter % 2; // 1 = White Phase, 0 = Black Phase
     if (pinPhase != counterPhase)
     {
+        _PHASE_MISMATCH_ERROR(barcodeReader.edgeCounter);
         // Phase mismatch, reset edge counter
         _reset_counters();
         barcode_error = PHASE_MISMATCH_ERROR;
@@ -95,15 +105,6 @@ void barcodeIsr()
     // All other edges
     else if (barcodeReader.edgeCounter < 18u)
     {
-        // Check for timeouts
-        if ((actualTime - barcodeReader.lastTime) > barcodeReader.readingTimeout)
-        {
-            // Timeout error, reset edge counter
-            _reset_counters();
-            barcode_error = TIMEOUT_ERROR;
-            //DISABLE_EXTINT_7();
-            return;
-        }
         if (pinPhase) // Black Phase ending
         {
             barcodeReader.barcodeByte[barcodeReader.bitCounter].blackTime = actualTime - barcodeReader.lastTime;
@@ -170,7 +171,19 @@ barcode_error_t barcode_get(uint8_t &value, uint32_t &velocity)
     }
     else // Not finished yet
     {
-        reading_status = READING_IN_PROGRESS;
+        //Check for timeouts
+        uint32_t actualTime = micros();
+        if (actualTime - barcodeReader.lastTime > barcodeReader.readingTimeout)
+        {
+            _reset_counters();
+            reading_status = TIMEOUT_ERROR;
+
+        }
+        else
+        {
+            reading_status = READING_IN_PROGRESS;
+        }
+        
     }
 #ifdef DEBUG
     switch (reading_status)
