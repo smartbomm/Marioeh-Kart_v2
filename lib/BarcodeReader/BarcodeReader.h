@@ -2,7 +2,7 @@
 #define BarcodeReader_h
 #include <Arduino.h>
 
-#define DEBUG
+//#define DEBUG
 #ifdef DEBUG
 #include <DEBUG.h>
 #endif
