@@ -160,8 +160,8 @@ if (counter_sending>=20)
 {
 
     sensorData.accel_vec[0] = accelX;
-    sensorData.accel_vec[1] = filteredAccelY;
-    sensorData.accel_vec[2] = filteredAccelZ;
+    sensorData.accel_vec[1] = accelY;
+    sensorData.accel_vec[2] = accelZ;
     sensorData.gyro_vec[0] = Struct_Accel_X.merker_buffer_sum;    
     sensorData.gyro_vec[1] = error;  
     sensorData.gyro_vec[2] = barcode_debug_velocity; 

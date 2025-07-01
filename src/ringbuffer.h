@@ -15,7 +15,7 @@
 // define Zero-Border for contemplation of accel_y
 #define ZERO_MOVEMENT_Y 40000 
 // define empiric factor for valueing accel_Y in left turns
-#define kleft     25000000
+#define kleft     20000000
 // define empiric factor for valueing accel_Y in right turns
 #define kright    20000000
 
