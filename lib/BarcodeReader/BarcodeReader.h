@@ -1,7 +1,11 @@
 #ifndef BarcodeReader_h
 #define BarcodeReader_h
 #include <Arduino.h>
+
+#define DEBUG
+#ifdef DEBUG
 #include <DEBUG.h>
+#endif
 
 
 /**
@@ -18,8 +22,8 @@
 typedef enum
 {
     NO_CODE_DETECTED,
-    READING_IN_PROGRESS,
     READING_SUCCESSFUL,
+    READING_IN_PROGRESS,
     PHASE_MISMATCH_ERROR,
     TIMEOUT_ERROR
 } barcode_error_t;
