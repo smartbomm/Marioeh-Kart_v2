@@ -139,7 +139,7 @@ debugCount = micros();
       //}
 
 
-       integration_64bit(&Struct_Accel_X, &filtered_data_pos_x, filtered_data_velocity_x);
+       integration_64bit(Struct_Accel_X, &filtered_data_pos_x, filtered_data_velocity_x);
        counter_sending++;
     }
 
