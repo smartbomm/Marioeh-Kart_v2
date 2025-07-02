@@ -29,7 +29,7 @@ uint64_t filtered_data_pos_x = 0u;
 uint8_t counter_sending = 0u;
 int32_t acc_complete_for_debugging = 0;
 uint32_t debugCount = 0u;
-uint16_t counter_standstill = 0u;
+uint8_t counter_standstill = 0u;
 uint8_t barcode_value = 0u;
 uint32_t barcode_debug_velocity = 0u;
 
@@ -82,18 +82,14 @@ debugCount = micros();
   {
     previousMillis = currentMillis;
 
-
-
-    //bool accelAvailable = IMU.accelerationAvailable();
-   // bool gyroAvailable = IMU.gyroscopeAvailable();
     if (IMU.readAcceleration(accelX, accelY, accelZ)) 
     {
-      if ((accelX > (int32_t)-ZERO_MOVEMENT) & (accelX < (int32_t)ZERO_MOVEMENT))
+      if (abs(accelX)<ZERO_MOVEMENT)
       {
         accelX =0u;
       }     
       // zero movemnet auch für y
-      if ((accelY > (int32_t)-ZERO_MOVEMENT) & (accelY < (int32_t)ZERO_MOVEMENT))
+      if (abs(accelY)<ZERO_MOVEMENT_Y)
       {
         accelY =0u;
       }     
@@ -112,39 +108,34 @@ debugCount = micros();
 
     
       // Speed processing with check against hardwired logic over a short time intervall
-      if ((motor_voltage > DEADZONE_MOTOR) && (filteredAccelX == 0)) {
+      if ((motor_voltage > DEADZONE_MOTOR) && (filteredAccelX == 0)) 
+      {
           counter_standstill++;
       }
-      else {
+      else 
+      {
         counter_standstill = 0;
       }
       
-      if (counter_standstill >= STANDSTILL) {
+      if (counter_standstill >= STANDSTILL) 
+      {
         filtered_data_velocity_x = 0;
         counter_standstill = 0u;
-        }
-      else{
+      }
+      else
+      {
+        //integration of speed out of filtered x and y acceleration
         acc_complete_for_debugging = integration_32bit(&Struct_Accel_X, &filtered_data_velocity_x, filteredAccelX,filteredAccelY);
-        }
+      }
       
-      // Stop recognition
-      
-      //if ((buffer_sum_merker <= ZERO_MOVEMENT*RINGBUFFER_SIZE) & (Struct_Accel_X.buffer_sum <= ZERO_MOVEMENT*RINGBUFFER_SIZE)){
-        //filtered_data_velocity_x = 0u; //Acceleration has been zero for long, therefore the car isn't moving anymore 
-
-//      }
-  //    if (currentMillis - previousMillis_stop_cond >= INTERVAL_STOP_COND) {
-    //      previousMillis_stop_cond = currentMillis; // Reset timer
-      //    buffer_sum_merker = Struct_Accel_X.buffer_sum; // Write current Buffer in Merker
-      //}
-
-
+    
+      //integration of position from intgrated speed; incrementation of send counter
        integration_64bit(Struct_Accel_X, &filtered_data_pos_x, filtered_data_velocity_x);
        counter_sending++;
     }
 
 
-
+//reading of Gyroscope values and store them in gyroX,gyroY,gyroZ
     if (IMU.readGyroscope(gyroX, gyroY, gyroZ)) 
     {
     
@@ -159,25 +150,27 @@ debugCount = micros();
   // Barcode recognition
     barcode_error_t error = barcode_get(barcode_value, barcode_debug_velocity);
     if (error == READING_SUCCESSFUL){
+      // set back position to zero when entering a new track section
       filtered_data_pos_x = 0;
+      //take the velocity from the barcode reader to prevent integration problems
       filtered_data_velocity_x=(int32_t)(barcode_debug_velocity*SPEED_SCALER);
 
     }
-    
+    // after 20 programcycles actual values are send via udp to the mqtt bridge
 if (counter_sending>=20) 
 {
 
-    sensorData.accel_vec[0] = accelX;
-    sensorData.accel_vec[1] = accelY;
-    sensorData.accel_vec[2] = accelZ;
-    sensorData.gyro_vec[0] = Struct_Accel_X.merker_buffer_sum;    
-    sensorData.gyro_vec[1] = gyroY;  
+    sensorData.accel_vec[0] = accelX;  //unfiltered acceleration x
+    sensorData.accel_vec[1] = accelY;  //unfiltered acceleration y
+    sensorData.accel_vec[2] = accelZ;  //unfiltered acceleration z
+    sensorData.gyro_vec[0] = gyroX;    //unfiltered gyro x
+    sensorData.gyro_vec[1] = gyroY;    //unfiltered gyro y
     sensorData.gyro_vec[2] = barcode_debug_velocity; 
     sensorData.error_code = error; // 0 as standard --> machts was ihr wollt damit
 
 
-    sensorData.accel_lin = filteredAccelX;
-    sensorData.speed_lin = filtered_data_velocity_x/SPEED_SCALER;
+    sensorData.accel_lin = filteredAccelX;   //acceleration linear 
+    sensorData.speed_lin = filtered_data_velocity_x/SPEED_SCALER;    //speed linear in mm/s
     sensorData.pos_lin = (uint32_t)(filtered_data_pos_x/POSITION_SCALER); // account for Integration error
 
     sensorData.track_section = barcode_value;
