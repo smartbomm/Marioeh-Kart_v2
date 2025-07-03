@@ -89,7 +89,7 @@ debugCount = micros();
         accelX =0u;
       }     
       // zero movemnet auch für y
-      if (abs(accelY)<ZERO_MOVEMENT_Y)
+      if (abs(accelY)<ZERO_MOVEMENT)
       {
         accelY =0u;
       }     
