@@ -23,7 +23,6 @@ int16_t gyroX, gyroY, gyroZ;
 
 // Other variable definition
 int32_t filteredAccelX, filteredAccelY, filteredAccelZ;
-int32_t fixedGyroX, fixedGyroY, fixedGyroZ;
 int32_t filtered_data_velocity_x = 0;
 uint64_t filtered_data_pos_x = 0u;
 uint8_t counter_sending = 0u;
@@ -165,7 +164,7 @@ if (counter_sending>=20)
     sensorData.accel_vec[2] = accelZ;  //unfiltered acceleration z
     sensorData.gyro_vec[0] = gyroX;    //unfiltered gyro x
     sensorData.gyro_vec[1] = gyroY;    //unfiltered gyro y
-    sensorData.gyro_vec[2] = barcode_debug_velocity; 
+    sensorData.gyro_vec[2] = gyroZ;    //unfiltered gyro z
     sensorData.error_code = error; // 0 as standard --> machts was ihr wollt damit
 
 
