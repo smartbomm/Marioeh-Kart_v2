@@ -21,67 +21,83 @@
 
 void push_data_to_buffer (int32_t data, struct common_buffer_data* buffer)
 {
-    buffer->kicked_value=buffer->ringbuffer[buffer->index_last_element];
-    buffer->ringbuffer[buffer->index_last_element] = -data; //-data because of Orientation of IMU brake should be negative
-    buffer->index_last_element++;
-    buffer->ringbuffer_index++;
+    if (buffer != NULL) 
+    {
+        buffer->kicked_value=buffer->ringbuffer[buffer->index_last_element];
+        buffer->ringbuffer[buffer->index_last_element] = -data; //-data because of Orientation of IMU brake should be negative
+        buffer->index_last_element++;
+        buffer->ringbuffer_index++;
 
-    if (buffer -> last_time == 0u) {        // Fixing first Step from 0 to 460000000ms
+        if (buffer -> last_time == 0u) 
+        {        // Fixing first Step from 0 to 460000000ms
         buffer -> last_time = accurateMillis() - 1u;
-    }
-    else {
+        }
+        else 
+        {
         buffer->last_time = buffer->current_time;
-    }
+        }
 
-    buffer->current_time = accurateMillis();
+        buffer->current_time = accurateMillis();
     
 
-    if (buffer->ringbuffer_index >= RINGBUFFER_SIZE) {
+        if (buffer->ringbuffer_index >= RINGBUFFER_SIZE) 
+        {
         buffer->ringbuffer_index = 0u;
-    }
-    if (buffer->index_last_element >= RINGBUFFER_SIZE) {
+        }
+        if (buffer->index_last_element >= RINGBUFFER_SIZE)  
+        {
         buffer->index_last_element = 0u;
-    }
+        }
   
+    }
 }
 
 int32_t moving_average (struct common_buffer_data* buffer) 
-{   buffer->merker_buffer_sum=buffer->buffer_sum;
-    buffer->buffer_sum=(buffer->buffer_sum)-(buffer->kicked_value)+(buffer->ringbuffer[buffer->ringbuffer_index]);
-    return buffer->buffer_sum;
+{   
+    if(buffer != NULL)  
+    { 
+        buffer->merker_buffer_sum=buffer->buffer_sum;
+        buffer->buffer_sum=(buffer->buffer_sum)-(buffer->kicked_value)+(buffer->ringbuffer[buffer->ringbuffer_index]);
+        return buffer->buffer_sum;
+    }
+    return 0;
 }
 
-int32_t integration_32bit(struct common_buffer_data* buffer,int32_t* speed, int32_t accel_linear,int32_t accel_Y) 
+void integration_32bit(struct common_buffer_data* buffer,int32_t* speed, int32_t accel_linear,int32_t accel_Y) 
 {
-    buffer->merker_accel_complete=buffer->acc_complete;  
-    buffer->merker_speed= *speed;                        //merker werden überschrieben
-    // folgend ist ein erster versuch einer betrachtung von Kurven 
-    //hierzu wird der integration 32 bit accel y mit übergeben
-    if ((abs(accel_Y)>=ZERO_MOVEMENT_Y)&&(*speed!=0))  //kurvenbetrachtung
+    if ((buffer != NULL)&&(speed != NULL))
     {
+        buffer->merker_accel_complete=buffer->acc_complete;  
+        buffer->merker_speed= *speed;                        //merker werden überschrieben
+        if ((abs(accel_Y)>=ZERO_MOVEMENT_Y)&&(*speed!=0))   //kurvenbetrachtung
+        {
             buffer->acc_complete=accel_linear+(abs(accel_Y)*(k/(*speed)));
-    }
-    else 
-    {
+        }
+        else 
+        {
             buffer->acc_complete=accel_linear;  // fall für gerade
+        }
+        int32_t a1=buffer->merker_accel_complete;
+        int32_t a4=buffer->acc_complete;
+        int32_t a2=((2*a1)+a4)/3;
+        int32_t a3=(a1+(2*a4))/3;
+        int32_t dt = buffer->current_time-buffer->last_time;
+        *speed = *speed+((a1+(2*a2)+(2*a3)+a4)/6)*dt;
+
     }
-    int32_t a1=buffer->merker_accel_complete;
-    int32_t a4=buffer->acc_complete;
-    int32_t a2=((2*a1)+a4)/3;
-    int32_t a3=(a1+(2*a4))/3;
-    int32_t dt = buffer->current_time-buffer->last_time;
-    *speed = *speed+((a1+(2*a2)+(2*a3)+a4)/6)*dt;
-    return dt;
 }
 
 void integration_64bit(struct common_buffer_data buffer,uint64_t * position, int32_t speed_linear) 
 {
-    int32_t dt = (buffer.current_time)-(buffer.last_time);
-    int32_t v1 = buffer.merker_speed;
-    int32_t v4 = speed_linear;
-    int32_t v2 = ((2*v1)+v4)/3;
-    int32_t v3 = (v1+(2*v4))/3;
-    *position = *position+((v1+(2*v2)+(2*v3)+v4)/6)*dt;
+    if (position != NULL)
+    {
+        int32_t dt = (buffer.current_time)-(buffer.last_time);
+        int32_t v1 = buffer.merker_speed;
+        int32_t v4 = speed_linear;
+        int32_t v2 = ((2*v1)+v4)/3;
+        int32_t v3 = (v1+(2*v4))/3;
+        *position = *position+((v1+(2*v2)+(2*v3)+v4)/6)*dt;
+    }
 }
 
 

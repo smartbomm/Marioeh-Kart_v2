@@ -124,7 +124,7 @@ debugCount = micros();
       else
       {
         //integration of speed out of filtered x and y acceleration
-        acc_complete_for_debugging = integration_32bit(&Struct_Accel_X, &filtered_data_velocity_x, filteredAccelX,filteredAccelY);
+         integration_32bit(&Struct_Accel_X, &filtered_data_velocity_x, filteredAccelX,filteredAccelY);
       }
       
     
