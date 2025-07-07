@@ -83,6 +83,14 @@ void integration_32bit(struct common_buffer_data* buffer,int32_t* speed, int32_t
         int32_t a3=(a1+(2*a4))/3;
         int32_t dt = buffer->current_time-buffer->last_time;
         *speed = *speed+((a1+(2*a2)+(2*a3)+a4)/6)*dt;
+        if(*speed >= 71000000) //Begrenzung auf 5 m/s, da das auto nicht schneller werden kann
+        {
+            *speed = 71000000;
+        }
+        if(*speed <=0)     //Begrenzung auf 0 m/s, da auto nicht rückwärts fahren kann
+        {
+            *speed = 0;
+        }
 
     }
 }

@@ -156,7 +156,7 @@ debugCount = micros();
 
     }
     // after 20 programcycles actual values are send via udp to the mqtt bridge
-if (counter_sending>=20) 
+if (counter_sending>=10) 
 {
 
     sensorData.accel_vec[0] = accelX;  //unfiltered acceleration x
