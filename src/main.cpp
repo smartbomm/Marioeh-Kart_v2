@@ -151,8 +151,8 @@ void loop()
       filtered_data_velocity_x=(int32_t)(barcode_debug_velocity*SPEED_SCALER);
 
     }
-    // after 15 programcycles actual values are send via udp to the mqtt bridge
-if (counter_sending>=15) 
+    // after 10 programcycles actual values are send via udp to the mqtt bridge
+if (counter_sending>=10) 
 {
 
     sensorData.accel_vec[0] = accelX;  //unfiltered acceleration x
