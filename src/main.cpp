@@ -27,7 +27,6 @@ int32_t filtered_data_velocity_x = 0;
 uint64_t filtered_data_pos_x = 0u;
 uint8_t counter_sending = 0u;
 int32_t acc_complete_for_debugging = 0;
-uint32_t debugCount = 0u;
 uint8_t counter_standstill = 0u;
 uint8_t barcode_value = 0u;
 uint32_t barcode_debug_velocity = 0u;
@@ -59,7 +58,6 @@ barcodeConfig_t barcode_config = {
 
 void setup()
  {
-  Serial.begin(9600);
   uint64_t systemTime = 0;
   while (systemTime == 0) {
     systemTime = bytesToUint64_StringDigits(simpleGET("/t"));
@@ -75,7 +73,7 @@ void setup()
 void loop() 
 {
        unsigned long currentMillis = accurateMillis();
-debugCount = micros();
+
 
   if (currentMillis - previousMillis >= READ_INTERVAL_MS) 
   {
@@ -143,8 +141,6 @@ debugCount = micros();
       // Evtl. auch hier Aktualierung des Ringpuffers für die Gyro-Werte
     }
       
-   debugCount=micros()-debugCount;
-    Serial.println(debugCount);
 
   // Barcode recognition
     barcode_error_t error = barcode_get(barcode_value, barcode_debug_velocity);
@@ -155,13 +151,13 @@ debugCount = micros();
       filtered_data_velocity_x=(int32_t)(barcode_debug_velocity*SPEED_SCALER);
 
     }
-    // after 20 programcycles actual values are send via udp to the mqtt bridge
+    // after 10 programcycles actual values are send via udp to the mqtt bridge
 if (counter_sending>=10) 
 {
 
     sensorData.accel_vec[0] = accelX;  //unfiltered acceleration x
     sensorData.accel_vec[1] = accelY;  //unfiltered acceleration y
-    sensorData.accel_vec[2] = accelZ;  //unfiltered acceleration z
+    sensorData.accel_vec[2] = filteredAccelZ;  //unfiltered acceleration z
     sensorData.gyro_vec[0] = gyroX;    //unfiltered gyro x
     sensorData.gyro_vec[1] = gyroY;    //unfiltered gyro y
     sensorData.gyro_vec[2] = gyroZ;    //unfiltered gyro z
