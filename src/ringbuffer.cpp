@@ -1,6 +1,11 @@
 #include "ringbuffer.h"
 #include <stdint.h>
-
+/**
+ * @file main.cpp
+ * @brief Beschreibung
+ * @author JGesell
+ * @date 
+ */
  struct common_buffer_data initialize_buffer (void)
   {
     struct common_buffer_data b1;
@@ -19,7 +24,7 @@
     return b1;
 }
 
-void push_data_to_buffer (int32_t data, struct common_buffer_data* buffer)
+void push_data_to_buffer (int16_t data, struct common_buffer_data* buffer)
 {
     if (buffer != NULL)                 
     {
