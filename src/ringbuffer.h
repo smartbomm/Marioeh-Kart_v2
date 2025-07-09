@@ -1,7 +1,7 @@
 /**
  * @file ringbuffer.h
  * @brief Beschreibung
- * @author Mosi
+ * @author JGesell
  * @date 
  */
 
