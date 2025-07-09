@@ -1,0 +1,89 @@
+\doxysection{Two\+Wire Class Reference}
+\hypertarget{classarduino_1_1_two_wire}{}\label{classarduino_1_1_two_wire}\index{TwoWire@{TwoWire}}
+Inheritance diagram for Two\+Wire\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classarduino_1_1_two_wire}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classarduino_1_1_two_wire_a559de739eb24b730b1346ed3d25bc964}\label{classarduino_1_1_two_wire_a559de739eb24b730b1346ed3d25bc964} 
+{\bfseries Two\+Wire} (SERCOM \texorpdfstring{$\ast$}{*}s, uint8\+\_\+t pin\+SDA, uint8\+\_\+t pin\+SCL)
+\item 
+\Hypertarget{classarduino_1_1_two_wire_ab0bdf5cca484fb2ba637c39384b27fb2}\label{classarduino_1_1_two_wire_ab0bdf5cca484fb2ba637c39384b27fb2} 
+void {\bfseries begin} ()
+\item 
+\Hypertarget{classarduino_1_1_two_wire_a207ff4c8f02d5c1f58d6b495f7c9355a}\label{classarduino_1_1_two_wire_a207ff4c8f02d5c1f58d6b495f7c9355a} 
+void {\bfseries begin} (uint8\+\_\+t address, bool enable\+General\+Call)
+\item 
+\Hypertarget{classarduino_1_1_two_wire_a39dcb84b0d71bd17c29e75706cc80188}\label{classarduino_1_1_two_wire_a39dcb84b0d71bd17c29e75706cc80188} 
+void {\bfseries begin} (uint8\+\_\+t address)
+\item 
+\Hypertarget{classarduino_1_1_two_wire_aaf81d3fdaf258088d7692fa70cece087}\label{classarduino_1_1_two_wire_aaf81d3fdaf258088d7692fa70cece087} 
+void {\bfseries end} ()
+\item 
+\Hypertarget{classarduino_1_1_two_wire_aac24227b9aee2b17784a64e6a67009dd}\label{classarduino_1_1_two_wire_aac24227b9aee2b17784a64e6a67009dd} 
+void {\bfseries set\+Clock} (uint32\+\_\+t)
+\item 
+\Hypertarget{classarduino_1_1_two_wire_a7f7f3623bcb4260b2bef985c3773b756}\label{classarduino_1_1_two_wire_a7f7f3623bcb4260b2bef985c3773b756} 
+void {\bfseries begin\+Transmission} (uint8\+\_\+t)
+\item 
+\Hypertarget{classarduino_1_1_two_wire_a2c6ae46c70e2f78801c06178ee00a987}\label{classarduino_1_1_two_wire_a2c6ae46c70e2f78801c06178ee00a987} 
+uint8\+\_\+t {\bfseries end\+Transmission} (bool stop\+Bit)
+\item 
+\Hypertarget{classarduino_1_1_two_wire_ad6494cba060927125aa6324cf27a400f}\label{classarduino_1_1_two_wire_ad6494cba060927125aa6324cf27a400f} 
+uint8\+\_\+t {\bfseries end\+Transmission} (void)
+\item 
+\Hypertarget{classarduino_1_1_two_wire_a54c41d25ba3fc02d15d79167b0ba10fd}\label{classarduino_1_1_two_wire_a54c41d25ba3fc02d15d79167b0ba10fd} 
+size\+\_\+t {\bfseries request\+From} (uint8\+\_\+t address, size\+\_\+t quantity, bool stop\+Bit)
+\item 
+\Hypertarget{classarduino_1_1_two_wire_a2142b7402b68bf0459a779b838822dc7}\label{classarduino_1_1_two_wire_a2142b7402b68bf0459a779b838822dc7} 
+size\+\_\+t {\bfseries request\+From} (uint8\+\_\+t address, size\+\_\+t quantity)
+\item 
+\Hypertarget{classarduino_1_1_two_wire_a75749931299a0f8543e835e7da9510e4}\label{classarduino_1_1_two_wire_a75749931299a0f8543e835e7da9510e4} 
+size\+\_\+t {\bfseries write} (uint8\+\_\+t \mbox{\hyperlink{structdata}{data}})
+\item 
+\Hypertarget{classarduino_1_1_two_wire_a460570ff5799ed55affbf44c1a3d91c2}\label{classarduino_1_1_two_wire_a460570ff5799ed55affbf44c1a3d91c2} 
+size\+\_\+t {\bfseries write} (const uint8\+\_\+t \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structdata}{data}}, size\+\_\+t quantity)
+\item 
+\Hypertarget{classarduino_1_1_two_wire_a2ec870a76d736051cfa7db65173332e4}\label{classarduino_1_1_two_wire_a2ec870a76d736051cfa7db65173332e4} 
+virtual int {\bfseries available} (void)
+\item 
+\Hypertarget{classarduino_1_1_two_wire_af3aac984a5eb2c21d26b5a4e35693194}\label{classarduino_1_1_two_wire_af3aac984a5eb2c21d26b5a4e35693194} 
+virtual int {\bfseries read} (void)
+\item 
+\Hypertarget{classarduino_1_1_two_wire_a4d46097cf44ef5e943170bf7cbee3625}\label{classarduino_1_1_two_wire_a4d46097cf44ef5e943170bf7cbee3625} 
+virtual int {\bfseries peek} (void)
+\item 
+\Hypertarget{classarduino_1_1_two_wire_a0a9e9396972b76c5947592479860020d}\label{classarduino_1_1_two_wire_a0a9e9396972b76c5947592479860020d} 
+virtual void {\bfseries flush} (void)
+\item 
+\Hypertarget{classarduino_1_1_two_wire_af1c76ec4b4394ccbe84f3044e5fd277c}\label{classarduino_1_1_two_wire_af1c76ec4b4394ccbe84f3044e5fd277c} 
+void {\bfseries on\+Receive} (void(\texorpdfstring{$\ast$}{*})(int))
+\item 
+\Hypertarget{classarduino_1_1_two_wire_aa969d5ceb41508d17d4eab70030f98b2}\label{classarduino_1_1_two_wire_aa969d5ceb41508d17d4eab70030f98b2} 
+void {\bfseries on\+Request} (void(\texorpdfstring{$\ast$}{*})(void))
+\item 
+\Hypertarget{classarduino_1_1_two_wire_a0ba52a995edf9b6c2cdf3d396be84ff1}\label{classarduino_1_1_two_wire_a0ba52a995edf9b6c2cdf3d396be84ff1} 
+size\+\_\+t {\bfseries write} (unsigned long n)
+\item 
+\Hypertarget{classarduino_1_1_two_wire_a3cfec102ee6f58a2f7e617999ce9f5bb}\label{classarduino_1_1_two_wire_a3cfec102ee6f58a2f7e617999ce9f5bb} 
+size\+\_\+t {\bfseries write} (long n)
+\item 
+\Hypertarget{classarduino_1_1_two_wire_a2d9bc6ac05e45a7023be3cd1ca224407}\label{classarduino_1_1_two_wire_a2d9bc6ac05e45a7023be3cd1ca224407} 
+size\+\_\+t {\bfseries write} (unsigned int n)
+\item 
+\Hypertarget{classarduino_1_1_two_wire_a22e7ab55e0aa268cff5b48e763429ec3}\label{classarduino_1_1_two_wire_a22e7ab55e0aa268cff5b48e763429ec3} 
+size\+\_\+t {\bfseries write} (int n)
+\item 
+\Hypertarget{classarduino_1_1_two_wire_a2c3d3db74a6fa303a1775c00bcd2bf97}\label{classarduino_1_1_two_wire_a2c3d3db74a6fa303a1775c00bcd2bf97} 
+void {\bfseries on\+Service} (void)
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/\+Users/bmmli.\+jl/\+Dokumente/\+Platform\+IO/\+Projects/\+Marioehh-\/\+Kart\+\_\+\+Interface/lib/\+Wire/Wire.\+h\item 
+/\+Users/bmmli.\+jl/\+Dokumente/\+Platform\+IO/\+Projects/\+Marioehh-\/\+Kart\+\_\+\+Interface/lib/\+Wire/Wire.\+cpp\end{DoxyCompactItemize}

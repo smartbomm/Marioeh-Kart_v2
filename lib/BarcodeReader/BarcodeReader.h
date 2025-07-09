@@ -1,3 +1,14 @@
+/**
+ * @file BarcodeReader.h
+ * @author your name (you@domain.com)
+ * @brief 
+ * @version 0.1
+ * @date 2025-07-09
+ * 
+ * @copyright Copyright (c) 2025
+ * 
+ */
+
 #ifndef BarcodeReader_h
 #define BarcodeReader_h
 #include <Arduino.h>
@@ -12,7 +23,6 @@
  * @brief Firmware component to read a barcode linear. 
  * The barcode has to be encoded timebased.
  * 
- * ##Encoding barcode 
  */
 
  /**

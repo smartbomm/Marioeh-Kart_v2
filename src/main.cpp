@@ -1,3 +1,14 @@
+/**
+ * @file main.cpp
+ * @author your name (you@domain.com)
+ * @brief 
+ * @version 0.1
+ * @date 2025-07-09
+ * 
+ * @copyright Copyright (c) 2025
+ * 
+ */
+
 #include <Arduino.h>
 #include <math.h>
 #include <Wire.h>

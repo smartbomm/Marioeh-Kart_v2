@@ -1,0 +1,24 @@
+\doxysection{Odometer\+Data.\+h}
+\hypertarget{_odometer_data_8h_source}{}\label{_odometer_data_8h_source}\index{/Users/bmmli.jl/Dokumente/PlatformIO/Projects/Marioehh-\/Kart\_Interface/src/OdometerData.h@{/Users/bmmli.jl/Dokumente/PlatformIO/Projects/Marioehh-\/Kart\_Interface/src/OdometerData.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ Data\_h}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ Data\_h}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#define\ VERSION\ 0.1}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structdata}{data}}\ \{}
+\DoxyCodeLine{00008\ \ \ \ \ uint8\_t\ error\_code;}
+\DoxyCodeLine{00009\ \ \ \ \ uint8\_t\ track\_section;}
+\DoxyCodeLine{00010\ \ \ \ \ uint32\_t\ pos\_lin;}
+\DoxyCodeLine{00011\ \ \ \ \ int32\_t\ speed\_lin;}
+\DoxyCodeLine{00012\ \ \ \ \ int32\_t\ accel\_lin;}
+\DoxyCodeLine{00013\ \ \ \ \ int32\_t\ accel\_vec[3];}
+\DoxyCodeLine{00014\ \ \ \ \ int32\_t\ gyro\_vec[3];}
+\DoxyCodeLine{00015\ \}\ odometerData\_t;}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}
