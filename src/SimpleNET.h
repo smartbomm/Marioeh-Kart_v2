@@ -26,17 +26,15 @@
 
 
 //other definitions
-#define LABOR 1
-
-
-//#define ENABLE_MQTT 1
-
-
-#define UDP_PORT 4210
+#define LABOR 1 
 
 
 
-#ifdef LABOR
+#define UDP_PORT 4210 //port for the udp com to the MQTT bridge
+
+
+
+#ifdef LABOR // if you use other wifi settings, you can add them here
 #define SSID "Labore-Hof AT-MT"
 #define PASSWORD "laborwlan"
 #define SERVER_IP "192.168.9.150"
@@ -46,7 +44,7 @@
 
 void SUDP_beginn(uint64_t u64_time);//give the time in microseconds to the function so it can sync the time to the system
 void SUDP_send(odometerData_t data);
-void WIFIstart();
+void WIFIstart(); //start the wifi connection (with configurations defined above)
 uint64_t bytesToUint64_StringDigits(const std::vector<uint8_t>& bytes); //convert a string to a uint64_t
 uint32_t accurateMillis(); //get the accurate millis from the timer
 #endif

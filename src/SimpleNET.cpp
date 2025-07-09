@@ -65,8 +65,8 @@ void WIFIstart() {
   }
 }
 
-void uint64ToString(uint64_t value, char* buf, size_t buflen) {
-    if (buflen == 0) return;
+void uint64ToString(uint64_t value, char* buf, size_t buflen) { //conversion of a uint64_t to a string
+    if (buflen == 0) return;// if the buffer is empty, return
     buf[buflen-1] = '\0';
     char tmp[32];
     int i = 30;
@@ -85,7 +85,7 @@ void uint64ToString(uint64_t value, char* buf, size_t buflen) {
 }
 
 
-uint64_t bytesToUint64_StringDigits(const std::vector<uint8_t>& bytes) {
+uint64_t bytesToUint64_StringDigits(const std::vector<uint8_t>& bytes) { //convert a vector of bytes to a uint64_t, only digits are considered
   uint64_t result = 0;
   for (uint8_t b : bytes) {
     if (b >= '0' && b <= '9') {
@@ -100,7 +100,7 @@ uint64_t bytesToUint64_StringDigits(const std::vector<uint8_t>& bytes) {
 }
 
 
-String getMac() {
+String getMac() {//get the mac address of the device and convert it to a string
   uint8_t mac[6];
   char macStr[18];
   WiFi.macAddress(mac);
@@ -111,7 +111,7 @@ String getMac() {
 
 WiFiUDP udp;
 
-void SUDP_beginn(uint64_t u64_time) {
+void SUDP_beginn(uint64_t u64_time) { //initialize the UDP connection and set the system time
   startAccurateMillisTimer();
   systemTime = u64_time - accurateMillis();
 
@@ -156,9 +156,9 @@ void SUDP_send(odometerData_t data) {
   Serial.println(timeStr);
   #endif
 
-  char absJsonContent[256];
+  char absJsonContent[256]; 
   snprintf(absJsonContent, sizeof(absJsonContent),
-      "{\"ts\":%lu,\"p\":%lu,\"t\":%s}",
+      "{\"ts\":%lu,\"p\":%lu,\"t\":%s}", // Format the JSON content with the timestamp and position
       (unsigned long)data.track_section,
       (unsigned long)data.pos_lin,
       timeStr);
@@ -174,7 +174,7 @@ void SUDP_send(odometerData_t data) {
   #else
 
   char message[512];
-  snprintf(message, sizeof(message),
+  snprintf(message, sizeof(message), // Format the message with all data topics can be added till 
       "C/%s;"
       "ts=%lu;"
       "p/l=%lu;"
