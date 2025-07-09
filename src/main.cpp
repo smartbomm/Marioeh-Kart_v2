@@ -9,7 +9,12 @@
 #include "ringbuffer.h"
 #include "Hardware_Config.h"
 #include <BarcodeReader.h>
-
+/**
+ * @file main.cpp
+ * @brief Beschreibung
+ * @author JGesell
+ * @date 
+ */
 /// Time intervals
 constexpr unsigned long READ_INTERVAL_MS = 2;     // Interval between readings
 constexpr unsigned long INTERVAL_STOP_COND = 100;

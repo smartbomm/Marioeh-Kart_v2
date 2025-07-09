@@ -1,7 +1,7 @@
 /**
  * @file ringbuffer.h
  * @brief Beschreibung
- * @author Mosi
+ * @author JGesell
  * @date 
  */
 
@@ -61,7 +61,7 @@ struct common_buffer_data initialize_buffer (void);
 ///function for storing values in the ringbuffer
 ///@param data acceleration 
 ///@param buffer pointer to struct for one direction
-void push_data_to_buffer (int32_t data,struct common_buffer_data* buffer);
+void push_data_to_buffer (int16_t data,struct common_buffer_data* buffer);
 
 ///function to apply a moving average filter on a ringpuffer
 ///@param buffer pointer to struct of acceleration
