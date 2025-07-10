@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <title>MQTT Client Web</title>
+  <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
+  <style>
+    body { font-family: sans-serif; padding: 2em; }
+    #messages { border: 1px solid #ccc; padding: 1em; height: 300px; overflow-y: scroll; }
+  </style>
+</head>
+<body>
+
+  <h1>MQTT Web Client – Alle Topics abonnieren</h1>
+  <p>Verbindung zum Broker: <strong id="status">Verbindet...</strong></p>
+  <div id="messages"></div>
+
+  <script>
+    // Verbindung zum MQTT-Broker über WebSocket
+    const brokerUrl = "ws://127.0.0.1:9001"; // Oder dein eigener Broker
+    const client = mqtt.connect(brokerUrl);
+
+    const statusEl = document.getElementById('status');
+    const messagesEl = document.getElementById('messages');
+
+    client.on('connect', () => {
+      statusEl.textContent = "Verbunden";
+      console.log("Verbunden mit Broker");
+
+      // Alle Topics abonnieren
+      client.subscribe('#', (err) => {
+        if (err) {
+          console.error("Fehler beim Abonnieren:", err);
+        } else {
+          console.log("Alle Topics (#) abonniert");
+        }
+      });
+    });
+
+    client.on('message', (topic, message) => {
+      const msg = `[${new Date().toLocaleTimeString()}] <strong>${topic}</strong>: ${message.toString()}`;
+      const div = document.createElement('div');
+      div.innerHTML = msg;
+      messagesEl.appendChild(div);
+      messagesEl.scrollTop = messagesEl.scrollHeight;
+    });
+
+    client.on('error', (err) => {
+      console.error("Verbindungsfehler:", err);
+      statusEl.textContent = "Fehler";
+    });
+  </script>
+
+</body>
+</html>
