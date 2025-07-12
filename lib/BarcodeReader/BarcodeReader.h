@@ -1,11 +1,14 @@
 /**
  * @file BarcodeReader.h
- * @author your name (you@domain.com)
- * @brief 
- * @version 0.1
+ * @author Joel Bommeli (joel.bommeli@hof-university.de)
+ * @brief The BarcodeReader is a software module written in C++ for the Arduino Nano 33 IOT development board. It enables reading the barcodes at the Carrera track with an IR line finder sensor. It realizes the following functions:
+ * - Detecting the edges and levels of the binary sensor signal via interrupt
+ * - Evaluate the edges and levels of the binary signal and calculate the barcode value
+ * - Calculating the overrun car velocity out from the sensor reading times in the unit mm/s
+ * - Detecting errors that can occur during reading the barcode
+ * @version 1.0.5
  * @date 2025-07-09
  * 
- * @copyright Copyright (c) 2025
  * 
  */
 
@@ -13,29 +16,19 @@
 #define BarcodeReader_h
 #include <Arduino.h>
 
-//#define DEBUG
-#ifdef DEBUG
-#include <DEBUG.h>
-#endif
-
-
-/**
- * @brief Firmware component to read a barcode linear. 
- * The barcode has to be encoded timebased.
- * 
- */
 
  /**
-  * @brief Enum to define actual status from the barcode reader unit
+  * @brief Enum to define actual status from the barcode reader unit and errors that can occur during reading the barcode
+  * 
   * 
   */
 typedef enum
 {
-    NO_CODE_DETECTED,
-    READING_SUCCESSFUL,
-    READING_IN_PROGRESS,
-    PHASE_MISMATCH_ERROR,
-    TIMEOUT_ERROR
+    NO_CODE_DETECTED,           /**< No code detected since last request */
+    READING_SUCCESSFUL,         /**< Reading was successful, barcode value and velocity are available */
+    READING_IN_PROGRESS,        /**< Reading is still in progress, no value available yet. No error was detected until now */
+    PHASE_MISMATCH_ERROR,       /**< Phase mismatch error, the detected surface was black when it should be white or otherwise. */
+    TIMEOUT_ERROR               /**< Timeout error, the interval between two detected edges was longer than the definde reading tieout. */
 } barcode_error_t;
 
 /**
@@ -52,11 +45,11 @@ typedef struct  {
 
 
 /**
- * @brief Read the value and the calculated velocity from a barcode
+ * @brief Polling function read the value and the calculated velocity from a barcode. Has to be called repeatedly.
  * 
  * @param value Pointer variable to store the barcode value to
  * @param velocity Pointer variable to store the velocity value in nm/µs = µm/ms = mm/s
- * @return barcode_error_t returns READING_SUCCESSFULL if barcode has been read and READING_IN_PROGRESS if reading is already in process and NO_CODE_DETCTED if there hasn't been detected a code since the last call of the function
+ * @return barcode_error_t actual status of the barcode reader or error that occurred during reading the barcode
  */
 barcode_error_t barcode_get(uint8_t &value, uint32_t &velocity);
 
