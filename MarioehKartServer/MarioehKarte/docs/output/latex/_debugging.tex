@@ -1,0 +1,48 @@
+\chapter{Debugging}
+\hypertarget{_debugging}{}\label{_debugging}\index{Debugging@{Debugging}}
+Zur Fehlersuche während der Programmausführung wurden folgende Debugging-\/\+Funktionen implementiert\+:
+\begin{DoxyItemize}
+\item Debugging über eine Konsole (Telnet oder Seriell)
+\item Debugging über die RGB-\/\+LED auf dem Mikrocontroller-\/\+Board
+\end{DoxyItemize}\hypertarget{_debugging_autotoc_md9}{}\doxysubsection{\texorpdfstring{Debugging über die Konsole}{Debugging über die Konsole}}\label{_debugging_autotoc_md9}
+In der Datei Definitions.\+h sind zwei Makros zur Ausgabe von Debugging-\/\+Informationen definiert\+:
+\begin{DoxyItemize}
+\item \#\+DEBUG(...) -\/ Ausgabe von reinem Text
+\item \#\+DEBUGF(...) -\/ Ausgabe von formatiertem Text analog zu printf
+\end{DoxyItemize}
+
+Je nach aktiviertem Debugging-\/\+Modus erfolgt die Ausgabe unterschiedlich\+:
+
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{2}{|X[-1]}|}
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Modus   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Ausgabe    }\\\cline{1-2}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Modus   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Ausgabe    }\\\cline{1-2}
+\endhead
+\#\+SERIAL\+\_\+\+DEBUGGING   &Ausgabe über die serielle Schnittstelle    \\\cline{1-2}
+\#\+TELNET\+\_\+\+DEBUGGING   &Ausgabe über Telnet    \\\cline{1-2}
+Keins von beiden   &Keine Ausgabe   \\\cline{1-2}
+\end{longtabu}
+\hypertarget{_debugging_autotoc_md10}{}\doxysubsection{\texorpdfstring{Debugging über die RGB-\/\+LED}{Debugging über die RGB-\/\+LED}}\label{_debugging_autotoc_md10}
+Die RGB-\/\+LED gibt folgende Zustände der Car\+Control\+Unit an\+:
+
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{2}{|X[-1]}|}
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Zustand   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Farbe    }\\\cline{1-2}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Zustand   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Farbe    }\\\cline{1-2}
+\endhead
+Programmstart   &Rot    \\\cline{1-2}
+Verbindung mit WLAN hergestellt (falls OTA aktiviert)   &Blau    \\\cline{1-2}
+Verbindung mit SPS hergestellt   &Grün    \\\cline{1-2}
+Verbindung zu SPS verloren   &Rot    \\\cline{1-2}
+Verbindung zu SPS wiederhergestellt   &Grün   \\\cline{1-2}
+\end{longtabu}

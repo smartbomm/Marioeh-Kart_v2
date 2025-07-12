@@ -1,0 +1,106 @@
+\doxysection{Map.\+java}
+\hypertarget{_map_8java_source}{}\label{_map_8java_source}\index{/Users/bmmli.jl/Dokumente/PlatformIO/Projects/Marioehh-\/Kart\_Interface/src/de/marioehkart/marioehkarte/Map.java@{/Users/bmmli.jl/Dokumente/PlatformIO/Projects/Marioehh-\/Kart\_Interface/src/de/marioehkart/marioehkarte/Map.java}}
+\mbox{\hyperlink{_map_8java}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_map_8java_source_l00001}00001\ \textcolor{keyword}{package\ }de.marioehkart.marioehkarte;}
+\DoxyCodeLine{\Hypertarget{_map_8java_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{_map_8java_source_l00003}00003\ \textcolor{keyword}{import}\ java.io.BufferedReader;}
+\DoxyCodeLine{\Hypertarget{_map_8java_source_l00004}00004\ \textcolor{keyword}{import}\ java.io.FileNotFoundException;}
+\DoxyCodeLine{\Hypertarget{_map_8java_source_l00005}00005\ \textcolor{keyword}{import}\ java.io.FileReader;}
+\DoxyCodeLine{\Hypertarget{_map_8java_source_l00006}00006\ \textcolor{keyword}{import}\ java.io.FileWriter;}
+\DoxyCodeLine{\Hypertarget{_map_8java_source_l00007}00007\ \textcolor{keyword}{import}\ java.io.IOException;}
+\DoxyCodeLine{\Hypertarget{_map_8java_source_l00008}00008\ \textcolor{keyword}{import}\ java.time.LocalDateTime;}
+\DoxyCodeLine{\Hypertarget{_map_8java_source_l00009}00009\ \textcolor{keyword}{import}\ java.util.ArrayList;\ \textcolor{comment}{//\ import\ the\ ArrayList\ class}}
+\DoxyCodeLine{\Hypertarget{_map_8java_source_l00010}00010\ }
+\DoxyCodeLine{\Hypertarget{_map_8java_source_l00022}00022\ }
+\DoxyCodeLine{\Hypertarget{_map_8java_source_l00023}\mbox{\hyperlink{classde_1_1marioehkart_1_1marioehkarte_1_1_map}{00023}}\ \textcolor{keyword}{public}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classde_1_1marioehkart_1_1marioehkarte_1_1_map_ad9938439cb3beb52760228a3579ce11a}{Map}}\ \{}
+\DoxyCodeLine{\Hypertarget{_map_8java_source_l00037}\mbox{\hyperlink{classde_1_1marioehkart_1_1marioehkarte_1_1_map_ad9938439cb3beb52760228a3579ce11a}{00037}}\ \ \ \ \ \textcolor{keyword}{public}\ \mbox{\hyperlink{classde_1_1marioehkart_1_1marioehkarte_1_1_map_ad9938439cb3beb52760228a3579ce11a}{Map}}(String\ directory)\ \textcolor{keywordflow}{throws}\ Exception\ \{}
+\DoxyCodeLine{\Hypertarget{_map_8java_source_l00038}00038\ \ \ \ \ \ \ \ \ sections\ =\ \textcolor{keyword}{new}\ ArrayList<Section>();}
+\DoxyCodeLine{\Hypertarget{_map_8java_source_l00039}00039\ \ \ \ \ \ \ \ \ sections.add(\textcolor{keyword}{new}\ \mbox{\hyperlink{classde_1_1marioehkart_1_1marioehkarte_1_1_section}{Section}}(\textcolor{keyword}{new}\ \mbox{\hyperlink{classde_1_1marioehkart_1_1marioehkarte_1_1_coordinates}{Coordinates}}(),\ 0));\ \textcolor{comment}{//\ Add\ a\ dummy\ section\ at\ index\ 0\ for\ error\ handling}}
+\DoxyCodeLine{\Hypertarget{_map_8java_source_l00040}00040\ \ \ \ \ \ \ \ \ mappedSections\ =\ \textcolor{keyword}{new}\ \textcolor{keywordtype}{int}[256];}
+\DoxyCodeLine{\Hypertarget{_map_8java_source_l00041}00041\ \ \ \ \ \ \ \ \ this.workDirectory\ =\ directory;}
+\DoxyCodeLine{\Hypertarget{_map_8java_source_l00042}00042\ \ \ \ \ \ \ \ \ errorWriter\ =\ \textcolor{keyword}{new}\ FileWriter(workDirectory\ +\ \textcolor{stringliteral}{"{}/error.log"{}},\ \textcolor{keyword}{true});}
+\DoxyCodeLine{\Hypertarget{_map_8java_source_l00043}00043\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Constructor}}
+\DoxyCodeLine{\Hypertarget{_map_8java_source_l00044}00044\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_map_8java_source_l00045}00045\ }
+\DoxyCodeLine{\Hypertarget{_map_8java_source_l00054}\mbox{\hyperlink{classde_1_1marioehkart_1_1marioehkarte_1_1_map_a77054b587adfe924a9615bba01c1e5ef}{00054}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classde_1_1marioehkart_1_1marioehkarte_1_1_map_a77054b587adfe924a9615bba01c1e5ef}{close}}()\ throws\ Exception\ \{}
+\DoxyCodeLine{\Hypertarget{_map_8java_source_l00055}00055\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Method\ to\ close\ the\ error\ log\ file}}
+\DoxyCodeLine{\Hypertarget{_map_8java_source_l00056}00056\ \ \ \ \ \ \ \ \ errorWriter.close();}
+\DoxyCodeLine{\Hypertarget{_map_8java_source_l00057}00057\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_map_8java_source_l00058}00058\ }
+\DoxyCodeLine{\Hypertarget{_map_8java_source_l00069}\mbox{\hyperlink{classde_1_1marioehkart_1_1marioehkarte_1_1_map_a432cac54eae9fb72e51f3556049e0055}{00069}}\ \ \ \ \ \textcolor{keyword}{public}\ \mbox{\hyperlink{classde_1_1marioehkart_1_1marioehkarte_1_1_coordinates}{Coordinates}}\ \mbox{\hyperlink{classde_1_1marioehkart_1_1marioehkarte_1_1_map_a432cac54eae9fb72e51f3556049e0055}{getCoordinates}}(\textcolor{keywordtype}{int}\ section,\ \textcolor{keywordtype}{double}\ distance)\ \textcolor{keywordflow}{throws}\ Exception\ \{}
+\DoxyCodeLine{\Hypertarget{_map_8java_source_l00070}00070\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classde_1_1marioehkart_1_1marioehkarte_1_1_coordinates}{Coordinates}}\ result\ =\ \textcolor{keyword}{null};}
+\DoxyCodeLine{\Hypertarget{_map_8java_source_l00071}00071\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}\ \{}
+\DoxyCodeLine{\Hypertarget{_map_8java_source_l00072}00072\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ sectionIndex\ =\ mappedSections[section];}
+\DoxyCodeLine{\Hypertarget{_map_8java_source_l00073}00073\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (0\ ==\ sectionIndex)\ \{}
+\DoxyCodeLine{\Hypertarget{_map_8java_source_l00074}00074\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ \textcolor{keyword}{new}\ IllegalArgumentException(\textcolor{stringliteral}{"{}Tried\ to\ get\ Section\ "{}}\ +\ section\ +\ \textcolor{stringliteral}{"{}:\ not\ found."{}});}
+\DoxyCodeLine{\Hypertarget{_map_8java_source_l00075}00075\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_map_8java_source_l00076}00076\ \ \ \ \ \ \ \ \ \ \ \ \ result\ =\ sections.get(section).position(distance);}
+\DoxyCodeLine{\Hypertarget{_map_8java_source_l00077}00077\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{catch}\ (IllegalArgumentException\ e)\ \{}
+\DoxyCodeLine{\Hypertarget{_map_8java_source_l00078}00078\ \ \ \ \ \ \ \ \ \ \ \ \ errorWriter.append(LocalDateTime.now()\ +\ \textcolor{stringliteral}{"{}:\ Illegal\ Argument\ Exception:\ "{}}\ +\ e.getMessage()\ +\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{_map_8java_source_l00079}00079\ \ \ \ \ \ \ \ \ \ \ \ \ errorWriter.flush();}
+\DoxyCodeLine{\Hypertarget{_map_8java_source_l00080}00080\ \ \ \ \ \ \ \ \ \ \ \ \ System.out.println(\textcolor{stringliteral}{"{}IO\ Exception:\ "{}}\ +\ e.getMessage());}
+\DoxyCodeLine{\Hypertarget{_map_8java_source_l00081}00081\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_map_8java_source_l00082}00082\ }
+\DoxyCodeLine{\Hypertarget{_map_8java_source_l00083}00083\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Method\ to\ get\ coordinates}}
+\DoxyCodeLine{\Hypertarget{_map_8java_source_l00084}00084\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{\Hypertarget{_map_8java_source_l00085}00085\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_map_8java_source_l00086}00086\ }
+\DoxyCodeLine{\Hypertarget{_map_8java_source_l00093}\mbox{\hyperlink{classde_1_1marioehkart_1_1marioehkarte_1_1_map_a59321f22e0bbdba5e2ed23b1580164db}{00093}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classde_1_1marioehkart_1_1marioehkarte_1_1_map_a59321f22e0bbdba5e2ed23b1580164db}{feed}}(String\ csv,\ String\ separator)\ \textcolor{keywordflow}{throws}\ Exception\ \{}
+\DoxyCodeLine{\Hypertarget{_map_8java_source_l00094}00094\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Method\ to\ read\ CSV\ file}}
+\DoxyCodeLine{\Hypertarget{_map_8java_source_l00095}00095\ \ \ \ \ \ \ \ \ BufferedReader\ csvReader\ =\ \textcolor{keyword}{null};}
+\DoxyCodeLine{\Hypertarget{_map_8java_source_l00096}00096\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}\ \{}
+\DoxyCodeLine{\Hypertarget{_map_8java_source_l00097}00097\ \ \ \ \ \ \ \ \ \ \ \ \ csvReader\ =\ \textcolor{keyword}{new}\ BufferedReader(\textcolor{keyword}{new}\ FileReader(csv));}
+\DoxyCodeLine{\Hypertarget{_map_8java_source_l00098}00098\ \ \ \ \ \ \ \ \ \ \ \ \ String\ line;}
+\DoxyCodeLine{\Hypertarget{_map_8java_source_l00099}00099\ \ \ \ \ \ \ \ \ \ \ \ \ line\ =\ csvReader.readLine();\ \textcolor{comment}{//\ erste\ line\ überspringen}}
+\DoxyCodeLine{\Hypertarget{_map_8java_source_l00100}00100\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ sectionCount\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_map_8java_source_l00101}00101\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ ((line\ =\ csvReader.readLine())\ !=\ \textcolor{keyword}{null})\ \{}
+\DoxyCodeLine{\Hypertarget{_map_8java_source_l00102}00102\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ String[]\ values\ =\ line.split(separator);}
+\DoxyCodeLine{\Hypertarget{_map_8java_source_l00103}00103\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ System.out.print(values[0]);}
+\DoxyCodeLine{\Hypertarget{_map_8java_source_l00104}00104\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (values[0].equals(\textcolor{stringliteral}{"{}SECTION\_START"{}}))\ \{}
+\DoxyCodeLine{\Hypertarget{_map_8java_source_l00105}00105\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sectionCount++;}
+\DoxyCodeLine{\Hypertarget{_map_8java_source_l00106}00106\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ System.out.print(\textcolor{stringliteral}{"{}:\ "{}}\ +\ values[1]\ +\ \textcolor{stringliteral}{"{},\ "{}}\ +\ values[2]\ +\ \textcolor{stringliteral}{"{}\ rails"{}});}
+\DoxyCodeLine{\Hypertarget{_map_8java_source_l00107}00107\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classde_1_1marioehkart_1_1marioehkarte_1_1_coordinates}{Coordinates}}\ sectionCoordinates\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{classde_1_1marioehkart_1_1marioehkarte_1_1_coordinates}{Coordinates}}();}
+\DoxyCodeLine{\Hypertarget{_map_8java_source_l00108}00108\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sectionCoordinates.x\ =\ Double.parseDouble(values[3]);}
+\DoxyCodeLine{\Hypertarget{_map_8java_source_l00109}00109\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sectionCoordinates.y\ =\ Double.parseDouble(values[4]);}
+\DoxyCodeLine{\Hypertarget{_map_8java_source_l00110}00110\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sectionCoordinates.angle\_x\ =\ Math.toRadians(Double.parseDouble(values[5]));}
+\DoxyCodeLine{\Hypertarget{_map_8java_source_l00111}00111\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sections.add(\textcolor{keyword}{new}\ \mbox{\hyperlink{classde_1_1marioehkart_1_1marioehkarte_1_1_section}{Section}}(sectionCoordinates,\ Integer.parseInt(values[2])));}
+\DoxyCodeLine{\Hypertarget{_map_8java_source_l00112}00112\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ mappedSections[Integer.parseInt(values[1])]\ =\ sectionCount;}
+\DoxyCodeLine{\Hypertarget{_map_8java_source_l00113}00113\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (values[0].equals(\textcolor{stringliteral}{"{}SECTION\_END"{}}))}
+\DoxyCodeLine{\Hypertarget{_map_8java_source_l00114}00114\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ;}
+\DoxyCodeLine{\Hypertarget{_map_8java_source_l00115}00115\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{_map_8java_source_l00116}00116\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sections.get(sectionCount).addRail(\mbox{\hyperlink{classde_1_1marioehkart_1_1marioehkarte_1_1_rail}{Rail}}.\mbox{\hyperlink{classde_1_1marioehkart_1_1marioehkarte_1_1_rail_a9d71e00ec3977be259df060e0f68dd3f}{fromString}}(values[0]));}
+\DoxyCodeLine{\Hypertarget{_map_8java_source_l00117}00117\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_map_8java_source_l00118}00118\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ System.out.println();}
+\DoxyCodeLine{\Hypertarget{_map_8java_source_l00119}00119\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_map_8java_source_l00120}00120\ \ \ \ \ \ \ \ \ \ \ \ \ System.out.println(sections.size()\ +\ \textcolor{stringliteral}{"{}\ sections\ imported\ from\ "{}}\ +\ csv);}
+\DoxyCodeLine{\Hypertarget{_map_8java_source_l00121}00121\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{catch}\ (FileNotFoundException\ e)\ \{}
+\DoxyCodeLine{\Hypertarget{_map_8java_source_l00122}00122\ \ \ \ \ \ \ \ \ \ \ \ \ errorWriter.append(LocalDateTime.now()\ +\ \textcolor{stringliteral}{"{}:\ File\ not\ found:\ "{}}\ +\ csv\ +\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{_map_8java_source_l00123}00123\ \ \ \ \ \ \ \ \ \ \ \ \ errorWriter.flush();}
+\DoxyCodeLine{\Hypertarget{_map_8java_source_l00124}00124\ \ \ \ \ \ \ \ \ \ \ \ \ System.out.println(\textcolor{stringliteral}{"{}File\ not\ found:\ "{}}\ +\ csv);}
+\DoxyCodeLine{\Hypertarget{_map_8java_source_l00125}00125\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{catch}\ (IOException\ e)\ \{}
+\DoxyCodeLine{\Hypertarget{_map_8java_source_l00126}00126\ \ \ \ \ \ \ \ \ \ \ \ \ errorWriter.append(LocalDateTime.now()\ +\ \textcolor{stringliteral}{"{}:\ IO\ Exception:\ "{}}\ +\ e.getMessage()\ +\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{_map_8java_source_l00127}00127\ \ \ \ \ \ \ \ \ \ \ \ \ errorWriter.flush();}
+\DoxyCodeLine{\Hypertarget{_map_8java_source_l00128}00128\ \ \ \ \ \ \ \ \ \ \ \ \ System.out.println(\textcolor{stringliteral}{"{}IO\ Exception:\ "{}}\ +\ e.getMessage());}
+\DoxyCodeLine{\Hypertarget{_map_8java_source_l00129}00129\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{finally}\ \{}
+\DoxyCodeLine{\Hypertarget{_map_8java_source_l00130}00130\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (csvReader\ !=\ \textcolor{keyword}{null})\ \{}
+\DoxyCodeLine{\Hypertarget{_map_8java_source_l00131}00131\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}\ \{}
+\DoxyCodeLine{\Hypertarget{_map_8java_source_l00132}00132\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ csvReader.close();}
+\DoxyCodeLine{\Hypertarget{_map_8java_source_l00133}00133\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{catch}\ (IOException\ e)\ \{}
+\DoxyCodeLine{\Hypertarget{_map_8java_source_l00134}00134\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ errorWriter.append(LocalDateTime.now()\ +\ \textcolor{stringliteral}{"{}:\ IO\ Exception:\ "{}}\ +\ e.getMessage()\ +\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{_map_8java_source_l00135}00135\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ errorWriter.flush();}
+\DoxyCodeLine{\Hypertarget{_map_8java_source_l00136}00136\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ System.out.println(\textcolor{stringliteral}{"{}IO\ Exception:\ "{}}\ +\ e.getMessage());}
+\DoxyCodeLine{\Hypertarget{_map_8java_source_l00137}00137\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_map_8java_source_l00138}00138\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_map_8java_source_l00139}00139\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_map_8java_source_l00140}00140\ }
+\DoxyCodeLine{\Hypertarget{_map_8java_source_l00141}00141\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_map_8java_source_l00142}00142\ }
+\DoxyCodeLine{\Hypertarget{_map_8java_source_l00143}00143\ \ \ \ \ \textcolor{keyword}{private}\ FileWriter\ errorWriter;}
+\DoxyCodeLine{\Hypertarget{_map_8java_source_l00144}00144\ \ \ \ \ \textcolor{keyword}{private}\ String\ workDirectory;}
+\DoxyCodeLine{\Hypertarget{_map_8java_source_l00145}00145\ \ \ \ \ \textcolor{keyword}{private}\ ArrayList<Section>\ sections;\ \textcolor{comment}{//\ Create\ an\ ArrayList\ object}}
+\DoxyCodeLine{\Hypertarget{_map_8java_source_l00146}00146\ \ \ \ \ \textcolor{keyword}{private}\ \textcolor{keywordtype}{int}[]\ mappedSections;\ \textcolor{comment}{//\ Create\ an\ array\ of\ doubles}}
+\DoxyCodeLine{\Hypertarget{_map_8java_source_l00147}00147\ }
+\DoxyCodeLine{\Hypertarget{_map_8java_source_l00148}00148\ \}}
+
+\end{DoxyCode}

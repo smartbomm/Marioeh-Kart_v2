@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.13.1" xml:lang="de">
+  <compounddef id="classde_1_1marioehkart_1_1marioehkarte_1_1_section_1_1___rail" kind="class" language="Java" prot="private">
+    <compoundname>de::marioehkart::marioehkarte::Section::_Rail</compoundname>
+    <sectiondef kind="package-attrib">
+      <memberdef kind="variable" id="classde_1_1marioehkart_1_1marioehkarte_1_1_section_1_1___rail_1a3883cfdf81878b4c4c02a8f06a9579fe" prot="package" static="no" mutable="no">
+        <type><ref refid="classde_1_1marioehkart_1_1marioehkarte_1_1_rail" kindref="compound">Rail</ref></type>
+        <definition>Rail de.marioehkart.marioehkarte.Section._Rail.rail</definition>
+        <argsstring></argsstring>
+        <name>rail</name>
+        <qualifiedname>de.marioehkart.marioehkarte.Section._Rail.rail</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/bmmli.jl/Dokumente/PlatformIO/Projects/Marioehh-Kart_Interface/src/de/marioehkart/marioehkarte/Section.java" line="6" column="14" bodyfile="/Users/bmmli.jl/Dokumente/PlatformIO/Projects/Marioehh-Kart_Interface/src/de/marioehkart/marioehkarte/Section.java" bodystart="6" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classde_1_1marioehkart_1_1marioehkarte_1_1_section_1_1___rail_1a7aff80843e9137822b147f014cee7bee" prot="package" static="no" mutable="no">
+        <type>double</type>
+        <definition>double de.marioehkart.marioehkarte.Section._Rail.angle</definition>
+        <argsstring></argsstring>
+        <name>angle</name>
+        <qualifiedname>de.marioehkart.marioehkarte.Section._Rail.angle</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/bmmli.jl/Dokumente/PlatformIO/Projects/Marioehh-Kart_Interface/src/de/marioehkart/marioehkarte/Section.java" line="7" column="16" bodyfile="/Users/bmmli.jl/Dokumente/PlatformIO/Projects/Marioehh-Kart_Interface/src/de/marioehkart/marioehkarte/Section.java" bodystart="7" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1">
+        <label>de.marioehkart.marioehkarte.Section._Rail</label>
+        <childnode refid="2" relation="usage">
+          <edgelabel>rail</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>de.marioehkart.marioehkarte.Rail</label>
+        <link refid="classde_1_1marioehkart_1_1marioehkarte_1_1_rail"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>curve_R1_30_inner</edgelabel>
+          <edgelabel>curve_R1_30_inner_</edgelabel>
+          <edgelabel>curve_R1_30_outer</edgelabel>
+          <edgelabel>curve_R1_30_outer_</edgelabel>
+          <edgelabel>curve_R1_60_inner</edgelabel>
+          <edgelabel>curve_R1_60_inner_</edgelabel>
+          <edgelabel>curve_R1_60_outer</edgelabel>
+          <edgelabel>curve_R1_60_outer_</edgelabel>
+          <edgelabel>curve_R2_30_inner</edgelabel>
+          <edgelabel>curve_R2_30_inner_</edgelabel>
+          <edgelabel>...</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/Users/bmmli.jl/Dokumente/PlatformIO/Projects/Marioehh-Kart_Interface/src/de/marioehkart/marioehkarte/Section.java" line="5" column="12" bodyfile="/Users/bmmli.jl/Dokumente/PlatformIO/Projects/Marioehh-Kart_Interface/src/de/marioehkart/marioehkarte/Section.java" bodystart="5" bodyend="8"/>
+    <listofallmembers>
+      <member refid="classde_1_1marioehkart_1_1marioehkarte_1_1_section_1_1___rail_1a7aff80843e9137822b147f014cee7bee" prot="package" virt="non-virtual"><scope>de::marioehkart::marioehkarte::Section::_Rail</scope><name>angle</name></member>
+      <member refid="classde_1_1marioehkart_1_1marioehkarte_1_1_section_1_1___rail_1a3883cfdf81878b4c4c02a8f06a9579fe" prot="package" virt="non-virtual"><scope>de::marioehkart::marioehkarte::Section::_Rail</scope><name>rail</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

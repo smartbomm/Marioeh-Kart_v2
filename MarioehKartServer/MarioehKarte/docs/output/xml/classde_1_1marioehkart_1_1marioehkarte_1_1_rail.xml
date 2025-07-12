@@ -1,0 +1,546 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.13.1" xml:lang="de">
+  <compounddef id="classde_1_1marioehkart_1_1marioehkarte_1_1_rail" kind="class" language="Java" prot="public">
+    <compoundname>de::marioehkart::marioehkarte::Rail</compoundname>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classde_1_1marioehkart_1_1marioehkarte_1_1_rail_1ac6887d4991144c1df101b7f58619cd38" prot="private" static="no" mutable="no">
+        <type>double</type>
+        <definition>double de.marioehkart.marioehkarte.Rail.length</definition>
+        <argsstring></argsstring>
+        <name>length</name>
+        <qualifiedname>de.marioehkart.marioehkarte.Rail.length</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/bmmli.jl/Dokumente/PlatformIO/Projects/Marioehh-Kart_Interface/src/de/marioehkart/marioehkarte/Rail.java" line="4" column="20" bodyfile="/Users/bmmli.jl/Dokumente/PlatformIO/Projects/Marioehh-Kart_Interface/src/de/marioehkart/marioehkarte/Rail.java" bodystart="4" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classde_1_1marioehkart_1_1marioehkarte_1_1_rail_1a25d6e952197d99e2e679ee5efcdccddd" prot="private" static="no" mutable="no">
+        <type>double</type>
+        <definition>double de.marioehkart.marioehkarte.Rail.radius</definition>
+        <argsstring></argsstring>
+        <name>radius</name>
+        <qualifiedname>de.marioehkart.marioehkarte.Rail.radius</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/bmmli.jl/Dokumente/PlatformIO/Projects/Marioehh-Kart_Interface/src/de/marioehkart/marioehkarte/Rail.java" line="5" column="20" bodyfile="/Users/bmmli.jl/Dokumente/PlatformIO/Projects/Marioehh-Kart_Interface/src/de/marioehkart/marioehkarte/Rail.java" bodystart="5" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classde_1_1marioehkart_1_1marioehkarte_1_1_rail_1ae7dfd313cd069b99de304d1ab8822579" prot="private" static="no" mutable="no">
+        <type>double</type>
+        <definition>double de.marioehkart.marioehkarte.Rail.angle</definition>
+        <argsstring></argsstring>
+        <name>angle</name>
+        <qualifiedname>de.marioehkart.marioehkarte.Rail.angle</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/bmmli.jl/Dokumente/PlatformIO/Projects/Marioehh-Kart_Interface/src/de/marioehkart/marioehkarte/Rail.java" line="6" column="20" bodyfile="/Users/bmmli.jl/Dokumente/PlatformIO/Projects/Marioehh-Kart_Interface/src/de/marioehkart/marioehkarte/Rail.java" bodystart="6" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-static-attrib">
+      <memberdef kind="variable" id="classde_1_1marioehkart_1_1marioehkarte_1_1_rail_1a862c997bbd136602830eb4f5a2100c6c" prot="public" static="yes" mutable="no">
+        <type><ref refid="classde_1_1marioehkart_1_1marioehkarte_1_1_rail" kindref="compound">Rail</ref></type>
+        <definition>Rail de.marioehkart.marioehkarte.Rail.straight_standard</definition>
+        <argsstring></argsstring>
+        <name>straight_standard</name>
+        <qualifiedname>de.marioehkart.marioehkarte.Rail.straight_standard</qualifiedname>
+        <initializer>= new <ref refid="classde_1_1marioehkart_1_1marioehkarte_1_1_rail" kindref="compound">Rail</ref>(345, 0)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/bmmli.jl/Dokumente/PlatformIO/Projects/Marioehh-Kart_Interface/src/de/marioehkart/marioehkarte/Rail.java" line="40" column="24" bodyfile="/Users/bmmli.jl/Dokumente/PlatformIO/Projects/Marioehh-Kart_Interface/src/de/marioehkart/marioehkarte/Rail.java" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classde_1_1marioehkart_1_1marioehkarte_1_1_rail_1a75145f715feb954405f6f514491eefb7" prot="public" static="yes" mutable="no">
+        <type><ref refid="classde_1_1marioehkart_1_1marioehkarte_1_1_rail" kindref="compound">Rail</ref></type>
+        <definition>Rail de.marioehkart.marioehkarte.Rail.straight_standard_third</definition>
+        <argsstring></argsstring>
+        <name>straight_standard_third</name>
+        <qualifiedname>de.marioehkart.marioehkarte.Rail.straight_standard_third</qualifiedname>
+        <initializer>= new <ref refid="classde_1_1marioehkart_1_1marioehkarte_1_1_rail" kindref="compound">Rail</ref>(115, 0)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/bmmli.jl/Dokumente/PlatformIO/Projects/Marioehh-Kart_Interface/src/de/marioehkart/marioehkarte/Rail.java" line="41" column="24" bodyfile="/Users/bmmli.jl/Dokumente/PlatformIO/Projects/Marioehh-Kart_Interface/src/de/marioehkart/marioehkarte/Rail.java" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classde_1_1marioehkart_1_1marioehkarte_1_1_rail_1a4673663658fe1b68cb49d77cccf6ded4" prot="public" static="yes" mutable="no">
+        <type><ref refid="classde_1_1marioehkart_1_1marioehkarte_1_1_rail" kindref="compound">Rail</ref></type>
+        <definition>Rail de.marioehkart.marioehkarte.Rail.straight_standard_fourth</definition>
+        <argsstring></argsstring>
+        <name>straight_standard_fourth</name>
+        <qualifiedname>de.marioehkart.marioehkarte.Rail.straight_standard_fourth</qualifiedname>
+        <initializer>= new <ref refid="classde_1_1marioehkart_1_1marioehkarte_1_1_rail" kindref="compound">Rail</ref>(86.3, 0)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/bmmli.jl/Dokumente/PlatformIO/Projects/Marioehh-Kart_Interface/src/de/marioehkart/marioehkarte/Rail.java" line="42" column="24" bodyfile="/Users/bmmli.jl/Dokumente/PlatformIO/Projects/Marioehh-Kart_Interface/src/de/marioehkart/marioehkarte/Rail.java" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classde_1_1marioehkart_1_1marioehkarte_1_1_rail_1a6951d5bf93e5ce66f29e8fa91bee98e3" prot="public" static="yes" mutable="no">
+        <type><ref refid="classde_1_1marioehkart_1_1marioehkarte_1_1_rail" kindref="compound">Rail</ref></type>
+        <definition>Rail de.marioehkart.marioehkarte.Rail.curve_R1_30_inner</definition>
+        <argsstring></argsstring>
+        <name>curve_R1_30_inner</name>
+        <qualifiedname>de.marioehkart.marioehkarte.Rail.curve_R1_30_inner</qualifiedname>
+        <initializer>= new <ref refid="classde_1_1marioehkart_1_1marioehkarte_1_1_rail" kindref="compound">Rail</ref>(129.6, 247.5)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/bmmli.jl/Dokumente/PlatformIO/Projects/Marioehh-Kart_Interface/src/de/marioehkart/marioehkarte/Rail.java" line="44" column="24" bodyfile="/Users/bmmli.jl/Dokumente/PlatformIO/Projects/Marioehh-Kart_Interface/src/de/marioehkart/marioehkarte/Rail.java" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classde_1_1marioehkart_1_1marioehkarte_1_1_rail_1a2b5f6f5a87b3250e5341c1726e117862" prot="public" static="yes" mutable="no">
+        <type><ref refid="classde_1_1marioehkart_1_1marioehkarte_1_1_rail" kindref="compound">Rail</ref></type>
+        <definition>Rail de.marioehkart.marioehkarte.Rail.curve_R1_30_inner_</definition>
+        <argsstring></argsstring>
+        <name>curve_R1_30_inner_</name>
+        <qualifiedname>de.marioehkart.marioehkarte.Rail.curve_R1_30_inner_</qualifiedname>
+        <initializer>= new <ref refid="classde_1_1marioehkart_1_1marioehkarte_1_1_rail" kindref="compound">Rail</ref>(129.6, -247.5)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/bmmli.jl/Dokumente/PlatformIO/Projects/Marioehh-Kart_Interface/src/de/marioehkart/marioehkarte/Rail.java" line="45" column="24" bodyfile="/Users/bmmli.jl/Dokumente/PlatformIO/Projects/Marioehh-Kart_Interface/src/de/marioehkart/marioehkarte/Rail.java" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classde_1_1marioehkart_1_1marioehkarte_1_1_rail_1a9c90aea4d3c66a3c0601bae786de7929" prot="public" static="yes" mutable="no">
+        <type><ref refid="classde_1_1marioehkart_1_1marioehkarte_1_1_rail" kindref="compound">Rail</ref></type>
+        <definition>Rail de.marioehkart.marioehkarte.Rail.curve_R1_30_outer</definition>
+        <argsstring></argsstring>
+        <name>curve_R1_30_outer</name>
+        <qualifiedname>de.marioehkart.marioehkarte.Rail.curve_R1_30_outer</qualifiedname>
+        <initializer>= new <ref refid="classde_1_1marioehkart_1_1marioehkarte_1_1_rail" kindref="compound">Rail</ref>(181.4, 346.5)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/bmmli.jl/Dokumente/PlatformIO/Projects/Marioehh-Kart_Interface/src/de/marioehkart/marioehkarte/Rail.java" line="46" column="24" bodyfile="/Users/bmmli.jl/Dokumente/PlatformIO/Projects/Marioehh-Kart_Interface/src/de/marioehkart/marioehkarte/Rail.java" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classde_1_1marioehkart_1_1marioehkarte_1_1_rail_1a72bfd32315ad8f2ab2604132107201d4" prot="public" static="yes" mutable="no">
+        <type><ref refid="classde_1_1marioehkart_1_1marioehkarte_1_1_rail" kindref="compound">Rail</ref></type>
+        <definition>Rail de.marioehkart.marioehkarte.Rail.curve_R1_30_outer_</definition>
+        <argsstring></argsstring>
+        <name>curve_R1_30_outer_</name>
+        <qualifiedname>de.marioehkart.marioehkarte.Rail.curve_R1_30_outer_</qualifiedname>
+        <initializer>= new <ref refid="classde_1_1marioehkart_1_1marioehkarte_1_1_rail" kindref="compound">Rail</ref>(181.4, -346.5)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/bmmli.jl/Dokumente/PlatformIO/Projects/Marioehh-Kart_Interface/src/de/marioehkart/marioehkarte/Rail.java" line="47" column="24" bodyfile="/Users/bmmli.jl/Dokumente/PlatformIO/Projects/Marioehh-Kart_Interface/src/de/marioehkart/marioehkarte/Rail.java" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classde_1_1marioehkart_1_1marioehkarte_1_1_rail_1a011168ff08b71f08c52c2474fb007039" prot="public" static="yes" mutable="no">
+        <type><ref refid="classde_1_1marioehkart_1_1marioehkarte_1_1_rail" kindref="compound">Rail</ref></type>
+        <definition>Rail de.marioehkart.marioehkarte.Rail.curve_R1_60_inner</definition>
+        <argsstring></argsstring>
+        <name>curve_R1_60_inner</name>
+        <qualifiedname>de.marioehkart.marioehkarte.Rail.curve_R1_60_inner</qualifiedname>
+        <initializer>= new <ref refid="classde_1_1marioehkart_1_1marioehkarte_1_1_rail" kindref="compound">Rail</ref>(259.2, 247.5)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/bmmli.jl/Dokumente/PlatformIO/Projects/Marioehh-Kart_Interface/src/de/marioehkart/marioehkarte/Rail.java" line="49" column="24" bodyfile="/Users/bmmli.jl/Dokumente/PlatformIO/Projects/Marioehh-Kart_Interface/src/de/marioehkart/marioehkarte/Rail.java" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classde_1_1marioehkart_1_1marioehkarte_1_1_rail_1a5afdd2a9e66ef13ff1aac3f10e802c4f" prot="public" static="yes" mutable="no">
+        <type><ref refid="classde_1_1marioehkart_1_1marioehkarte_1_1_rail" kindref="compound">Rail</ref></type>
+        <definition>Rail de.marioehkart.marioehkarte.Rail.curve_R1_60_inner_</definition>
+        <argsstring></argsstring>
+        <name>curve_R1_60_inner_</name>
+        <qualifiedname>de.marioehkart.marioehkarte.Rail.curve_R1_60_inner_</qualifiedname>
+        <initializer>= new <ref refid="classde_1_1marioehkart_1_1marioehkarte_1_1_rail" kindref="compound">Rail</ref>(259.2, -247.5)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/bmmli.jl/Dokumente/PlatformIO/Projects/Marioehh-Kart_Interface/src/de/marioehkart/marioehkarte/Rail.java" line="50" column="24" bodyfile="/Users/bmmli.jl/Dokumente/PlatformIO/Projects/Marioehh-Kart_Interface/src/de/marioehkart/marioehkarte/Rail.java" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classde_1_1marioehkart_1_1marioehkarte_1_1_rail_1a389594b19c6588d273ef982d4d8d8642" prot="public" static="yes" mutable="no">
+        <type><ref refid="classde_1_1marioehkart_1_1marioehkarte_1_1_rail" kindref="compound">Rail</ref></type>
+        <definition>Rail de.marioehkart.marioehkarte.Rail.curve_R1_60_outer</definition>
+        <argsstring></argsstring>
+        <name>curve_R1_60_outer</name>
+        <qualifiedname>de.marioehkart.marioehkarte.Rail.curve_R1_60_outer</qualifiedname>
+        <initializer>= new <ref refid="classde_1_1marioehkart_1_1marioehkarte_1_1_rail" kindref="compound">Rail</ref>(362.9, 346.5)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/bmmli.jl/Dokumente/PlatformIO/Projects/Marioehh-Kart_Interface/src/de/marioehkart/marioehkarte/Rail.java" line="51" column="24" bodyfile="/Users/bmmli.jl/Dokumente/PlatformIO/Projects/Marioehh-Kart_Interface/src/de/marioehkart/marioehkarte/Rail.java" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classde_1_1marioehkart_1_1marioehkarte_1_1_rail_1a50502cbde67a6022440c623b537ce2b6" prot="public" static="yes" mutable="no">
+        <type><ref refid="classde_1_1marioehkart_1_1marioehkarte_1_1_rail" kindref="compound">Rail</ref></type>
+        <definition>Rail de.marioehkart.marioehkarte.Rail.curve_R1_60_outer_</definition>
+        <argsstring></argsstring>
+        <name>curve_R1_60_outer_</name>
+        <qualifiedname>de.marioehkart.marioehkarte.Rail.curve_R1_60_outer_</qualifiedname>
+        <initializer>= new <ref refid="classde_1_1marioehkart_1_1marioehkarte_1_1_rail" kindref="compound">Rail</ref>(362.9, -346.5)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/bmmli.jl/Dokumente/PlatformIO/Projects/Marioehh-Kart_Interface/src/de/marioehkart/marioehkarte/Rail.java" line="52" column="24" bodyfile="/Users/bmmli.jl/Dokumente/PlatformIO/Projects/Marioehh-Kart_Interface/src/de/marioehkart/marioehkarte/Rail.java" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classde_1_1marioehkart_1_1marioehkarte_1_1_rail_1a5176b69a6d1b90edfd157fc993cdaec1" prot="public" static="yes" mutable="no">
+        <type><ref refid="classde_1_1marioehkart_1_1marioehkarte_1_1_rail" kindref="compound">Rail</ref></type>
+        <definition>Rail de.marioehkart.marioehkarte.Rail.curve_R2_30_inner</definition>
+        <argsstring></argsstring>
+        <name>curve_R2_30_inner</name>
+        <qualifiedname>de.marioehkart.marioehkarte.Rail.curve_R2_30_inner</qualifiedname>
+        <initializer>= new <ref refid="classde_1_1marioehkart_1_1marioehkarte_1_1_rail" kindref="compound">Rail</ref>(233.3, 445.5)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/bmmli.jl/Dokumente/PlatformIO/Projects/Marioehh-Kart_Interface/src/de/marioehkart/marioehkarte/Rail.java" line="54" column="24" bodyfile="/Users/bmmli.jl/Dokumente/PlatformIO/Projects/Marioehh-Kart_Interface/src/de/marioehkart/marioehkarte/Rail.java" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classde_1_1marioehkart_1_1marioehkarte_1_1_rail_1af441e2cf3b9bfe812c70bf7c0706d417" prot="public" static="yes" mutable="no">
+        <type><ref refid="classde_1_1marioehkart_1_1marioehkarte_1_1_rail" kindref="compound">Rail</ref></type>
+        <definition>Rail de.marioehkart.marioehkarte.Rail.curve_R2_30_inner_</definition>
+        <argsstring></argsstring>
+        <name>curve_R2_30_inner_</name>
+        <qualifiedname>de.marioehkart.marioehkarte.Rail.curve_R2_30_inner_</qualifiedname>
+        <initializer>= new <ref refid="classde_1_1marioehkart_1_1marioehkarte_1_1_rail" kindref="compound">Rail</ref>(233.3, -445.5)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/bmmli.jl/Dokumente/PlatformIO/Projects/Marioehh-Kart_Interface/src/de/marioehkart/marioehkarte/Rail.java" line="55" column="24" bodyfile="/Users/bmmli.jl/Dokumente/PlatformIO/Projects/Marioehh-Kart_Interface/src/de/marioehkart/marioehkarte/Rail.java" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classde_1_1marioehkart_1_1marioehkarte_1_1_rail_1a7daafeebd49fafe3640d596c3ffa5027" prot="public" static="yes" mutable="no">
+        <type><ref refid="classde_1_1marioehkart_1_1marioehkarte_1_1_rail" kindref="compound">Rail</ref></type>
+        <definition>Rail de.marioehkart.marioehkarte.Rail.curve_R2_30_outer</definition>
+        <argsstring></argsstring>
+        <name>curve_R2_30_outer</name>
+        <qualifiedname>de.marioehkart.marioehkarte.Rail.curve_R2_30_outer</qualifiedname>
+        <initializer>= new <ref refid="classde_1_1marioehkart_1_1marioehkarte_1_1_rail" kindref="compound">Rail</ref>(285.1, 544.5)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/bmmli.jl/Dokumente/PlatformIO/Projects/Marioehh-Kart_Interface/src/de/marioehkart/marioehkarte/Rail.java" line="56" column="24" bodyfile="/Users/bmmli.jl/Dokumente/PlatformIO/Projects/Marioehh-Kart_Interface/src/de/marioehkart/marioehkarte/Rail.java" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classde_1_1marioehkart_1_1marioehkarte_1_1_rail_1a0839631814ad23d769926e14b8113f56" prot="public" static="yes" mutable="no">
+        <type><ref refid="classde_1_1marioehkart_1_1marioehkarte_1_1_rail" kindref="compound">Rail</ref></type>
+        <definition>Rail de.marioehkart.marioehkarte.Rail.curve_R2_30_outer_</definition>
+        <argsstring></argsstring>
+        <name>curve_R2_30_outer_</name>
+        <qualifiedname>de.marioehkart.marioehkarte.Rail.curve_R2_30_outer_</qualifiedname>
+        <initializer>= new <ref refid="classde_1_1marioehkart_1_1marioehkarte_1_1_rail" kindref="compound">Rail</ref>(285.1, -544.5)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/bmmli.jl/Dokumente/PlatformIO/Projects/Marioehh-Kart_Interface/src/de/marioehkart/marioehkarte/Rail.java" line="57" column="24" bodyfile="/Users/bmmli.jl/Dokumente/PlatformIO/Projects/Marioehh-Kart_Interface/src/de/marioehkart/marioehkarte/Rail.java" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classde_1_1marioehkart_1_1marioehkarte_1_1_rail_1a074290a2cffc804a7a38b183ac3224f6" prot="public" static="yes" mutable="no">
+        <type><ref refid="classde_1_1marioehkart_1_1marioehkarte_1_1_rail" kindref="compound">Rail</ref></type>
+        <definition>Rail de.marioehkart.marioehkarte.Rail.curve_R3_30_inner</definition>
+        <argsstring></argsstring>
+        <name>curve_R3_30_inner</name>
+        <qualifiedname>de.marioehkart.marioehkarte.Rail.curve_R3_30_inner</qualifiedname>
+        <initializer>= new <ref refid="classde_1_1marioehkart_1_1marioehkarte_1_1_rail" kindref="compound">Rail</ref>(336.9, 643.5)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/bmmli.jl/Dokumente/PlatformIO/Projects/Marioehh-Kart_Interface/src/de/marioehkart/marioehkarte/Rail.java" line="59" column="24" bodyfile="/Users/bmmli.jl/Dokumente/PlatformIO/Projects/Marioehh-Kart_Interface/src/de/marioehkart/marioehkarte/Rail.java" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classde_1_1marioehkart_1_1marioehkarte_1_1_rail_1a93b3e0f692000ab307fa5f378519dfee" prot="public" static="yes" mutable="no">
+        <type><ref refid="classde_1_1marioehkart_1_1marioehkarte_1_1_rail" kindref="compound">Rail</ref></type>
+        <definition>Rail de.marioehkart.marioehkarte.Rail.curve_R3_30_inner_</definition>
+        <argsstring></argsstring>
+        <name>curve_R3_30_inner_</name>
+        <qualifiedname>de.marioehkart.marioehkarte.Rail.curve_R3_30_inner_</qualifiedname>
+        <initializer>= new <ref refid="classde_1_1marioehkart_1_1marioehkarte_1_1_rail" kindref="compound">Rail</ref>(336.9, -643.5)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/bmmli.jl/Dokumente/PlatformIO/Projects/Marioehh-Kart_Interface/src/de/marioehkart/marioehkarte/Rail.java" line="60" column="24" bodyfile="/Users/bmmli.jl/Dokumente/PlatformIO/Projects/Marioehh-Kart_Interface/src/de/marioehkart/marioehkarte/Rail.java" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classde_1_1marioehkart_1_1marioehkarte_1_1_rail_1ad15d1b2ec21e953e56f30c0c683311dc" prot="public" static="yes" mutable="no">
+        <type><ref refid="classde_1_1marioehkart_1_1marioehkarte_1_1_rail" kindref="compound">Rail</ref></type>
+        <definition>Rail de.marioehkart.marioehkarte.Rail.curve_R3_30_outer</definition>
+        <argsstring></argsstring>
+        <name>curve_R3_30_outer</name>
+        <qualifiedname>de.marioehkart.marioehkarte.Rail.curve_R3_30_outer</qualifiedname>
+        <initializer>= new <ref refid="classde_1_1marioehkart_1_1marioehkarte_1_1_rail" kindref="compound">Rail</ref>(388.8, 742.5)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/bmmli.jl/Dokumente/PlatformIO/Projects/Marioehh-Kart_Interface/src/de/marioehkart/marioehkarte/Rail.java" line="61" column="24" bodyfile="/Users/bmmli.jl/Dokumente/PlatformIO/Projects/Marioehh-Kart_Interface/src/de/marioehkart/marioehkarte/Rail.java" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classde_1_1marioehkart_1_1marioehkarte_1_1_rail_1a54c39571927fa010a6ccf0b839fd2a77" prot="public" static="yes" mutable="no">
+        <type><ref refid="classde_1_1marioehkart_1_1marioehkarte_1_1_rail" kindref="compound">Rail</ref></type>
+        <definition>Rail de.marioehkart.marioehkarte.Rail.curve_R3_30_outer_</definition>
+        <argsstring></argsstring>
+        <name>curve_R3_30_outer_</name>
+        <qualifiedname>de.marioehkart.marioehkarte.Rail.curve_R3_30_outer_</qualifiedname>
+        <initializer>= new <ref refid="classde_1_1marioehkart_1_1marioehkarte_1_1_rail" kindref="compound">Rail</ref>(388.8, -742.5)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/bmmli.jl/Dokumente/PlatformIO/Projects/Marioehh-Kart_Interface/src/de/marioehkart/marioehkarte/Rail.java" line="62" column="24" bodyfile="/Users/bmmli.jl/Dokumente/PlatformIO/Projects/Marioehh-Kart_Interface/src/de/marioehkart/marioehkarte/Rail.java" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classde_1_1marioehkart_1_1marioehkarte_1_1_rail_1aab5ff6c9a351c5a39af7259abb60fffa" prot="public" static="yes" mutable="no">
+        <type><ref refid="classde_1_1marioehkart_1_1marioehkarte_1_1_rail" kindref="compound">Rail</ref></type>
+        <definition>Rail de.marioehkart.marioehkarte.Rail.curve_R4_15_inner</definition>
+        <argsstring></argsstring>
+        <name>curve_R4_15_inner</name>
+        <qualifiedname>de.marioehkart.marioehkarte.Rail.curve_R4_15_inner</qualifiedname>
+        <initializer>= new <ref refid="classde_1_1marioehkart_1_1marioehkarte_1_1_rail" kindref="compound">Rail</ref>(220.3, 841.5)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/bmmli.jl/Dokumente/PlatformIO/Projects/Marioehh-Kart_Interface/src/de/marioehkart/marioehkarte/Rail.java" line="64" column="24" bodyfile="/Users/bmmli.jl/Dokumente/PlatformIO/Projects/Marioehh-Kart_Interface/src/de/marioehkart/marioehkarte/Rail.java" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classde_1_1marioehkart_1_1marioehkarte_1_1_rail_1aefed0ffe62f5138e9b7a9b5480432323" prot="public" static="yes" mutable="no">
+        <type><ref refid="classde_1_1marioehkart_1_1marioehkarte_1_1_rail" kindref="compound">Rail</ref></type>
+        <definition>Rail de.marioehkart.marioehkarte.Rail.curve_R4_15_inner_</definition>
+        <argsstring></argsstring>
+        <name>curve_R4_15_inner_</name>
+        <qualifiedname>de.marioehkart.marioehkarte.Rail.curve_R4_15_inner_</qualifiedname>
+        <initializer>= new <ref refid="classde_1_1marioehkart_1_1marioehkarte_1_1_rail" kindref="compound">Rail</ref>(220.3, -841.5)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/bmmli.jl/Dokumente/PlatformIO/Projects/Marioehh-Kart_Interface/src/de/marioehkart/marioehkarte/Rail.java" line="65" column="24" bodyfile="/Users/bmmli.jl/Dokumente/PlatformIO/Projects/Marioehh-Kart_Interface/src/de/marioehkart/marioehkarte/Rail.java" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classde_1_1marioehkart_1_1marioehkarte_1_1_rail_1a87d61da2f8664b7582ef7aa583fe1522" prot="public" static="yes" mutable="no">
+        <type><ref refid="classde_1_1marioehkart_1_1marioehkarte_1_1_rail" kindref="compound">Rail</ref></type>
+        <definition>Rail de.marioehkart.marioehkarte.Rail.curve_R4_15_outer</definition>
+        <argsstring></argsstring>
+        <name>curve_R4_15_outer</name>
+        <qualifiedname>de.marioehkart.marioehkarte.Rail.curve_R4_15_outer</qualifiedname>
+        <initializer>= new <ref refid="classde_1_1marioehkart_1_1marioehkarte_1_1_rail" kindref="compound">Rail</ref>(246.2, 940.5)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/bmmli.jl/Dokumente/PlatformIO/Projects/Marioehh-Kart_Interface/src/de/marioehkart/marioehkarte/Rail.java" line="66" column="24" bodyfile="/Users/bmmli.jl/Dokumente/PlatformIO/Projects/Marioehh-Kart_Interface/src/de/marioehkart/marioehkarte/Rail.java" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classde_1_1marioehkart_1_1marioehkarte_1_1_rail_1adc27008f54808c17cb1fe1edeb8ea6b9" prot="public" static="yes" mutable="no">
+        <type><ref refid="classde_1_1marioehkart_1_1marioehkarte_1_1_rail" kindref="compound">Rail</ref></type>
+        <definition>Rail de.marioehkart.marioehkarte.Rail.curve_R4_15_outer_</definition>
+        <argsstring></argsstring>
+        <name>curve_R4_15_outer_</name>
+        <qualifiedname>de.marioehkart.marioehkarte.Rail.curve_R4_15_outer_</qualifiedname>
+        <initializer>= new <ref refid="classde_1_1marioehkart_1_1marioehkarte_1_1_rail" kindref="compound">Rail</ref>(246.2, -940.5)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/bmmli.jl/Dokumente/PlatformIO/Projects/Marioehh-Kart_Interface/src/de/marioehkart/marioehkarte/Rail.java" line="67" column="24" bodyfile="/Users/bmmli.jl/Dokumente/PlatformIO/Projects/Marioehh-Kart_Interface/src/de/marioehkart/marioehkarte/Rail.java" bodystart="67" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classde_1_1marioehkart_1_1marioehkarte_1_1_rail_1aec25ac7bc08536097dfddf030f8a636e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>de.marioehkart.marioehkarte.Rail.Rail</definition>
+        <argsstring>(double l, double r)</argsstring>
+        <name>Rail</name>
+        <qualifiedname>de.marioehkart.marioehkarte.Rail.Rail</qualifiedname>
+        <param>
+          <type>double</type>
+          <declname>l</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>r</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/bmmli.jl/Dokumente/PlatformIO/Projects/Marioehh-Kart_Interface/src/de/marioehkart/marioehkarte/Rail.java" line="8" column="12" bodyfile="/Users/bmmli.jl/Dokumente/PlatformIO/Projects/Marioehh-Kart_Interface/src/de/marioehkart/marioehkarte/Rail.java" bodystart="8" bodyend="13"/>
+      </memberdef>
+      <memberdef kind="function" id="classde_1_1marioehkart_1_1marioehkarte_1_1_rail_1a82b50e0fa25b29c3f53d945b6a8b1025" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classde_1_1marioehkart_1_1marioehkarte_1_1_coordinates" kindref="compound">Coordinates</ref></type>
+        <definition>Coordinates de.marioehkart.marioehkarte.Rail.coordinates</definition>
+        <argsstring>(double position)</argsstring>
+        <name>coordinates</name>
+        <qualifiedname>de.marioehkart.marioehkarte.Rail.coordinates</qualifiedname>
+        <param>
+          <type>double</type>
+          <declname>position</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/bmmli.jl/Dokumente/PlatformIO/Projects/Marioehh-Kart_Interface/src/de/marioehkart/marioehkarte/Rail.java" line="14" column="24" bodyfile="/Users/bmmli.jl/Dokumente/PlatformIO/Projects/Marioehh-Kart_Interface/src/de/marioehkart/marioehkarte/Rail.java" bodystart="14" bodyend="35"/>
+      </memberdef>
+      <memberdef kind="function" id="classde_1_1marioehkart_1_1marioehkarte_1_1_rail_1aab251c4c56cbab4552b489397e3a1c7f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>double</type>
+        <definition>double de.marioehkart.marioehkarte.Rail.length</definition>
+        <argsstring>()</argsstring>
+        <name>length</name>
+        <qualifiedname>de.marioehkart.marioehkarte.Rail.length</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/bmmli.jl/Dokumente/PlatformIO/Projects/Marioehh-Kart_Interface/src/de/marioehkart/marioehkarte/Rail.java" line="36" column="19" bodyfile="/Users/bmmli.jl/Dokumente/PlatformIO/Projects/Marioehh-Kart_Interface/src/de/marioehkart/marioehkarte/Rail.java" bodystart="36" bodyend="38"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classde_1_1marioehkart_1_1marioehkarte_1_1_rail_1a9d71e00ec3977be259df060e0f68dd3f" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classde_1_1marioehkart_1_1marioehkarte_1_1_rail" kindref="compound">Rail</ref></type>
+        <definition>static Rail de.marioehkart.marioehkarte.Rail.fromString</definition>
+        <argsstring>(String rail)</argsstring>
+        <name>fromString</name>
+        <qualifiedname>de.marioehkart.marioehkarte.Rail.fromString</qualifiedname>
+        <param>
+          <type>String</type>
+          <declname>rail</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/bmmli.jl/Dokumente/PlatformIO/Projects/Marioehh-Kart_Interface/src/de/marioehkart/marioehkarte/Rail.java" line="69" column="24" bodyfile="/Users/bmmli.jl/Dokumente/PlatformIO/Projects/Marioehh-Kart_Interface/src/de/marioehkart/marioehkarte/Rail.java" bodystart="69" bodyend="121"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1">
+        <label>de.marioehkart.marioehkarte.Rail</label>
+        <link refid="classde_1_1marioehkart_1_1marioehkarte_1_1_rail"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>curve_R1_30_inner</edgelabel>
+          <edgelabel>curve_R1_30_inner_</edgelabel>
+          <edgelabel>curve_R1_30_outer</edgelabel>
+          <edgelabel>curve_R1_30_outer_</edgelabel>
+          <edgelabel>curve_R1_60_inner</edgelabel>
+          <edgelabel>curve_R1_60_inner_</edgelabel>
+          <edgelabel>curve_R1_60_outer</edgelabel>
+          <edgelabel>curve_R1_60_outer_</edgelabel>
+          <edgelabel>curve_R2_30_inner</edgelabel>
+          <edgelabel>curve_R2_30_inner_</edgelabel>
+          <edgelabel>...</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>de.marioehkart.marioehkarte.Rail</label>
+        <link refid="classde_1_1marioehkart_1_1marioehkarte_1_1_rail"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>curve_R1_30_inner</edgelabel>
+          <edgelabel>curve_R1_30_inner_</edgelabel>
+          <edgelabel>curve_R1_30_outer</edgelabel>
+          <edgelabel>curve_R1_30_outer_</edgelabel>
+          <edgelabel>curve_R1_60_inner</edgelabel>
+          <edgelabel>curve_R1_60_inner_</edgelabel>
+          <edgelabel>curve_R1_60_outer</edgelabel>
+          <edgelabel>curve_R1_60_outer_</edgelabel>
+          <edgelabel>curve_R2_30_inner</edgelabel>
+          <edgelabel>curve_R2_30_inner_</edgelabel>
+          <edgelabel>...</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/Users/bmmli.jl/Dokumente/PlatformIO/Projects/Marioehh-Kart_Interface/src/de/marioehkart/marioehkarte/Rail.java" line="2" column="7" bodyfile="/Users/bmmli.jl/Dokumente/PlatformIO/Projects/Marioehh-Kart_Interface/src/de/marioehkart/marioehkarte/Rail.java" bodystart="2" bodyend="123"/>
+    <listofallmembers>
+      <member refid="classde_1_1marioehkart_1_1marioehkarte_1_1_rail_1ae7dfd313cd069b99de304d1ab8822579" prot="private" virt="non-virtual"><scope>de::marioehkart::marioehkarte::Rail</scope><name>angle</name></member>
+      <member refid="classde_1_1marioehkart_1_1marioehkarte_1_1_rail_1a82b50e0fa25b29c3f53d945b6a8b1025" prot="public" virt="non-virtual"><scope>de::marioehkart::marioehkarte::Rail</scope><name>coordinates</name></member>
+      <member refid="classde_1_1marioehkart_1_1marioehkarte_1_1_rail_1a6951d5bf93e5ce66f29e8fa91bee98e3" prot="public" virt="non-virtual"><scope>de::marioehkart::marioehkarte::Rail</scope><name>curve_R1_30_inner</name></member>
+      <member refid="classde_1_1marioehkart_1_1marioehkarte_1_1_rail_1a2b5f6f5a87b3250e5341c1726e117862" prot="public" virt="non-virtual"><scope>de::marioehkart::marioehkarte::Rail</scope><name>curve_R1_30_inner_</name></member>
+      <member refid="classde_1_1marioehkart_1_1marioehkarte_1_1_rail_1a9c90aea4d3c66a3c0601bae786de7929" prot="public" virt="non-virtual"><scope>de::marioehkart::marioehkarte::Rail</scope><name>curve_R1_30_outer</name></member>
+      <member refid="classde_1_1marioehkart_1_1marioehkarte_1_1_rail_1a72bfd32315ad8f2ab2604132107201d4" prot="public" virt="non-virtual"><scope>de::marioehkart::marioehkarte::Rail</scope><name>curve_R1_30_outer_</name></member>
+      <member refid="classde_1_1marioehkart_1_1marioehkarte_1_1_rail_1a011168ff08b71f08c52c2474fb007039" prot="public" virt="non-virtual"><scope>de::marioehkart::marioehkarte::Rail</scope><name>curve_R1_60_inner</name></member>
+      <member refid="classde_1_1marioehkart_1_1marioehkarte_1_1_rail_1a5afdd2a9e66ef13ff1aac3f10e802c4f" prot="public" virt="non-virtual"><scope>de::marioehkart::marioehkarte::Rail</scope><name>curve_R1_60_inner_</name></member>
+      <member refid="classde_1_1marioehkart_1_1marioehkarte_1_1_rail_1a389594b19c6588d273ef982d4d8d8642" prot="public" virt="non-virtual"><scope>de::marioehkart::marioehkarte::Rail</scope><name>curve_R1_60_outer</name></member>
+      <member refid="classde_1_1marioehkart_1_1marioehkarte_1_1_rail_1a50502cbde67a6022440c623b537ce2b6" prot="public" virt="non-virtual"><scope>de::marioehkart::marioehkarte::Rail</scope><name>curve_R1_60_outer_</name></member>
+      <member refid="classde_1_1marioehkart_1_1marioehkarte_1_1_rail_1a5176b69a6d1b90edfd157fc993cdaec1" prot="public" virt="non-virtual"><scope>de::marioehkart::marioehkarte::Rail</scope><name>curve_R2_30_inner</name></member>
+      <member refid="classde_1_1marioehkart_1_1marioehkarte_1_1_rail_1af441e2cf3b9bfe812c70bf7c0706d417" prot="public" virt="non-virtual"><scope>de::marioehkart::marioehkarte::Rail</scope><name>curve_R2_30_inner_</name></member>
+      <member refid="classde_1_1marioehkart_1_1marioehkarte_1_1_rail_1a7daafeebd49fafe3640d596c3ffa5027" prot="public" virt="non-virtual"><scope>de::marioehkart::marioehkarte::Rail</scope><name>curve_R2_30_outer</name></member>
+      <member refid="classde_1_1marioehkart_1_1marioehkarte_1_1_rail_1a0839631814ad23d769926e14b8113f56" prot="public" virt="non-virtual"><scope>de::marioehkart::marioehkarte::Rail</scope><name>curve_R2_30_outer_</name></member>
+      <member refid="classde_1_1marioehkart_1_1marioehkarte_1_1_rail_1a074290a2cffc804a7a38b183ac3224f6" prot="public" virt="non-virtual"><scope>de::marioehkart::marioehkarte::Rail</scope><name>curve_R3_30_inner</name></member>
+      <member refid="classde_1_1marioehkart_1_1marioehkarte_1_1_rail_1a93b3e0f692000ab307fa5f378519dfee" prot="public" virt="non-virtual"><scope>de::marioehkart::marioehkarte::Rail</scope><name>curve_R3_30_inner_</name></member>
+      <member refid="classde_1_1marioehkart_1_1marioehkarte_1_1_rail_1ad15d1b2ec21e953e56f30c0c683311dc" prot="public" virt="non-virtual"><scope>de::marioehkart::marioehkarte::Rail</scope><name>curve_R3_30_outer</name></member>
+      <member refid="classde_1_1marioehkart_1_1marioehkarte_1_1_rail_1a54c39571927fa010a6ccf0b839fd2a77" prot="public" virt="non-virtual"><scope>de::marioehkart::marioehkarte::Rail</scope><name>curve_R3_30_outer_</name></member>
+      <member refid="classde_1_1marioehkart_1_1marioehkarte_1_1_rail_1aab5ff6c9a351c5a39af7259abb60fffa" prot="public" virt="non-virtual"><scope>de::marioehkart::marioehkarte::Rail</scope><name>curve_R4_15_inner</name></member>
+      <member refid="classde_1_1marioehkart_1_1marioehkarte_1_1_rail_1aefed0ffe62f5138e9b7a9b5480432323" prot="public" virt="non-virtual"><scope>de::marioehkart::marioehkarte::Rail</scope><name>curve_R4_15_inner_</name></member>
+      <member refid="classde_1_1marioehkart_1_1marioehkarte_1_1_rail_1a87d61da2f8664b7582ef7aa583fe1522" prot="public" virt="non-virtual"><scope>de::marioehkart::marioehkarte::Rail</scope><name>curve_R4_15_outer</name></member>
+      <member refid="classde_1_1marioehkart_1_1marioehkarte_1_1_rail_1adc27008f54808c17cb1fe1edeb8ea6b9" prot="public" virt="non-virtual"><scope>de::marioehkart::marioehkarte::Rail</scope><name>curve_R4_15_outer_</name></member>
+      <member refid="classde_1_1marioehkart_1_1marioehkarte_1_1_rail_1a9d71e00ec3977be259df060e0f68dd3f" prot="public" virt="non-virtual"><scope>de::marioehkart::marioehkarte::Rail</scope><name>fromString</name></member>
+      <member refid="classde_1_1marioehkart_1_1marioehkarte_1_1_rail_1ac6887d4991144c1df101b7f58619cd38" prot="private" virt="non-virtual"><scope>de::marioehkart::marioehkarte::Rail</scope><name>length</name></member>
+      <member refid="classde_1_1marioehkart_1_1marioehkarte_1_1_rail_1aab251c4c56cbab4552b489397e3a1c7f" prot="public" virt="non-virtual"><scope>de::marioehkart::marioehkarte::Rail</scope><name>length</name></member>
+      <member refid="classde_1_1marioehkart_1_1marioehkarte_1_1_rail_1a25d6e952197d99e2e679ee5efcdccddd" prot="private" virt="non-virtual"><scope>de::marioehkart::marioehkarte::Rail</scope><name>radius</name></member>
+      <member refid="classde_1_1marioehkart_1_1marioehkarte_1_1_rail_1aec25ac7bc08536097dfddf030f8a636e" prot="public" virt="non-virtual"><scope>de::marioehkart::marioehkarte::Rail</scope><name>Rail</name></member>
+      <member refid="classde_1_1marioehkart_1_1marioehkarte_1_1_rail_1a862c997bbd136602830eb4f5a2100c6c" prot="public" virt="non-virtual"><scope>de::marioehkart::marioehkarte::Rail</scope><name>straight_standard</name></member>
+      <member refid="classde_1_1marioehkart_1_1marioehkarte_1_1_rail_1a4673663658fe1b68cb49d77cccf6ded4" prot="public" virt="non-virtual"><scope>de::marioehkart::marioehkarte::Rail</scope><name>straight_standard_fourth</name></member>
+      <member refid="classde_1_1marioehkart_1_1marioehkarte_1_1_rail_1a75145f715feb954405f6f514491eefb7" prot="public" virt="non-virtual"><scope>de::marioehkart::marioehkarte::Rail</scope><name>straight_standard_third</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

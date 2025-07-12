@@ -1,0 +1,269 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.13.1" xml:lang="de">
+  <compounddef id="classde_1_1marioehkart_1_1marioehkarte_1_1_coordinates" kind="class" language="Java" prot="public">
+    <compoundname>de::marioehkart::marioehkarte::Coordinates</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classde_1_1marioehkart_1_1marioehkarte_1_1_coordinates_1a659fc1abaa757b14e92f156a162b6dea" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double de.marioehkart.marioehkarte.Coordinates.x</definition>
+        <argsstring></argsstring>
+        <name>x</name>
+        <qualifiedname>de.marioehkart.marioehkarte.Coordinates.x</qualifiedname>
+        <briefdescription>
+<para>The x-coordinate. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/bmmli.jl/Dokumente/PlatformIO/Projects/Marioehh-Kart_Interface/src/de/marioehkart/marioehkarte/Coordinates.java" line="44" column="19" bodyfile="/Users/bmmli.jl/Dokumente/PlatformIO/Projects/Marioehh-Kart_Interface/src/de/marioehkart/marioehkarte/Coordinates.java" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classde_1_1marioehkart_1_1marioehkarte_1_1_coordinates_1a54babf3615280c5cec6527678c6408d0" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double de.marioehkart.marioehkarte.Coordinates.y</definition>
+        <argsstring></argsstring>
+        <name>y</name>
+        <qualifiedname>de.marioehkart.marioehkarte.Coordinates.y</qualifiedname>
+        <briefdescription>
+<para>The y-coordinate. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/bmmli.jl/Dokumente/PlatformIO/Projects/Marioehh-Kart_Interface/src/de/marioehkart/marioehkarte/Coordinates.java" line="46" column="19" bodyfile="/Users/bmmli.jl/Dokumente/PlatformIO/Projects/Marioehh-Kart_Interface/src/de/marioehkart/marioehkarte/Coordinates.java" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classde_1_1marioehkart_1_1marioehkarte_1_1_coordinates_1a185473ba3f25aedd9bf90dc90d152fdb" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double de.marioehkart.marioehkarte.Coordinates.angle_x</definition>
+        <argsstring></argsstring>
+        <name>angle_x</name>
+        <qualifiedname>de.marioehkart.marioehkarte.Coordinates.angle_x</qualifiedname>
+        <briefdescription>
+<para>The angle in radians. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/bmmli.jl/Dokumente/PlatformIO/Projects/Marioehh-Kart_Interface/src/de/marioehkart/marioehkarte/Coordinates.java" line="48" column="19" bodyfile="/Users/bmmli.jl/Dokumente/PlatformIO/Projects/Marioehh-Kart_Interface/src/de/marioehkart/marioehkarte/Coordinates.java" bodystart="48" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classde_1_1marioehkart_1_1marioehkarte_1_1_coordinates_1ab2e7cfcbb67ffd72387a6fc4a96ee1ef" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>de.marioehkart.marioehkarte.Coordinates.Coordinates</definition>
+        <argsstring>()</argsstring>
+        <name>Coordinates</name>
+        <qualifiedname>de.marioehkart.marioehkarte.Coordinates.Coordinates</qualifiedname>
+        <briefdescription>
+<para>Default constructor for <ref refid="classde_1_1marioehkart_1_1marioehkarte_1_1_coordinates" kindref="compound">Coordinates</ref> class. Initializes the coordinates to (0, 0) with an angle of 0 radians. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The x-coordinate. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>y</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The y-coordinate. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>angle_x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The angle in radians. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/bmmli.jl/Dokumente/PlatformIO/Projects/Marioehh-Kart_Interface/src/de/marioehkart/marioehkarte/Coordinates.java" line="28" column="12" bodyfile="/Users/bmmli.jl/Dokumente/PlatformIO/Projects/Marioehh-Kart_Interface/src/de/marioehkart/marioehkarte/Coordinates.java" bodystart="28" bodyend="32"/>
+      </memberdef>
+      <memberdef kind="function" id="classde_1_1marioehkart_1_1marioehkarte_1_1_coordinates_1a79eeef660df6a866162117efcf86e20a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>de.marioehkart.marioehkarte.Coordinates.Coordinates</definition>
+        <argsstring>(double x, double y, double angle_x)</argsstring>
+        <name>Coordinates</name>
+        <qualifiedname>de.marioehkart.marioehkarte.Coordinates.Coordinates</qualifiedname>
+        <param>
+          <type>double</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>angle_x</declname>
+        </param>
+        <briefdescription>
+<para>Constructor for <ref refid="classde_1_1marioehkart_1_1marioehkarte_1_1_coordinates" kindref="compound">Coordinates</ref> class. Initializes the coordinates with the given x, y, and angle values. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The x-coordinate. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>y</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The y-coordinate. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>angle_x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The angle in radians. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/bmmli.jl/Dokumente/PlatformIO/Projects/Marioehh-Kart_Interface/src/de/marioehkart/marioehkarte/Coordinates.java" line="38" column="12" bodyfile="/Users/bmmli.jl/Dokumente/PlatformIO/Projects/Marioehh-Kart_Interface/src/de/marioehkart/marioehkarte/Coordinates.java" bodystart="38" bodyend="42"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classde_1_1marioehkart_1_1marioehkarte_1_1_coordinates_1a9519634f6e60544d671b6191bd22694a" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classde_1_1marioehkart_1_1marioehkarte_1_1_coordinates" kindref="compound">Coordinates</ref></type>
+        <definition>static Coordinates de.marioehkart.marioehkarte.Coordinates.addCoordinates</definition>
+        <argsstring>(Coordinates a, Coordinates b)</argsstring>
+        <name>addCoordinates</name>
+        <qualifiedname>de.marioehkart.marioehkarte.Coordinates.addCoordinates</qualifiedname>
+        <param>
+          <type><ref refid="classde_1_1marioehkart_1_1marioehkarte_1_1_coordinates" kindref="compound">Coordinates</ref></type>
+          <declname>a</declname>
+        </param>
+        <param>
+          <type><ref refid="classde_1_1marioehkart_1_1marioehkarte_1_1_coordinates" kindref="compound">Coordinates</ref></type>
+          <declname>b</declname>
+        </param>
+        <briefdescription>
+<para>Addition of two <ref refid="classde_1_1marioehkart_1_1marioehkarte_1_1_coordinates" kindref="compound">Coordinates</ref> objects. Adds the x and y coordinates and angles of two <ref refid="classde_1_1marioehkart_1_1marioehkarte_1_1_coordinates" kindref="compound">Coordinates</ref> objects. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>a</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The first <ref refid="classde_1_1marioehkart_1_1marioehkarte_1_1_coordinates" kindref="compound">Coordinates</ref> object. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>b</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The second <ref refid="classde_1_1marioehkart_1_1marioehkarte_1_1_coordinates" kindref="compound">Coordinates</ref> object. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>A new <ref refid="classde_1_1marioehkart_1_1marioehkarte_1_1_coordinates" kindref="compound">Coordinates</ref> object with the summed coordinates and angles. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/bmmli.jl/Dokumente/PlatformIO/Projects/Marioehh-Kart_Interface/src/de/marioehkart/marioehkarte/Coordinates.java" line="54" column="31" bodyfile="/Users/bmmli.jl/Dokumente/PlatformIO/Projects/Marioehh-Kart_Interface/src/de/marioehkart/marioehkarte/Coordinates.java" bodystart="54" bodyend="60"/>
+      </memberdef>
+      <memberdef kind="function" id="classde_1_1marioehkart_1_1marioehkarte_1_1_coordinates_1a3986ba018fab440596615eec7a5f965a" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classde_1_1marioehkart_1_1marioehkarte_1_1_coordinates" kindref="compound">Coordinates</ref></type>
+        <definition>static Coordinates de.marioehkart.marioehkarte.Coordinates.transformCoordinates</definition>
+        <argsstring>(Coordinates a, double angle)</argsstring>
+        <name>transformCoordinates</name>
+        <qualifiedname>de.marioehkart.marioehkarte.Coordinates.transformCoordinates</qualifiedname>
+        <param>
+          <type><ref refid="classde_1_1marioehkart_1_1marioehkarte_1_1_coordinates" kindref="compound">Coordinates</ref></type>
+          <declname>a</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>angle</declname>
+        </param>
+        <briefdescription>
+<para>Transformation of coordinates based on an angle. Transforms the coordinates of a <ref refid="classde_1_1marioehkart_1_1marioehkarte_1_1_coordinates" kindref="compound">Coordinates</ref> object by rotating them around the origin. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>a</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The <ref refid="classde_1_1marioehkart_1_1marioehkarte_1_1_coordinates" kindref="compound">Coordinates</ref> object to be transformed. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>angle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The angle in radians by which to rotate the coordinates. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>A new <ref refid="classde_1_1marioehkart_1_1marioehkarte_1_1_coordinates" kindref="compound">Coordinates</ref> object with the transformed coordinates. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/bmmli.jl/Dokumente/PlatformIO/Projects/Marioehh-Kart_Interface/src/de/marioehkart/marioehkarte/Coordinates.java" line="66" column="31" bodyfile="/Users/bmmli.jl/Dokumente/PlatformIO/Projects/Marioehh-Kart_Interface/src/de/marioehkart/marioehkarte/Coordinates.java" bodystart="66" bodyend="72"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>This class represents a set of coordinates in a 2D space. It includes methods for adding coordinates and transforming them based on an angle. The coordinates are represented by x, y, and an angle in radians. The class provides a constructor for initializing coordinates and methods for adding and transforming them. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>The class is used in the context of a railway system, where coordinates represent positions on the tracks. The coordinates can be used to calculate positions of trains or other objects on the railway. The transformation method allows for rotating the coordinates based on a given angle. The class is part of a larger system that includes sections and rails, which are used to represent the railway tracks. <simplesect kind="author"><para>MarioehKart </para>
+</simplesect>
+<simplesect kind="version"><para>1.0 </para>
+</simplesect>
+<simplesect kind="date"><para>2023-10-01 @license GPL-3.0 </para>
+</simplesect>
+<simplesect kind="see"><para><ref refid="classde_1_1marioehkart_1_1marioehkarte_1_1_section" kindref="compound">Section</ref> </para>
+</simplesect>
+<simplesect kind="see"><para><ref refid="classde_1_1marioehkart_1_1marioehkarte_1_1_rail" kindref="compound">Rail</ref> </para>
+</simplesect>
+<simplesect kind="see"><para><ref refid="classde_1_1marioehkart_1_1marioehkarte_1_1_map" kindref="compound">Map</ref> </para>
+</simplesect>
+<simplesect kind="see"><para>App </para>
+</simplesect>
+<simplesect kind="see"><para><ref refid="classde_1_1marioehkart_1_1marioehkarte_1_1_coordinates" kindref="compound">Coordinates</ref> </para>
+</simplesect>
+</para>
+    </detaileddescription>
+    <location file="/Users/bmmli.jl/Dokumente/PlatformIO/Projects/Marioehh-Kart_Interface/src/de/marioehkart/marioehkarte/Coordinates.java" line="22" column="7" bodyfile="/Users/bmmli.jl/Dokumente/PlatformIO/Projects/Marioehh-Kart_Interface/src/de/marioehkart/marioehkarte/Coordinates.java" bodystart="22" bodyend="73"/>
+    <listofallmembers>
+      <member refid="classde_1_1marioehkart_1_1marioehkarte_1_1_coordinates_1a9519634f6e60544d671b6191bd22694a" prot="public" virt="non-virtual"><scope>de::marioehkart::marioehkarte::Coordinates</scope><name>addCoordinates</name></member>
+      <member refid="classde_1_1marioehkart_1_1marioehkarte_1_1_coordinates_1a185473ba3f25aedd9bf90dc90d152fdb" prot="public" virt="non-virtual"><scope>de::marioehkart::marioehkarte::Coordinates</scope><name>angle_x</name></member>
+      <member refid="classde_1_1marioehkart_1_1marioehkarte_1_1_coordinates_1ab2e7cfcbb67ffd72387a6fc4a96ee1ef" prot="public" virt="non-virtual"><scope>de::marioehkart::marioehkarte::Coordinates</scope><name>Coordinates</name></member>
+      <member refid="classde_1_1marioehkart_1_1marioehkarte_1_1_coordinates_1a79eeef660df6a866162117efcf86e20a" prot="public" virt="non-virtual"><scope>de::marioehkart::marioehkarte::Coordinates</scope><name>Coordinates</name></member>
+      <member refid="classde_1_1marioehkart_1_1marioehkarte_1_1_coordinates_1a3986ba018fab440596615eec7a5f965a" prot="public" virt="non-virtual"><scope>de::marioehkart::marioehkarte::Coordinates</scope><name>transformCoordinates</name></member>
+      <member refid="classde_1_1marioehkart_1_1marioehkarte_1_1_coordinates_1a659fc1abaa757b14e92f156a162b6dea" prot="public" virt="non-virtual"><scope>de::marioehkart::marioehkarte::Coordinates</scope><name>x</name></member>
+      <member refid="classde_1_1marioehkart_1_1marioehkarte_1_1_coordinates_1a54babf3615280c5cec6527678c6408d0" prot="public" virt="non-virtual"><scope>de::marioehkart::marioehkarte::Coordinates</scope><name>y</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

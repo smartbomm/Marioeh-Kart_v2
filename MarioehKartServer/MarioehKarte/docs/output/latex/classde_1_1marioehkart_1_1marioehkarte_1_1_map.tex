@@ -1,0 +1,152 @@
+\doxysection{de.\+marioehkart.\+marioehkarte.\+Map Class Reference}
+\hypertarget{classde_1_1marioehkart_1_1marioehkarte_1_1_map}{}\label{classde_1_1marioehkart_1_1marioehkarte_1_1_map}\index{de.marioehkart.marioehkarte.Map@{de.marioehkart.marioehkarte.Map}}
+
+
+This class represents a map of Carrera sections and their coordinates.  
+
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classde_1_1marioehkart_1_1marioehkarte_1_1_map_ad9938439cb3beb52760228a3579ce11a}{Map}} (String directory)  throws Exception 
+\begin{DoxyCompactList}\small\item\em Constructor for the \doxylink{classde_1_1marioehkart_1_1marioehkarte_1_1_map}{Map} class. Initializes the map with a specified directory for error logging. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classde_1_1marioehkart_1_1marioehkarte_1_1_map_a77054b587adfe924a9615bba01c1e5ef}{close}} ()  throws Exception 
+\begin{DoxyCompactList}\small\item\em Closes the error log file. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classde_1_1marioehkart_1_1marioehkarte_1_1_coordinates}{Coordinates}} \mbox{\hyperlink{classde_1_1marioehkart_1_1marioehkarte_1_1_map_a432cac54eae9fb72e51f3556049e0055}{get\+Coordinates}} (int section, double distance)  throws Exception 
+\begin{DoxyCompactList}\small\item\em Gets the coordinates for a specific section and distance. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classde_1_1marioehkart_1_1marioehkarte_1_1_map_a59321f22e0bbdba5e2ed23b1580164db}{feed}} (String csv, String separator)  throws Exception 
+\begin{DoxyCompactList}\small\item\em Reads a CSV file and populates the map with sections and rails. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This class represents a map of Carrera sections and their coordinates. 
+
+\begin{DoxyAuthor}{Author}
+Mario Ehkart 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1.\+0 
+\end{DoxyVersion}
+\begin{DoxySince}{Since}
+2023-\/10-\/01
+\end{DoxySince}
+The \doxylink{classde_1_1marioehkart_1_1marioehkarte_1_1_map}{Map} class is used to create a map of the rail sections and their coordinates. It includes methods for reading a CSV file containing section data, getting coordinates for a specific section and distance, and handling errors. @license GPL-\/3.\+0 \begin{DoxySeeAlso}{See also}
+\doxylink{classde_1_1marioehkart_1_1marioehkarte_1_1_section}{Section} 
+
+\doxylink{classde_1_1marioehkart_1_1marioehkarte_1_1_rail}{Rail} 
+
+\doxylink{classde_1_1marioehkart_1_1marioehkarte_1_1_coordinates}{Coordinates} 
+\end{DoxySeeAlso}
+
+
+Definition at line \mbox{\hyperlink{_map_8java_source_l00023}{23}} of file \mbox{\hyperlink{_map_8java_source}{Map.\+java}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classde_1_1marioehkart_1_1marioehkarte_1_1_map_ad9938439cb3beb52760228a3579ce11a}\index{de.marioehkart.marioehkarte.Map@{de.marioehkart.marioehkarte.Map}!Map@{Map}}
+\index{Map@{Map}!de.marioehkart.marioehkarte.Map@{de.marioehkart.marioehkarte.Map}}
+\doxysubsubsection{\texorpdfstring{Map()}{Map()}}
+{\footnotesize\ttfamily \label{classde_1_1marioehkart_1_1marioehkarte_1_1_map_ad9938439cb3beb52760228a3579ce11a} 
+de.\+marioehkart.\+marioehkarte.\+Map.\+Map (\begin{DoxyParamCaption}\item[{String}]{directory}{}\end{DoxyParamCaption}) throws Exception}
+
+
+
+Constructor for the \doxylink{classde_1_1marioehkart_1_1marioehkarte_1_1_map}{Map} class. Initializes the map with a specified directory for error logging. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em directory} & The directory where the error log file will be created. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Exception} & If an error occurs while creating the error log file.\\
+\hline
+\end{DoxyExceptions}
+The constructor initializes the sections and mapped\+Sections arrays, and creates a File\+Writer for logging errors. The error log file is created in the specified directory with the name "{}error.\+log"{}. The sections array is used to store the sections of the map, and the mapped\+Sections array is used to map section numbers to their corresponding indices in the sections array. The error log file is used to log any errors that occur during the execution of the program. 
+
+Definition at line \mbox{\hyperlink{_map_8java_source_l00037}{37}} of file \mbox{\hyperlink{_map_8java_source}{Map.\+java}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classde_1_1marioehkart_1_1marioehkarte_1_1_map_a77054b587adfe924a9615bba01c1e5ef}\index{de.marioehkart.marioehkarte.Map@{de.marioehkart.marioehkarte.Map}!close@{close}}
+\index{close@{close}!de.marioehkart.marioehkarte.Map@{de.marioehkart.marioehkarte.Map}}
+\doxysubsubsection{\texorpdfstring{close()}{close()}}
+{\footnotesize\ttfamily \label{classde_1_1marioehkart_1_1marioehkarte_1_1_map_a77054b587adfe924a9615bba01c1e5ef} 
+void de.\+marioehkart.\+marioehkarte.\+Map.\+close (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) throws Exception}
+
+
+
+Closes the error log file. 
+
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Exception} & If an error occurs while closing the error log file.\\
+\hline
+\end{DoxyExceptions}
+This method is used to close the error log file after all operations are completed. It ensures that any remaining data in the buffer is written to the file before closing it. The error log file is used to log any errors that occur during the execution of the program. 
+
+Definition at line \mbox{\hyperlink{_map_8java_source_l00054}{54}} of file \mbox{\hyperlink{_map_8java_source}{Map.\+java}}.
+
+\Hypertarget{classde_1_1marioehkart_1_1marioehkarte_1_1_map_a59321f22e0bbdba5e2ed23b1580164db}\index{de.marioehkart.marioehkarte.Map@{de.marioehkart.marioehkarte.Map}!feed@{feed}}
+\index{feed@{feed}!de.marioehkart.marioehkarte.Map@{de.marioehkart.marioehkarte.Map}}
+\doxysubsubsection{\texorpdfstring{feed()}{feed()}}
+{\footnotesize\ttfamily \label{classde_1_1marioehkart_1_1marioehkarte_1_1_map_a59321f22e0bbdba5e2ed23b1580164db} 
+void de.\+marioehkart.\+marioehkarte.\+Map.\+feed (\begin{DoxyParamCaption}\item[{String}]{csv}{, }\item[{String}]{separator}{}\end{DoxyParamCaption}) throws Exception}
+
+
+
+Reads a CSV file and populates the map with sections and rails. 
+
+!
+\begin{DoxyParams}{Parameters}
+{\em csv} & The path to the CSV file. \\
+\hline
+{\em separator} & The separator used in the CSV file. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Exception} & If an error occurs while reading the CSV file.\\
+\hline
+\end{DoxyExceptions}
+This method reads a CSV file containing section data and populates the map with sections and rails. 
+
+Definition at line \mbox{\hyperlink{_map_8java_source_l00093}{93}} of file \mbox{\hyperlink{_map_8java_source}{Map.\+java}}.
+
+\Hypertarget{classde_1_1marioehkart_1_1marioehkarte_1_1_map_a432cac54eae9fb72e51f3556049e0055}\index{de.marioehkart.marioehkarte.Map@{de.marioehkart.marioehkarte.Map}!getCoordinates@{getCoordinates}}
+\index{getCoordinates@{getCoordinates}!de.marioehkart.marioehkarte.Map@{de.marioehkart.marioehkarte.Map}}
+\doxysubsubsection{\texorpdfstring{getCoordinates()}{getCoordinates()}}
+{\footnotesize\ttfamily \label{classde_1_1marioehkart_1_1marioehkarte_1_1_map_a432cac54eae9fb72e51f3556049e0055} 
+\mbox{\hyperlink{classde_1_1marioehkart_1_1marioehkarte_1_1_coordinates}{Coordinates}} de.\+marioehkart.\+marioehkarte.\+Map.\+get\+Coordinates (\begin{DoxyParamCaption}\item[{int}]{section}{, }\item[{double}]{distance}{}\end{DoxyParamCaption}) throws Exception}
+
+
+
+Gets the coordinates for a specific section and distance. 
+
+!
+\begin{DoxyParams}{Parameters}
+{\em section} & The section number. \\
+\hline
+{\em distance} & The distance along the section. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The coordinates for the specified section and distance. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Exception} & If an error occurs while getting the coordinates.\\
+\hline
+\end{DoxyExceptions}
+This method retrieves the coordinates for a specific section and distance. It uses the mapped\+Sections array to find the corresponding section index, and then calls the position method of the \doxylink{classde_1_1marioehkart_1_1marioehkarte_1_1_section}{Section} class to get the coordinates. 
+
+Definition at line \mbox{\hyperlink{_map_8java_source_l00069}{69}} of file \mbox{\hyperlink{_map_8java_source}{Map.\+java}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/\+Users/bmmli.\+jl/\+Dokumente/\+Platform\+IO/\+Projects/\+Marioehh-\/\+Kart\+\_\+\+Interface/src/de/marioehkart/marioehkarte/\mbox{\hyperlink{_map_8java}{Map.\+java}}\end{DoxyCompactItemize}

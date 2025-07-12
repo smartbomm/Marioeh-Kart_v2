@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.13.1" xml:lang="de">
+  <compounddef id="namespacede_1_1marioehkart_1_1marioehkarte" kind="namespace" language="Java">
+    <compoundname>de::marioehkart::marioehkarte</compoundname>
+    <innerclass refid="classde_1_1marioehkart_1_1marioehkarte_1_1_coordinates" prot="public">de::marioehkart::marioehkarte::Coordinates</innerclass>
+    <innerclass refid="classde_1_1marioehkart_1_1marioehkarte_1_1_map" prot="public">de::marioehkart::marioehkarte::Map</innerclass>
+    <innerclass refid="classde_1_1marioehkart_1_1marioehkarte_1_1_rail" prot="public">de::marioehkart::marioehkarte::Rail</innerclass>
+    <innerclass refid="classde_1_1marioehkart_1_1marioehkarte_1_1_section" prot="public">de::marioehkart::marioehkarte::Section</innerclass>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/Users/bmmli.jl/Dokumente/PlatformIO/Projects/Marioehh-Kart_Interface/src/de/marioehkart/marioehkarte/Coordinates.java" line="1" column="15"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,198 @@
+\doxysection{de.\+marioehkart.\+marioehkarte.\+Coordinates Class Reference}
+\hypertarget{classde_1_1marioehkart_1_1marioehkarte_1_1_coordinates}{}\label{classde_1_1marioehkart_1_1marioehkarte_1_1_coordinates}\index{de.marioehkart.marioehkarte.Coordinates@{de.marioehkart.marioehkarte.Coordinates}}
+
+
+This class represents a set of coordinates in a 2D space. It includes methods for adding coordinates and transforming them based on an angle. The coordinates are represented by x, y, and an angle in radians. The class provides a constructor for initializing coordinates and methods for adding and transforming them.  
+
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classde_1_1marioehkart_1_1marioehkarte_1_1_coordinates_ab2e7cfcbb67ffd72387a6fc4a96ee1ef}{Coordinates}} ()
+\begin{DoxyCompactList}\small\item\em Default constructor for \doxylink{classde_1_1marioehkart_1_1marioehkarte_1_1_coordinates}{Coordinates} class. Initializes the coordinates to (0, 0) with an angle of 0 radians. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classde_1_1marioehkart_1_1marioehkarte_1_1_coordinates_a79eeef660df6a866162117efcf86e20a}{Coordinates}} (double \mbox{\hyperlink{classde_1_1marioehkart_1_1marioehkarte_1_1_coordinates_a659fc1abaa757b14e92f156a162b6dea}{x}}, double \mbox{\hyperlink{classde_1_1marioehkart_1_1marioehkarte_1_1_coordinates_a54babf3615280c5cec6527678c6408d0}{y}}, double \mbox{\hyperlink{classde_1_1marioehkart_1_1marioehkarte_1_1_coordinates_a185473ba3f25aedd9bf90dc90d152fdb}{angle\+\_\+x}})
+\begin{DoxyCompactList}\small\item\em Constructor for \doxylink{classde_1_1marioehkart_1_1marioehkarte_1_1_coordinates}{Coordinates} class. Initializes the coordinates with the given x, y, and angle values. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{classde_1_1marioehkart_1_1marioehkarte_1_1_coordinates}{Coordinates}} \mbox{\hyperlink{classde_1_1marioehkart_1_1marioehkarte_1_1_coordinates_a9519634f6e60544d671b6191bd22694a}{add\+Coordinates}} (\mbox{\hyperlink{classde_1_1marioehkart_1_1marioehkarte_1_1_coordinates}{Coordinates}} a, \mbox{\hyperlink{classde_1_1marioehkart_1_1marioehkarte_1_1_coordinates}{Coordinates}} b)
+\begin{DoxyCompactList}\small\item\em Addition of two \doxylink{classde_1_1marioehkart_1_1marioehkarte_1_1_coordinates}{Coordinates} objects. Adds the x and y coordinates and angles of two \doxylink{classde_1_1marioehkart_1_1marioehkarte_1_1_coordinates}{Coordinates} objects. \end{DoxyCompactList}\item 
+static \mbox{\hyperlink{classde_1_1marioehkart_1_1marioehkarte_1_1_coordinates}{Coordinates}} \mbox{\hyperlink{classde_1_1marioehkart_1_1marioehkarte_1_1_coordinates_a3986ba018fab440596615eec7a5f965a}{transform\+Coordinates}} (\mbox{\hyperlink{classde_1_1marioehkart_1_1marioehkarte_1_1_coordinates}{Coordinates}} a, double angle)
+\begin{DoxyCompactList}\small\item\em Transformation of coordinates based on an angle. Transforms the coordinates of a \doxylink{classde_1_1marioehkart_1_1marioehkarte_1_1_coordinates}{Coordinates} object by rotating them around the origin. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+double \mbox{\hyperlink{classde_1_1marioehkart_1_1marioehkarte_1_1_coordinates_a659fc1abaa757b14e92f156a162b6dea}{x}}
+\begin{DoxyCompactList}\small\item\em The x-\/coordinate. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{classde_1_1marioehkart_1_1marioehkarte_1_1_coordinates_a54babf3615280c5cec6527678c6408d0}{y}}
+\begin{DoxyCompactList}\small\item\em The y-\/coordinate. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{classde_1_1marioehkart_1_1marioehkarte_1_1_coordinates_a185473ba3f25aedd9bf90dc90d152fdb}{angle\+\_\+x}}
+\begin{DoxyCompactList}\small\item\em The angle in radians. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This class represents a set of coordinates in a 2D space. It includes methods for adding coordinates and transforming them based on an angle. The coordinates are represented by x, y, and an angle in radians. The class provides a constructor for initializing coordinates and methods for adding and transforming them. 
+
+The class is used in the context of a railway system, where coordinates represent positions on the tracks. The coordinates can be used to calculate positions of trains or other objects on the railway. The transformation method allows for rotating the coordinates based on a given angle. The class is part of a larger system that includes sections and rails, which are used to represent the railway tracks. \begin{DoxyAuthor}{Author}
+Joel Bommeli 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+2025-\/07-\/02 
+\end{DoxyDate}
+\begin{DoxyVersion}{Version}
+v1.\+1.\+1 
+\end{DoxyVersion}
+
+
+Definition at line \mbox{\hyperlink{_coordinates_8java_source_l00016}{16}} of file \mbox{\hyperlink{_coordinates_8java_source}{Coordinates.\+java}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classde_1_1marioehkart_1_1marioehkarte_1_1_coordinates_ab2e7cfcbb67ffd72387a6fc4a96ee1ef}\index{de.marioehkart.marioehkarte.Coordinates@{de.marioehkart.marioehkarte.Coordinates}!Coordinates@{Coordinates}}
+\index{Coordinates@{Coordinates}!de.marioehkart.marioehkarte.Coordinates@{de.marioehkart.marioehkarte.Coordinates}}
+\doxysubsubsection{\texorpdfstring{Coordinates()}{Coordinates()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{classde_1_1marioehkart_1_1marioehkarte_1_1_coordinates_ab2e7cfcbb67ffd72387a6fc4a96ee1ef} 
+de.\+marioehkart.\+marioehkarte.\+Coordinates.\+Coordinates (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Default constructor for \doxylink{classde_1_1marioehkart_1_1marioehkarte_1_1_coordinates}{Coordinates} class. Initializes the coordinates to (0, 0) with an angle of 0 radians. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & The x-\/coordinate. \\
+\hline
+{\em y} & The y-\/coordinate. \\
+\hline
+{\em angle\+\_\+x} & The angle in radians. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{_coordinates_8java_source_l00022}{22}} of file \mbox{\hyperlink{_coordinates_8java_source}{Coordinates.\+java}}.
+
+\Hypertarget{classde_1_1marioehkart_1_1marioehkarte_1_1_coordinates_a79eeef660df6a866162117efcf86e20a}\index{de.marioehkart.marioehkarte.Coordinates@{de.marioehkart.marioehkarte.Coordinates}!Coordinates@{Coordinates}}
+\index{Coordinates@{Coordinates}!de.marioehkart.marioehkarte.Coordinates@{de.marioehkart.marioehkarte.Coordinates}}
+\doxysubsubsection{\texorpdfstring{Coordinates()}{Coordinates()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{classde_1_1marioehkart_1_1marioehkarte_1_1_coordinates_a79eeef660df6a866162117efcf86e20a} 
+de.\+marioehkart.\+marioehkarte.\+Coordinates.\+Coordinates (\begin{DoxyParamCaption}\item[{double}]{x}{, }\item[{double}]{y}{, }\item[{double}]{angle\+\_\+x}{}\end{DoxyParamCaption})}
+
+
+
+Constructor for \doxylink{classde_1_1marioehkart_1_1marioehkarte_1_1_coordinates}{Coordinates} class. Initializes the coordinates with the given x, y, and angle values. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & The x-\/coordinate. \\
+\hline
+{\em y} & The y-\/coordinate. \\
+\hline
+{\em angle\+\_\+x} & The angle in radians. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{_coordinates_8java_source_l00032}{32}} of file \mbox{\hyperlink{_coordinates_8java_source}{Coordinates.\+java}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classde_1_1marioehkart_1_1marioehkarte_1_1_coordinates_a9519634f6e60544d671b6191bd22694a}\index{de.marioehkart.marioehkarte.Coordinates@{de.marioehkart.marioehkarte.Coordinates}!addCoordinates@{addCoordinates}}
+\index{addCoordinates@{addCoordinates}!de.marioehkart.marioehkarte.Coordinates@{de.marioehkart.marioehkarte.Coordinates}}
+\doxysubsubsection{\texorpdfstring{addCoordinates()}{addCoordinates()}}
+{\footnotesize\ttfamily \label{classde_1_1marioehkart_1_1marioehkarte_1_1_coordinates_a9519634f6e60544d671b6191bd22694a} 
+static \mbox{\hyperlink{classde_1_1marioehkart_1_1marioehkarte_1_1_coordinates}{Coordinates}} de.\+marioehkart.\+marioehkarte.\+Coordinates.\+add\+Coordinates (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classde_1_1marioehkart_1_1marioehkarte_1_1_coordinates}{Coordinates}}}]{a}{, }\item[{\mbox{\hyperlink{classde_1_1marioehkart_1_1marioehkarte_1_1_coordinates}{Coordinates}}}]{b}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Addition of two \doxylink{classde_1_1marioehkart_1_1marioehkarte_1_1_coordinates}{Coordinates} objects. Adds the x and y coordinates and angles of two \doxylink{classde_1_1marioehkart_1_1marioehkarte_1_1_coordinates}{Coordinates} objects. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & The first \doxylink{classde_1_1marioehkart_1_1marioehkarte_1_1_coordinates}{Coordinates} object. \\
+\hline
+{\em b} & The second \doxylink{classde_1_1marioehkart_1_1marioehkarte_1_1_coordinates}{Coordinates} object. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A new \doxylink{classde_1_1marioehkart_1_1marioehkarte_1_1_coordinates}{Coordinates} object with the summed coordinates and angles. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{_coordinates_8java_source_l00048}{48}} of file \mbox{\hyperlink{_coordinates_8java_source}{Coordinates.\+java}}.
+
+\Hypertarget{classde_1_1marioehkart_1_1marioehkarte_1_1_coordinates_a3986ba018fab440596615eec7a5f965a}\index{de.marioehkart.marioehkarte.Coordinates@{de.marioehkart.marioehkarte.Coordinates}!transformCoordinates@{transformCoordinates}}
+\index{transformCoordinates@{transformCoordinates}!de.marioehkart.marioehkarte.Coordinates@{de.marioehkart.marioehkarte.Coordinates}}
+\doxysubsubsection{\texorpdfstring{transformCoordinates()}{transformCoordinates()}}
+{\footnotesize\ttfamily \label{classde_1_1marioehkart_1_1marioehkarte_1_1_coordinates_a3986ba018fab440596615eec7a5f965a} 
+static \mbox{\hyperlink{classde_1_1marioehkart_1_1marioehkarte_1_1_coordinates}{Coordinates}} de.\+marioehkart.\+marioehkarte.\+Coordinates.\+transform\+Coordinates (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classde_1_1marioehkart_1_1marioehkarte_1_1_coordinates}{Coordinates}}}]{a}{, }\item[{double}]{angle}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Transformation of coordinates based on an angle. Transforms the coordinates of a \doxylink{classde_1_1marioehkart_1_1marioehkarte_1_1_coordinates}{Coordinates} object by rotating them around the origin. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & The \doxylink{classde_1_1marioehkart_1_1marioehkarte_1_1_coordinates}{Coordinates} object to be transformed. \\
+\hline
+{\em angle} & The angle in radians by which to rotate the coordinates. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A new \doxylink{classde_1_1marioehkart_1_1marioehkarte_1_1_coordinates}{Coordinates} object with the transformed coordinates. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{_coordinates_8java_source_l00060}{60}} of file \mbox{\hyperlink{_coordinates_8java_source}{Coordinates.\+java}}.
+
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classde_1_1marioehkart_1_1marioehkarte_1_1_coordinates_a185473ba3f25aedd9bf90dc90d152fdb}\index{de.marioehkart.marioehkarte.Coordinates@{de.marioehkart.marioehkarte.Coordinates}!angle\_x@{angle\_x}}
+\index{angle\_x@{angle\_x}!de.marioehkart.marioehkarte.Coordinates@{de.marioehkart.marioehkarte.Coordinates}}
+\doxysubsubsection{\texorpdfstring{angle\_x}{angle\_x}}
+{\footnotesize\ttfamily \label{classde_1_1marioehkart_1_1marioehkarte_1_1_coordinates_a185473ba3f25aedd9bf90dc90d152fdb} 
+double de.\+marioehkart.\+marioehkarte.\+Coordinates.\+angle\+\_\+x}
+
+
+
+The angle in radians. 
+
+
+
+Definition at line \mbox{\hyperlink{_coordinates_8java_source_l00042}{42}} of file \mbox{\hyperlink{_coordinates_8java_source}{Coordinates.\+java}}.
+
+\Hypertarget{classde_1_1marioehkart_1_1marioehkarte_1_1_coordinates_a659fc1abaa757b14e92f156a162b6dea}\index{de.marioehkart.marioehkarte.Coordinates@{de.marioehkart.marioehkarte.Coordinates}!x@{x}}
+\index{x@{x}!de.marioehkart.marioehkarte.Coordinates@{de.marioehkart.marioehkarte.Coordinates}}
+\doxysubsubsection{\texorpdfstring{x}{x}}
+{\footnotesize\ttfamily \label{classde_1_1marioehkart_1_1marioehkarte_1_1_coordinates_a659fc1abaa757b14e92f156a162b6dea} 
+double de.\+marioehkart.\+marioehkarte.\+Coordinates.\+x}
+
+
+
+The x-\/coordinate. 
+
+
+
+Definition at line \mbox{\hyperlink{_coordinates_8java_source_l00038}{38}} of file \mbox{\hyperlink{_coordinates_8java_source}{Coordinates.\+java}}.
+
+\Hypertarget{classde_1_1marioehkart_1_1marioehkarte_1_1_coordinates_a54babf3615280c5cec6527678c6408d0}\index{de.marioehkart.marioehkarte.Coordinates@{de.marioehkart.marioehkarte.Coordinates}!y@{y}}
+\index{y@{y}!de.marioehkart.marioehkarte.Coordinates@{de.marioehkart.marioehkarte.Coordinates}}
+\doxysubsubsection{\texorpdfstring{y}{y}}
+{\footnotesize\ttfamily \label{classde_1_1marioehkart_1_1marioehkarte_1_1_coordinates_a54babf3615280c5cec6527678c6408d0} 
+double de.\+marioehkart.\+marioehkarte.\+Coordinates.\+y}
+
+
+
+The y-\/coordinate. 
+
+
+
+Definition at line \mbox{\hyperlink{_coordinates_8java_source_l00040}{40}} of file \mbox{\hyperlink{_coordinates_8java_source}{Coordinates.\+java}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/\+Users/bmmli.\+jl/\+Dokumente/\+Platform\+IO/\+Projects/\+Marioehh-\/\+Kart\+\_\+\+Interface/src/de/marioehkart/marioehkarte/\mbox{\hyperlink{_coordinates_8java}{Coordinates.\+java}}\end{DoxyCompactItemize}
