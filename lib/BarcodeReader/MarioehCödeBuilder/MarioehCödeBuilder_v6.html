@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MariööööhhCöde</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script> 
+  <style>
+    body {
+      font-family: 'Comic Sans MS', 'Segoe UI', sans-serif;
+      background: linear-gradient(#b6e3ff, #ffffff);
+      color: #222;
+      margin: 0;
+      padding: 2rem;
+    }
+    h1 {
+      text-align: center;
+      font-size: 3rem;
+      color: #d90000;
+      text-shadow: 1px 1px 0 white;
+    }
+    .card {
+      background: white;
+      border-radius: 16px;
+      padding: 2rem;
+      max-width: 800px;
+      margin: 2rem auto;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    label {
+      display: block;
+      margin-top: 1rem;
+    }
+    input[type="number"], input[type="range"], select, input[type="text"] {
+      width: 100%;
+      margin-top: 0.25rem;
+    }
+    .barcode-wrapper {
+      text-align: center;
+      margin-top: 2rem;
+    }
+    .barcode-item {
+      display: inline-block;
+      margin: 1rem;
+      text-align: center;
+    }
+    .barcode-label {
+      margin-top: 0.25rem;
+      font-size: 1.25rem;
+      font-weight: bold;
+    }
+    svg {
+      border: 2px solid #000;
+      background: white;
+    }
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .controls > div {
+      flex: 1 1 200px;
+    }
+    button {
+      margin-top: 1rem;
+      background-color: #ff3333;
+      color: white;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 12px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #cc0000;
+    }
+    .mode-toggle {
+      margin-top: 1rem;
+    }
+    .checkbox-container {
+      margin-top: 1rem;
+    }
+    .checkbox-container label {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+  <h1>MariööööhhCöde</h1>
+  <div class="card">
+    <div class="controls">
+      <div>
+        <label>Bitlänge (mm): <input id="bitLength" type="number" value="5" min="1" step="0.1"></label>
+        <label>Barcode-Höhe (mm): <input id="barcodeHeight" type="number" value="30" min="5" step="1"></label>
+      </div>
+      <div>
+        <label>Weiß/Schwarz-Verhältnis für Bit 0:
+          <input id="ratio0" type="number" min="0.05" max="0.95" step="0.01" value="0.33">
+        </label>
+        <label>Weiß/Schwarz-Verhältnis für Bit 1:
+          <input id="ratio1" type="number" min="0.05" max="0.95" step="0.01" value="0.66">
+        </label>
+        <div class="checkbox-container">
+          <label><input type="checkbox" id="invertColors"> Farben invertieren</label>
+        </div>
+      </div>
+      <div>
+        <label>Modus:
+          <select id="mode">
+            <option value="single">Einzelcode</option>
+            <option value="multi">Multicode</option>
+          </select>
+        </label>
+        <label>Wert (Einzel): <input id="value" type="number" min="0" max="255" value="0"></label>
+        <label>Bereich (Multi): <input id="range" type="text" value="0-10"></label>
+        <button onclick="generateBarcode()">Barcode generieren</button>
+        <button onclick="downloadBarcodes()">Download</button>
+	<button onclick="downloadPDFBarcodes()">Als PDF herunterladen</button>
+      </div>
+    </div>
+    <div class="barcode-wrapper" id="output"></div>
+  </div>
+
+  <script>
+    function mmToPx(mm) {
+      return mm * (96 / 25.4);
+    }
+
+    function generateSvg(value, bitLength, height, ratio0, ratio1, invert) {
+      const bin = value.toString(2).padStart(8, '0');
+      let x = 0;
+      const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+      const totalWidth = bitLength * 9; // 8 Bits + 1 Stopbit
+      svg.setAttribute("width", mmToPx(totalWidth));
+      svg.setAttribute("height", mmToPx(height));
+      svg.setAttribute("viewBox", `0 0 ${totalWidth} ${height}`);
+      svg.setAttribute("style", `background: ${invert ? 'black' : 'white'};`);
+
+      for (let bit of bin) {
+        const ratio = bit === '1' ? ratio1 : ratio0;
+        const whiteWidth = bitLength * ratio;
+        const blackWidth = bitLength * (1 - ratio);
+
+        x += whiteWidth;
+
+        const rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+        rect.setAttribute("x", x);
+        rect.setAttribute("y", 0);
+        rect.setAttribute("width", blackWidth);
+        rect.setAttribute("height", height);
+        rect.setAttribute("fill", invert ? "white" : "black");
+        svg.appendChild(rect);
+
+        x += blackWidth;
+      }
+
+      // Stopbit: volle weiße Phase
+      const stopWhite = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+      stopWhite.setAttribute("x", x);
+      stopWhite.setAttribute("y", 0);
+      stopWhite.setAttribute("width", bitLength);
+      stopWhite.setAttribute("height", height);
+      stopWhite.setAttribute("fill", invert ? "black" : "white");
+      svg.appendChild(stopWhite);
+
+      return svg;
+    }
+
+    function generateBarcode() {
+      const output = document.getElementById('output');
+      output.innerHTML = '';
+      const mode = document.getElementById('mode').value;
+      const bitLength = parseFloat(document.getElementById('bitLength').value);
+      const height = parseFloat(document.getElementById('barcodeHeight').value);
+      const ratio0 = parseFloat(document.getElementById('ratio0').value);
+      const ratio1 = parseFloat(document.getElementById('ratio1').value);
+      const invert = document.getElementById('invertColors').checked;
+
+      if (mode === 'single') {
+        const value = parseInt(document.getElementById('value').value);
+        const wrapper = document.createElement('div');
+        wrapper.className = 'barcode-item';
+        const svg = generateSvg(value, bitLength, height, ratio0, ratio1, invert);
+        wrapper.appendChild(svg);
+        const label = document.createElement('div');
+        label.className = 'barcode-label';
+        label.textContent = value.toString().padStart(3, '0');
+        wrapper.appendChild(label);
+        output.appendChild(wrapper);
+      } else {
+        const range = document.getElementById('range').value;
+        const [start, end] = range.split('-').map(x => parseInt(x));
+        for (let i = start; i <= end; i++) {
+          const wrapper = document.createElement('div');
+          wrapper.className = 'barcode-item';
+          const svg = generateSvg(i, bitLength, height, ratio0, ratio1, invert);
+          wrapper.appendChild(svg);
+          const label = document.createElement('div');
+          label.className = 'barcode-label';
+          label.textContent = i.toString().padStart(3, '0');
+          wrapper.appendChild(label);
+          output.appendChild(wrapper);
+        }
+      }
+    }
+
+    function svgToPng(svgElement, width, height) {
+      return new Promise((resolve) => {
+        const svgData = new XMLSerializer().serializeToString(svgElement);
+        const svgBlob = new Blob([svgData], {type: 'image/svg+xml;charset=utf-8'});
+        const url = URL.createObjectURL(svgBlob);
+        const img = new Image();
+        img.onload = function () {
+          const canvas = document.createElement('canvas');
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext('2d');
+          ctx.fillStyle = 'white';
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
+          ctx.drawImage(img, 0, 0);
+          canvas.toBlob(blob => {
+            resolve(blob);
+            URL.revokeObjectURL(url);
+          }, 'image/png');
+        };
+        img.src = url;
+      });
+    }
+
+    async function downloadBarcodes() {
+      const mode = document.getElementById('mode').value;
+      const bitLength = parseFloat(document.getElementById('bitLength').value);
+      const height = parseFloat(document.getElementById('barcodeHeight').value);
+      const ratio0 = parseFloat(document.getElementById('ratio0').value);
+      const ratio1 = parseFloat(document.getElementById('ratio1').value);
+      const invert = document.getElementById('invertColors').checked;
+
+      if (mode === 'single') {
+        const value = parseInt(document.getElementById('value').value);
+        const svg = generateSvg(value, bitLength, height, ratio0, ratio1, invert);
+        const pngBlob = await svgToPng(svg, mmToPx(bitLength * 9), mmToPx(height));
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(pngBlob);
+        a.download = `code_${value.toString().padStart(3, '0')}.png`;
+        a.click();
+      } else {
+        const range = document.getElementById('range').value;
+        const [start, end] = range.split('-').map(x => parseInt(x));
+        const zip = new JSZip();
+        for (let i = start; i <= end; i++) {
+          const svg = generateSvg(i, bitLength, height, ratio0, ratio1, invert);
+          const pngBlob = await svgToPng(svg, mmToPx(bitLength * 9), mmToPx(height));
+          const arrayBuffer = await pngBlob.arrayBuffer();
+          zip.file(`code_${i.toString().padStart(3, '0')}.png`, arrayBuffer);
+        }
+        zip.generateAsync({type: 'blob'}).then(blob => {
+          const a = document.createElement('a');
+          a.href = URL.createObjectURL(blob);
+          a.download = 'marioehhcode_barcodes.zip';
+          a.click();
+        });
+      }
+    }
+async function downloadPDFBarcodes() {
+  const { jsPDF } = window.jspdf;
+  const pdf = new jsPDF({ unit: 'mm', format: 'a4' });
+
+  const bitLength = parseFloat(document.getElementById('bitLength').value);
+  const height = parseFloat(document.getElementById('barcodeHeight').value);
+  const ratio0 = parseFloat(document.getElementById('ratio0').value);
+  const ratio1 = parseFloat(document.getElementById('ratio1').value);
+  const invert = document.getElementById('invertColors').checked;
+  const range = document.getElementById('range').value;
+  const [start, end] = range.split('-').map(x => parseInt(x));
+
+  const barcodeWidth = bitLength * 9;
+  const labelHeight = 4; // kleiner Beschriftungstext
+  const margin = 5;
+  const spacing = 0;
+
+  const usableWidth = 210 - 2 * margin;
+  const usableHeight = 297 - 2 * margin;
+
+  const totalBlockHeight = height + labelHeight;
+
+  const cols = Math.floor(usableWidth / barcodeWidth);
+  const rows = Math.floor(usableHeight / totalBlockHeight);
+  const perPage = cols * rows;
+
+  let page = 0;
+  for (let i = start; i <= end; i++) {
+    const idx = i - start;
+    if (idx > 0 && idx % perPage === 0) {
+      pdf.addPage();
+      page++;
+    }
+
+    const col = (idx % perPage) % cols;
+    const row = Math.floor((idx % perPage) / cols);
+
+    const posX = margin + col * barcodeWidth;
+    const posY = margin + row * totalBlockHeight;
+
+    const svg = generateSvg(i, bitLength, height, ratio0, ratio1, invert);
+    const pngBlob = await svgToPng(svg, mmToPx(barcodeWidth), mmToPx(height));
+    const pngUrl = URL.createObjectURL(pngBlob);
+
+    // Barcode-Bild
+    pdf.addImage(pngUrl, 'PNG', posX, posY, barcodeWidth, height);
+
+    // Beschriftung direkt darunter
+    pdf.setFontSize(6);
+    pdf.text(i.toString().padStart(3, '0'), posX + barcodeWidth / 2, posY + height + 2.5, { align: 'center' });
+
+    // Dünne Schnittlinien als Rechteck
+    pdf.setDrawColor(200);
+    pdf.setLineWidth(0.1);
+    pdf.rect(posX, posY, barcodeWidth, totalBlockHeight);
+  }
+
+  pdf.save("barcodes_buendig.pdf");
+}
+
+    
+  </script>
+</body>
+</html>
