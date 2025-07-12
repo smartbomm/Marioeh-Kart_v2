@@ -1,0 +1,58 @@
+\doxysection{Simple\+NET.\+h}
+\hypertarget{_simple_n_e_t_8h_source}{}\label{_simple_n_e_t_8h_source}\index{/Users/bmmli.jl/Dokumente/PlatformIO/Projects/Marioehh-\/Kart\_Interface/src/SimpleNET.h@{/Users/bmmli.jl/Dokumente/PlatformIO/Projects/Marioehh-\/Kart\_Interface/src/SimpleNET.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ SIMPLE\_NET\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ SIMPLE\_NET\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <WiFiNINA.h>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <WiFiUdp.h>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <Arduino.h>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}OdometerData.h"{}}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{comment}{//Debugging\ definitions}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//\#define\ DEBUG\ 1}}
+\DoxyCodeLine{00016\ \textcolor{comment}{//\#define\ DEBUGWIFI\ 1}}
+\DoxyCodeLine{00017\ \textcolor{comment}{//\#define\ DEBUGCSV\ 1}}
+\DoxyCodeLine{00018\ \textcolor{comment}{//\#define\ DEBUGSENT\ 1}}
+\DoxyCodeLine{00019\ \ \textcolor{comment}{//\#define\ SERIAL\_ENABLE\ 1}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//\#define\ DEBUGTIME\ 1}}
+\DoxyCodeLine{00021\ \textcolor{comment}{//\#define\ DEBUGTIMESTAMP\ 1}}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{comment}{//\#define\ LIGHTWEIGHT\ 1}}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{comment}{//other\ definitions}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#define\ LABOR\ 1}}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \textcolor{comment}{//\#define\ ENABLE\_MQTT\ 1}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#define\ UDP\_PORT\ 4210}}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#ifdef\ LABOR}}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#define\ SSID\ "{}Labore-\/Hof\ AT-\/MT"{}}}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#define\ PASSWORD\ "{}laborwlan"{}}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#define\ SERVER\_IP\ "{}192.168.9.150"{}}}
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{keywordtype}{void}\ SUDP\_beginn(uint64\_t\ u64\_time);\textcolor{comment}{//give\ the\ time\ in\ microseconds\ to\ the\ function\ so\ it\ can\ sync\ the\ time\ to\ the\ system}}
+\DoxyCodeLine{00048\ \textcolor{keywordtype}{void}\ SUDP\_send(odometerData\_t\ \mbox{\hyperlink{structdata}{data}});}
+\DoxyCodeLine{00049\ \textcolor{keywordtype}{void}\ WIFIstart();}
+\DoxyCodeLine{00050\ uint64\_t\ bytesToUint64\_StringDigits(\textcolor{keyword}{const}\ std::vector<uint8\_t>\&\ bytes);\ \textcolor{comment}{//convert\ a\ string\ to\ a\ uint64\_t}}
+\DoxyCodeLine{00051\ uint32\_t\ accurateMillis();\ \textcolor{comment}{//get\ the\ accurate\ millis\ from\ the\ timer}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

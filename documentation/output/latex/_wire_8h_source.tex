@@ -1,0 +1,118 @@
+\doxysection{Wire.\+h}
+\hypertarget{_wire_8h_source}{}\label{_wire_8h_source}\index{/Users/bmmli.jl/Dokumente/PlatformIO/Projects/Marioehh-\/Kart\_Interface/lib/Wire/Wire.h@{/Users/bmmli.jl/Dokumente/PlatformIO/Projects/Marioehh-\/Kart\_Interface/lib/Wire/Wire.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ TWI/I2C\ library\ for\ Arduino\ Zero}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2015\ Arduino\ LLC.\ All\ rights\ reserved.}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *\ This\ library\ is\ free\ software;\ you\ can\ redistribute\ it\ and/or}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ modify\ it\ under\ the\ terms\ of\ the\ GNU\ Lesser\ General\ Public}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ License\ as\ published\ by\ the\ Free\ Software\ Foundation;\ either}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ version\ 2.1\ of\ the\ License,\ or\ (at\ your\ option)\ any\ later\ version.}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ This\ library\ is\ distributed\ in\ the\ hope\ that\ it\ will\ be\ useful,}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *\ but\ WITHOUT\ ANY\ WARRANTY;\ without\ even\ the\ implied\ warranty\ of}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *\ MERCHANTABILITY\ or\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE.\ \ See\ the\ GNU}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *\ Lesser\ General\ Public\ License\ for\ more\ details.}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *\ You\ should\ have\ received\ a\ copy\ of\ the\ GNU\ Lesser\ General\ Public}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *\ License\ along\ with\ this\ library;\ if\ not,\ write\ to\ the\ Free\ Software}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ *\ Foundation,\ Inc.,\ 51\ Franklin\ St,\ Fifth\ Floor,\ Boston,\ MA\ \ 02110-\/1301\ \ USA}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#ifndef\ TwoWire\_h}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#define\ TwoWire\_h}}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#include\ "{}api/HardwareI2C.h"{}}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#include\ "{}variant.h"{}}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#include\ "{}SERCOM.h"{}}}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \ \textcolor{comment}{//\ WIRE\_HAS\_END\ means\ Wire\ has\ end()}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#define\ WIRE\_HAS\_END\ 1}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{keyword}{namespace\ }arduino\ \{}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \textcolor{keyword}{class\ }TwoWire\ :\ \textcolor{keyword}{public}\ HardwareI2C}
+\DoxyCodeLine{00033\ \{}
+\DoxyCodeLine{00034\ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00035\ \ \ \ \ TwoWire(SERCOM\ *s,\ uint8\_t\ pinSDA,\ uint8\_t\ pinSCL);}
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keywordtype}{void}\ begin();}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keywordtype}{void}\ begin(uint8\_t\ address,\ \textcolor{keywordtype}{bool}\ enableGeneralCall);}
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keywordtype}{void}\ begin(uint8\_t\ address)\ \{}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ begin(address,\ \textcolor{keyword}{false});}
+\DoxyCodeLine{00040\ \ \ \ \ \}}
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keywordtype}{void}\ end();}
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keywordtype}{void}\ setClock(uint32\_t);}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keywordtype}{void}\ beginTransmission(uint8\_t);}
+\DoxyCodeLine{00045\ \ \ \ \ uint8\_t\ endTransmission(\textcolor{keywordtype}{bool}\ stopBit);}
+\DoxyCodeLine{00046\ \ \ \ \ uint8\_t\ endTransmission(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ requestFrom(uint8\_t\ address,\ \textcolor{keywordtype}{size\_t}\ quantity,\ \textcolor{keywordtype}{bool}\ stopBit);}
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ requestFrom(uint8\_t\ address,\ \textcolor{keywordtype}{size\_t}\ quantity);}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ write(uint8\_t\ \mbox{\hyperlink{structdata}{data}});}
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ write(\textcolor{keyword}{const}\ uint8\_t\ *\ \mbox{\hyperlink{structdata}{data}},\ \textcolor{keywordtype}{size\_t}\ quantity);}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{int}\ available(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{int}\ read(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{int}\ peek(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ flush(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keywordtype}{void}\ onReceive(\textcolor{keywordtype}{void}(*)(\textcolor{keywordtype}{int}));}
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keywordtype}{void}\ onRequest(\textcolor{keywordtype}{void}(*)(\textcolor{keywordtype}{void}));}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{size\_t}\ write(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ n)\ \{\ \textcolor{keywordflow}{return}\ write((uint8\_t)n);\ \}}
+\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{size\_t}\ write(\textcolor{keywordtype}{long}\ n)\ \{\ \textcolor{keywordflow}{return}\ write((uint8\_t)n);\ \}}
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{size\_t}\ write(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ n)\ \{\ \textcolor{keywordflow}{return}\ write((uint8\_t)n);\ \}}
+\DoxyCodeLine{00064\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{size\_t}\ write(\textcolor{keywordtype}{int}\ n)\ \{\ \textcolor{keywordflow}{return}\ write((uint8\_t)n);\ \}}
+\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keyword}{using\ }Print::write;}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \ \ \ \ \textcolor{keywordtype}{void}\ onService(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00070\ \ \ \ \ SERCOM\ *\ sercom;}
+\DoxyCodeLine{00071\ \ \ \ \ uint8\_t\ \_uc\_pinSDA;}
+\DoxyCodeLine{00072\ \ \ \ \ uint8\_t\ \_uc\_pinSCL;}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \ \ \ \ \textcolor{keywordtype}{bool}\ transmissionBegun;}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \ \ \ \ \textcolor{comment}{//\ RX\ Buffer}}
+\DoxyCodeLine{00077\ \ \ \ \ arduino::RingBufferN<256>\ rxBuffer;}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \ \ \ \ \textcolor{comment}{//TX\ buffer}}
+\DoxyCodeLine{00080\ \ \ \ \ arduino::RingBufferN<256>\ txBuffer;}
+\DoxyCodeLine{00081\ \ \ \ \ uint8\_t\ txAddress;}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \ \ \ \ \textcolor{comment}{//\ Callback\ user\ functions}}
+\DoxyCodeLine{00084\ \ \ \ \ void\ (*onRequestCallback)(void);}
+\DoxyCodeLine{00085\ \ \ \ \ void\ (*onReceiveCallback)(int);}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00087\ \ \ \ \ \textcolor{comment}{//\ TWI\ clock\ frequency}}
+\DoxyCodeLine{00088\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint32\_t\ TWI\_CLOCK\ =\ 400000;}
+\DoxyCodeLine{00089\ \};}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ \}}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ \textcolor{preprocessor}{\#if\ WIRE\_INTERFACES\_COUNT\ >\ 0}}
+\DoxyCodeLine{00094\ \ \ \textcolor{keyword}{extern}\ \mbox{\hyperlink{classarduino_1_1_two_wire}{arduino::TwoWire}}\ Wire;}
+\DoxyCodeLine{00095\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00096\ \textcolor{preprocessor}{\#if\ WIRE\_INTERFACES\_COUNT\ >\ 1}}
+\DoxyCodeLine{00097\ \ \ \textcolor{keyword}{extern}\ \mbox{\hyperlink{classarduino_1_1_two_wire}{arduino::TwoWire}}\ Wire1;}
+\DoxyCodeLine{00098\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00099\ \textcolor{preprocessor}{\#if\ WIRE\_INTERFACES\_COUNT\ >\ 2}}
+\DoxyCodeLine{00100\ \ \ \textcolor{keyword}{extern}\ \mbox{\hyperlink{classarduino_1_1_two_wire}{arduino::TwoWire}}\ Wire2;}
+\DoxyCodeLine{00101\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00102\ \textcolor{preprocessor}{\#if\ WIRE\_INTERFACES\_COUNT\ >\ 3}}
+\DoxyCodeLine{00103\ \ \ \textcolor{keyword}{extern}\ \mbox{\hyperlink{classarduino_1_1_two_wire}{arduino::TwoWire}}\ Wire3;}
+\DoxyCodeLine{00104\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00105\ \textcolor{preprocessor}{\#if\ WIRE\_INTERFACES\_COUNT\ >\ 4}}
+\DoxyCodeLine{00106\ \ \ \textcolor{keyword}{extern}\ \mbox{\hyperlink{classarduino_1_1_two_wire}{arduino::TwoWire}}\ Wire4;}
+\DoxyCodeLine{00107\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00108\ \textcolor{preprocessor}{\#if\ WIRE\_INTERFACES\_COUNT\ >\ 5}}
+\DoxyCodeLine{00109\ \ \ \textcolor{keyword}{extern}\ \mbox{\hyperlink{classarduino_1_1_two_wire}{arduino::TwoWire}}\ Wire5;}
+\DoxyCodeLine{00110\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00112\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}
