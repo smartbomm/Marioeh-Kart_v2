@@ -1,5 +1,8 @@
 package de.marioehkart.marioehkarte;
-
+//! @author JBommeli
+//! @version 1.1.5
+//! @date 2025-07-13
+//! @brief This class represents a section of a map containing rails and their coordinates.
 public class Section {
 
     private class _Rail {
@@ -19,6 +22,9 @@ public class Section {
         return result;
     }
 
+    //! @brief Constructor for the Section class.
+    //! @param start The starting coordinates of the section.
+    //! @param amount The number of rails in the section.
     public Section(Coordinates start, int amount) {
         this.startPosition = start;
         this.endPosition = start;
@@ -30,6 +36,10 @@ public class Section {
         }
     }
 
+    //! @brief Adds a rail to the section.
+    //! @param rail The rail to be added.
+    //! @throws IllegalArgumentException if more rails than the initialized amount shall be added.
+    //! @details This method adds a rail to the section and increases the total length of the section.
     public void addRail(Rail rail) {
         if (railCount >= rails.length) {
             throw new IllegalArgumentException("Rail array is full");
@@ -42,6 +52,10 @@ public class Section {
         }
     }
 
+    //! @ brief Get the coordinate on any position of the section.
+    //! @param distance The distance along the section from the start position.
+    //! @return The coordinates at the specified distance along the section.
+    //! @throws IllegalArgumentException if the parameter distance exceeds the total length of the section.
     public Coordinates position(double distance) {
         if (distance > totalLength) {
             throw new IllegalArgumentException("Distance exceeds section length");
@@ -71,6 +85,8 @@ public class Section {
         throw new IllegalArgumentException("No rail found for the given distance");
     }
 
+    //! @brief Gets the total length of the section.
+    //! @return The total length of the section.
     public double length() {
         return this.totalLength;
     }
