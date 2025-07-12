@@ -1,13 +1,4 @@
-/**
- * @file main.cpp
- * @author your name (you@domain.com)
- * @brief 
- * @version 0.1
- * @date 2025-07-09
- * 
- * @copyright Copyright (c) 2025
- * 
- */
+
 
 #include <Arduino.h>
 #include <math.h>
@@ -24,7 +15,7 @@
  * @file main.cpp
  * @brief Beschreibung
  * @author JGesell
- * @date 
+ * @date 2025-07-13
  */
 /// Time intervals
 constexpr unsigned long READ_INTERVAL_MS = 2;     // Interval between readings
