@@ -1,0 +1,34 @@
+version: '3.7'
+services:
+  influxdb:
+    image: influxdb:latest
+    container_name: influxdb2
+    ports:
+      - "8086:8086"
+    restart: unless-stopped
+    volumes:
+      - influxdb_data:/var/lib/influxdb2
+    environment:
+      - INFLUXDB_DB=${INFLUXDB_DB}
+      - INFLUXDB_ADMIN_USER=${INFLUXDB_ADMIN_USER}
+      - INFLUXDB_ADMIN_PASSWORD=${INFLUXDB_ADMIN_PASSWORD}
+      - INFLUXDB_TOKEN=${INFLUXDB_TOKEN}
+      - INFLUXDB_ORG=${INFLUXDB_ORG}
+      - INFLUXDB_BUCKET=${INFLUXDB_BUCKET}
+
+  telegraf:
+    image: telegraf:latest
+    container_name: telegraf2
+    volumes:
+      - ./telegraf.conf:/etc/telegraf/telegraf.conf:ro
+    environment:
+      - INFLUXDB_TOKEN=${INFLUXDB_TOKEN}
+      - INFLUXDB_ORG=${INFLUXDB_ORG}
+      - INFLUXDB_BUCKET=${INFLUXDB_BUCKET}
+      - INFLUXDB_URL=http://192.168.9.150:8186
+    depends_on:
+      - influxdb
+
+volumes:
+  influxdb_data:
+    driver: local

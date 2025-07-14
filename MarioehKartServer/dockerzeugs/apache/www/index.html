@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mariöööh-Kart</title>
+    <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
+    <link rel="stylesheet" href="Marioe_style.css">
+</head>
+<body>
+    <h1 id="mainTitle">Mariöööh-Kart</h1>
+    <button id="logButton">InfluxDB</button>
+    <button id="debugButton">Debug</button>
+    <button id="backButton" style="display:none;">Back</button>
+
+    <table id="overviewTable">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Car 1</th>
+                <th>Car 2</th>
+                <th>Car 3</th>
+                <th>Car 4</th>
+                <th>Car 5</th>
+                <th>Car 6</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>track section</td>
+                <td id="car1Section">-</td>
+                <td id="car2Section">-</td>
+                <td id="car3Section">-</td>
+                <td id="car4Section">-</td>
+                <td id="car5Section">-</td>
+                <td id="car6Section">-</td>
+            </tr>
+            <tr>
+                <td>speed [m/s]</td>
+                <td id="car1Speed">-</td>
+                <td id="car2Speed">-</td>
+                <td id="car3Speed">-</td>
+                <td id="car4Speed">-</td>
+                <td id="car5Speed">-</td>
+                <td id="car6Speed">-</td>
+            </tr>
+            <tr>
+                <td>acceleration [G]</td>
+                <td id="car1Acceleration">-</td>
+                <td id="car2Acceleration">-</td>
+                <td id="car3Acceleration">-</td>
+                <td id="car4Acceleration">-</td>
+                <td id="car5Acceleration">-</td>
+                <td id="car6Acceleration">-</td>
+            </tr>
+            <tr>
+                <td>error code</td>
+                <td id="car1Error">-</td>
+                <td id="car2Error">-</td>
+                <td id="car3Error">-</td>
+                <td id="car4Error">-</td>
+                <td id="car5Error">-</td>
+                <td id="car6Error">-</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="zoom-bar">
+        <label for="zoomRange">Zoom:</label>
+        <span>1%</span>
+        <input type="range" id="zoomRange" min="1" max="200" value="100">
+        <span>200%</span>
+        <input type="number" id="zoomValue" min="1" max="200" value="100" style="width: 60px;">%
+    </div>
+
+    <div class="track-container" id="trackArea">
+        <div class="track-content" id="trackContent">
+            <img src="background.png" class="track-bg" alt="Track" />
+        </div>
+    </div>
+
+    <div id="debugArea" style="display:none;">
+        <div id="toggleWrapper" class="toggle-container">
+            <span class="toggle-label">Live</span>
+            <label class="switch">
+                <input type="checkbox" id="averageToggle" checked>
+                <span class="slider round"></span>
+            </label>
+            <span class="toggle-label">250 ms</span>
+        </div>
+        <p id="messageInfo">All messages:</p>
+        <table id="dataTable"></table>
+    </div>
+
+    <script>
+        // MQTT Setup
+        const mqttBroker = 'ws://192.168.9.150:9001';
+        const topic = '#';
+        const client = mqtt.connect(mqttBroker, { qos:0 });
+
+
+        // Car Setup 
+        // the last 2 car macs can be replaced, when new cars are added
+        // if more cars should be added also the css has to be changed for more columns in the overview-table
+        const car_macs = ["20:76:4F:DA:D4:D4", "A4:69:81:1F:B6:08", "D4:7C:4C:1C:B2:B0", "90:79:4F:DA:D4:D4", "BC:69:81:1F:B6:08", "18:70:81:1F:B6:08"];
+        const car_colors = ['blue', 'yellow', 'lightpink' , 'purple', 'deeppink', 'grey'];
+        const tablehead_overview = document.querySelectorAll('#overviewTable thead th');
+
+        // Variables for overview data
+        const overviewData = {};
+        const overviewBuffer = {};
+        const overviewTimers = {};
+
+        // Variables for debug data
+        const tableData = {};
+        const messageBuffer = {};
+        const timers = {};
+        const excludedSuffixes = ['t', 'ts', 'p/l'];
+        let useAveraging = true;
+
+        // Variables for error dots
+        const errorDotTimers = {}; 
+        const errorDotPositions = {};
+
+        // Toggle for live or averaged data in debug table
+        document.getElementById("averageToggle").addEventListener("change", function () {
+            useAveraging = this.checked;
+        });
+
+        // Colors for car columns in the overview table
+        car_colors.forEach((color, index) => {
+            const column = tablehead_overview[index + 1];
+            if (column) column.style.backgroundColor = color;
+        });
+
+        // split topic into prefix and suffix (Prefix without "C/")
+        function splitTopic(topic) {
+            let prefix = topic.slice(0, 19);
+            if (prefix.startsWith("C/")) {
+                prefix = prefix.slice(2);
+            }
+            const suffix = topic.slice(20);
+            return { prefix, suffix };
+        }
+
+        // transform physical coordinates to screen coordinates
+        function physToScreen(x, y) {
+            const originX = 380; // mm
+            const originY = 114; // mm
+            const faktor = 385 / 6700; // mm to pixel factor
+            const left = (originX - y * faktor) + "mm";
+            const top  = (originY - x * faktor) + "mm";
+            return { left, top };
+        }
+
+        // update car dot position on the track
+        function updateCarDot(mac, x, y, color) {
+            const trackContent = document.getElementById('trackContent');
+            let dot = document.getElementById(`car-dot-${mac.replace(/[^a-zA-Z0-9]/g, '')}`);
+            if (!dot) {
+                dot = document.createElement('div');
+                dot.id = `car-dot-${mac.replace(/[^a-zA-Z0-9]/g, '')}`;
+                dot.className = 'car-dot';
+                dot.style.background = color;
+                trackContent.appendChild(dot);
+            }
+            const pos = physToScreen(x, y);
+            dot.style.left = pos.left;
+            dot.style.top = pos.top;
+        }
+
+        // topic with error codes (K/-Topics) are handled here
+        // K/-Topics are used for error dots on the track
+        function handleErrorTopic(topic, message) {
+            const msg = message.toString();
+
+            // K/-Topics für roten Kreis
+            if (topic.startsWith("K/")) {
+
+                const parts = topic.split('/');
+                if (parts.length >= 3) {
+                    const mac = parts[1];
+                    const key = parts[2];
+                    if (!errorDotPositions[mac]) errorDotPositions[mac] = {};
+                    errorDotPositions[mac][key] = parseFloat(msg);
+                    const pos = errorDotPositions[mac];
+                    if (typeof pos.x === "number" && typeof pos.y === "number") {
+                        showErrorDot(mac, pos.x, pos.y);
+                    }
+                }
+                return;
+            }
+        } 
+
+        // show error dot on the track
+        function showErrorDot(mac, x, y) {
+            const trackContent = document.getElementById('trackContent');
+            const dotId = `error-dot-${mac.replace(/[^a-zA-Z0-9]/g, '')}`;
+            let dot = document.getElementById(dotId);
+            if (!dot) {
+                dot = document.createElement('div');
+                dot.id = dotId;
+                dot.className = 'error-dot';
+                trackContent.appendChild(dot);
+            }
+            const pos = physToScreen(x, y);
+            dot.style.left = pos.left;
+            dot.style.top = pos.top;
+            dot.style.display = "block";
+
+            // timer for removing the error circle and the car dot
+            if (errorDotTimers[mac]) clearTimeout(errorDotTimers[mac]);
+            errorDotTimers[mac] = setTimeout(() => {
+                const d = document.getElementById(dotId);
+                // remove the error circle 600ms after the last update
+                if (d) d.remove();
+                errorDotTimers[mac] = null;
+                // also remove the car dot if it exists
+                const carDot = document.getElementById(`car-dot-${mac.replace(/[^a-zA-Z0-9]/g, '')}`);
+                if (carDot) carDot.remove();                        
+            }, 600);
+        }
+
+        // processing data for overview table
+        function processOverview(topic, message) {
+            const { prefix: mac, suffix: key } = splitTopic(topic);
+            if (!car_macs.includes(mac)) return;
+
+            // track section (ts) and error code (e) as live data
+            if (key === "ts") {
+                overviewData[mac + "/ts"] = parseInt(message) || "-";
+                updateOverviewTable();
+                return;
+            }
+            if (key === "e") {
+                overviewData[mac + "/e"] = parseInt(message) || "-";
+                updateOverviewTable();
+                return;
+            }
+
+            // linear speed (s/l) as averaged data & scaled
+            if (key === "s/l") {
+                if (!overviewBuffer[topic]) overviewBuffer[topic] = [];
+                overviewBuffer[topic].push(parseFloat(message) / 1000);
+                if (!overviewTimers[topic]) {
+                    overviewTimers[topic] = setTimeout(() => {
+                        const buffer = overviewBuffer[topic];
+                        const avg = buffer.reduce((a, b) => a + b, 0) / buffer.length;
+                        overviewData[mac + "/s/l"] = avg.toFixed(2);
+                        updateOverviewTable();
+                        overviewBuffer[topic] = [];
+                        overviewTimers[topic] = null;
+                    }, 250);
+                }
+                return;
+            }
+            // linear acceleration (a/l) as averaged data & scaled
+            if (key === "a/l") {
+                if (!overviewBuffer[topic]) overviewBuffer[topic] = [];
+                overviewBuffer[topic].push(parseFloat(message) / (4096*34));
+                if (!overviewTimers[topic]) {
+                    overviewTimers[topic] = setTimeout(() => {
+                        const buffer = overviewBuffer[topic];
+                        const avg = buffer.reduce((a, b) => a + b, 0) / buffer.length;
+                        overviewData[mac + "/a/l"] = avg.toFixed(2);
+                        updateOverviewTable();
+                        overviewBuffer[topic] = [];
+                        overviewTimers[topic] = null;
+                    }, 250);
+                }
+                return;
+            }
+
+            // position data (p/x, p/y) for car dots
+            if (["p/x", "p/y"].includes(key)) {
+                if (!overviewData[mac]) overviewData[mac] = {};
+                overviewData[mac][key] = parseFloat(message);
+
+                // Prüfe, ob ts für dieses Auto gesetzt ist
+                const ts = overviewData[mac + "/ts"];
+                const x = overviewData[mac]["p/x"];
+                const y = overviewData[mac]["p/y"];
+                const dotId = `car-dot-${mac.replace(/[^a-zA-Z0-9]/g, '')}`;
+                const dot = document.getElementById(dotId);
+
+                if (ts !== undefined && ts !== null && ts !== "-" && typeof x === "number" && typeof y === "number") {
+                    const carIndex = car_macs.indexOf(mac);
+                    const color = car_colors[carIndex] || "black";
+                    updateCarDot(mac, x, y, color);
+                } else {
+                    // Punkt entfernen, falls vorhanden
+                    if (dot) dot.remove();
+                }
+                return;
+            }
+        }
+
+        // update overview table with car data
+        function updateOverviewTable() {
+            car_macs.forEach((mac, i) => {
+                document.getElementById(`car${i+1}Section`).textContent = overviewData[mac + "/ts"] ?? "-";
+                document.getElementById(`car${i+1}Speed`).textContent = overviewData[mac + "/s/l"] ?? "-";
+                document.getElementById(`car${i+1}Acceleration`).textContent = overviewData[mac + "/a/l"] ?? "-";
+                document.getElementById(`car${i+1}Error`).textContent = overviewData[mac + "/e"] ?? "-";
+            });
+        }
+
+        // processing data for debug table 
+        // table is expanded automatically, when new topics are received
+        function processDebug(topic, message) {
+            if (!topic.startsWith("C/")) return; // Nur Topics mit "C/" am Anfang anzeigen
+
+            const { prefix, suffix } = splitTopic(topic);
+            const topicKey = `${prefix}/${suffix}`;
+            let numericMessage = parseFloat(message);
+
+            if (!tableData[suffix]) tableData[suffix] = {};
+
+            if (excludedSuffixes.some(suffix => topic.endsWith(suffix))) {
+                tableData[suffix][prefix] = isNaN(numericMessage) ? message : numericMessage.toFixed(0);
+                updateTable();
+                return;
+            }
+
+            if (isNaN(numericMessage)) return;
+
+            // Scaling:
+            // 'p/l' and 's/l' / 1000 (to m)
+            const scaledSuffixestoM = ['p/l', 's/l'];
+            if (scaledSuffixestoM.includes(suffix)) {
+                numericMessage = numericMessage / 1000;
+            }
+            // 'a/x', 'a/y', 'a/z' / 4096 (to G)
+            const scaledSuffixestoG = ['a/x', 'a/y', 'a/z']; 
+            if (scaledSuffixestoG.includes(suffix)) {
+                numericMessage = numericMessage / 4096;
+            }
+            // 'a/l' / (4096 * 34) (to G with scaler)
+            if (suffix === 'a/l') {
+                numericMessage = numericMessage / (4096 * 34);
+            }
+            // 'g/x', 'g/y', 'g/z' / 3277 (to °/s)
+            const scaledSuffixestoDeg = ['g/x', 'g/y', 'g/z'];
+            if (scaledSuffixestoDeg.includes(suffix)) {
+                numericMessage = numericMessage / 3277;
+            }
+
+            // topics with the suffix 'p/l', 'ts' and 'e' are live data
+            const liveUpdateKeys = ['p/l', 'ts', 'e'];
+            const isLiveData = liveUpdateKeys.includes(suffix);
+
+            // if averaging is disabled or if the data is live, update directly
+            if (!useAveraging || isLiveData) {
+                tableData[suffix][prefix] = isLiveData
+                    ? numericMessage.toFixed(0)
+                    : numericMessage.toFixed(2);
+                updateTable();
+                return;
+            }
+
+            // if averaging is enabled, buffer the messages
+            if (!messageBuffer[topicKey]) {
+                messageBuffer[topicKey] = [];
+            }
+
+            // add the numeric message to the buffer
+            messageBuffer[topicKey].push(numericMessage);
+
+            // if no timer is set for this topic, create one
+            // calculate the average after 250ms
+            if (!timers[topicKey]) {
+                timers[topicKey] = setTimeout(() => {
+                    const buffer = messageBuffer[topicKey];
+                    const avg = buffer.reduce((a, b) => a + b, 0) / buffer.length;
+                    tableData[suffix][prefix] = avg.toFixed(2);
+                    updateTable();
+                    messageBuffer[topicKey] = [];
+                    timers[topicKey] = null;
+                }, 250);
+            }
+        }
+
+        // update the debug table
+        function updateTable() {
+            const table = document.getElementById("dataTable");
+            table.innerHTML = "";
+
+            const prefixes = new Set();
+            for (const suffix in tableData) {
+                for (const prefix in tableData[suffix]) {
+                    prefixes.add(prefix);
+                }
+            }
+            const prefixList = Array.from(prefixes);
+
+            const thead = table.createTHead();
+            const headRow = thead.insertRow();
+            headRow.insertCell().textContent = "Suffix";
+            prefixList.forEach(p => {
+                const cell = headRow.insertCell();
+                cell.textContent = p;
+                // set column color based on car MAC
+                const macIndex = car_macs.indexOf(p);
+                if (macIndex !== -1) {
+                    cell.style.backgroundColor = car_colors[macIndex];
+                }
+            });
+
+            const tbody = table.createTBody();
+            for (const suffix in tableData) {
+                const row = tbody.insertRow();
+                row.insertCell().textContent = suffix;
+                prefixList.forEach(p => {
+                    const cell = row.insertCell();
+                    const val = tableData[suffix][p];
+                    cell.textContent = val !== undefined ? val : "";
+                });
+            }
+        }
+
+        // MQTT-Events
+        client.on('connect', function () {
+            client.subscribe(topic);
+        });
+        client.on('message', function (topic, message) {
+            processOverview(topic, message);
+            processDebug(topic, message);
+            handleErrorTopic(topic, message);
+        });
+
+        // Toggle between overview and debug view
+        function toggleView() {
+            const overviewTable = document.getElementById('overviewTable');
+            const trackArea = document.getElementById('trackArea');
+            const debugArea = document.getElementById('debugArea');
+            const debugButton = document.getElementById('debugButton');
+            const backButton = document.getElementById('backButton');
+            const title = document.getElementById('mainTitle');
+            const zoomBar = document.querySelector('.zoom-bar');
+            const dataTable = document.getElementById('dataTable');
+
+            if (overviewTable.style.display !== 'none') {
+                overviewTable.style.display = 'none';
+                trackArea.style.display = 'none';
+                debugArea.style.display = 'block';
+                debugButton.style.display = 'none';
+                backButton.style.display = 'inline-block';
+                title.textContent = 'Mariöööh-Debug';
+                if (zoomBar) zoomBar.style.display = 'none';
+                if (dataTable) dataTable.style.display = 'table';
+            } else {
+                overviewTable.style.display = 'table';
+                trackArea.style.display = 'block';
+                debugArea.style.display = 'none';
+                debugButton.style.display = 'inline-block';
+                backButton.style.display = 'none';
+                title.textContent = 'Mariöööh-Kart';
+                if (zoomBar) zoomBar.style.display = 'flex';
+                if (dataTable) dataTable.style.display = 'none';
+            }
+        }
+
+        // Event listeners for buttons
+        document.getElementById("debugButton").addEventListener("click", toggleView);
+        document.getElementById("backButton").addEventListener("click", toggleView);
+        document.getElementById("logButton").addEventListener("click", function() {
+            window.open("http://192.168.9.150:8086", "_blank");
+        });
+
+        // Initial setup
+        window.onload = function() {
+            updateOverviewTable();
+            document.getElementById('overviewTable').style.display = 'table';
+            document.getElementById('trackArea').style.display = 'block';
+
+            const zoomRange = document.getElementById('zoomRange');
+            const zoomValue = document.getElementById('zoomValue');
+            const trackContent = document.getElementById('trackContent');
+
+            function setZoom(val) {
+                val = Math.max(1, Math.min(200, Number(val) || 100));
+                trackContent.style.transform = `scale(${val / 100})`;
+                zoomRange.value = val;
+                zoomValue.value = val;
+            }
+
+            zoomRange.addEventListener('input', function() {
+                setZoom(this.value);
+            });
+
+            // input field for zoom value
+            zoomValue.addEventListener('input', function() {
+                if (zoomValue.value === "") {
+                    // if the input field is empty, do not set zoom
+                    return;
+                }
+                setZoom(zoomValue.value);
+            });
+
+            // set zoom to standard value when input field loses focus
+            zoomValue.addEventListener('blur', function() {
+                if (zoomValue.value === "" || isNaN(zoomValue.value)) {
+                    setZoom(100);
+                }
+            });
+
+            // set initial zoom
+            setZoom(zoomRange.value);
+        }
+
+        
+    </script>
+</body>
+</html>
